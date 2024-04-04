@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94708510e63e88a4bbffaec629ce32ee, type: 3}
+  m_Name: Catfish
+  m_EditorClassIdentifier: 
+  _name: Catfish
+  _fishType: 7
+  _foodFor: {fileID: 11400000, guid: 1c7fe7e904c3ff64a876f0663c05bc7d, type: 2}
+  _icon: {fileID: 21300000, guid: 2419ff86f5ff08e47b173ca3af2b67b8, type: 3}
+  _level: 2
