@@ -18,6 +18,7 @@ public class FishCatchTimerViewer : MonoBehaviour
         _fish = GetComponent<Fish>();
         _sliderCatchTime.maxValue = _fish.Catchtime;
     }
+
     private void OnEnable()
     {
         _cathcer.ElapsedTimeChanged += StartDisplayCatching;
@@ -56,6 +57,6 @@ public class FishCatchTimerViewer : MonoBehaviour
 
     void Update()
     {
-       // _sliderCatchTime.transform.position = Camera.main.WorldToScreenPoint(_fish.transform.position + _offset);
+       _sliderCatchTime.transform.position = Camera.main.WorldToScreenPoint(_fish.transform.position + _offset);
     }
 }

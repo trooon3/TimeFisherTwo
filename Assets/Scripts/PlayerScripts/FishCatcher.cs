@@ -9,11 +9,14 @@ public class FishCatcher : MonoBehaviour
     [SerializeField] private float _radius;
     [SerializeField] private float _maxDistance;
     [Range(0, 360)]
-    [SerializeField] private float _angle;
+    [SerializeField] private float _minAngle;
+    [SerializeField] private float _maxAngle;
+
     [SerializeField] public bool IsCanCatchFish;
+    private float _angle = 100;
     private float _elapsedTime = 0;
     private Bag _bag;
-    private List<RaycastHit> _fishes;
+    private Fish _fishToCatch;
 
     private int FishNumber = 9;
     private int Fish;
@@ -22,15 +25,17 @@ public class FishCatcher : MonoBehaviour
 
     private void Start()
     {
+        Mathf.Clamp(_angle, _minAngle, _maxAngle);
         _bag = GetComponent<Bag>();
         Fish = 1 << FishNumber;
-        _fishes = new List<RaycastHit>();
     }
 
     private void Update()
     {
-        FieldOfViewCheck();
-       //_fishes.AddRange(Physics.SphereCastAll(transform.position, _radius, Vector3.forward, _maxDistance, Fish));
+        //FieldOfViewCheck();
+        IsCanCatchFish = Physics.CheckSphere(transform.position, _radius, Fish);
+        TryFindFish();
+        //_fishes.AddRange(Physics.SphereCastAll(transform.position, _radius, Vector3.forward, _maxDistance, Fish));
     }
 
     private void TryAddFish(Fish fish)
@@ -39,17 +44,66 @@ public class FishCatcher : MonoBehaviour
         fish.SetOffFish();
     }
 
+    private void TryFindFish()
+    {
+        if (IsCanCatchFish)
+        {
+            TryCatchFish();
+        }
+    }
+
+    private void TryCatchFish()
+    {
+        if (Physics.SphereCast(transform.position, _radius, Vector3.forward, out RaycastHit hit))
+        {
+            Debug.Log("Reayycast попал в рыбу");
+            if (Vector3.Angle(transform.forward, Vector3.forward) < _angle)
+            {
+                Debug.Log("Рыба встала в поле");
+                _fishToCatch = hit.collider.gameObject.GetComponent<Fish>();
+
+                if (CheckElapsedTime(_fishToCatch))
+                {
+                    TryAddFish(_fishToCatch);
+                    IsCanCatchFish = false;
+                    _elapsedTime = 0;
+                    ElapsedTimeChanged?.Invoke();
+
+                    _fishToCatch = null;
+                }
+            }
+        }
+    }
+
+    private bool CheckElapsedTime(Fish fish)
+    {
+        if (fish == null)
+        {
+            return false;
+        }
+
+        if (_elapsedTime >= fish.Catchtime)
+        {
+            return true;
+        }
+
+        _elapsedTime += Time.deltaTime;
+        ElapsedTimeChanged?.Invoke();
+        Debug.Log("прошло времени " + _elapsedTime);
+        return false;
+    }
+
     private void FieldOfViewCheck()
     {
         Collider[] rangeChecks = Physics.OverlapSphere(transform.position, _radius, Fish);
-        
 
         if (rangeChecks.Length != 0)
         {
+
             Transform target = rangeChecks[0].transform;
             Vector3 directionToTarget = (target.position - transform.position).normalized;
 
-            if (Vector3.Angle(transform.forward, directionToTarget) < _angle / 2)
+            if (Vector3.Angle(transform.forward, directionToTarget) < _angle)
             {
                 IsCanCatchFish = true;
                 Debug.Log("Вижу рыбу");

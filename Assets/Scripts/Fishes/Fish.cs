@@ -7,21 +7,23 @@ using UnityEngine.Events;
 [RequireComponent(typeof(FishMover))]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Animation))]
+//[RequireComponent(typeof(FishCatchTimerViewer))]
 
 public class Fish : MonoBehaviour
 {
     [SerializeField] private SeaCreature _creature;
 
-    private string _name;
+    //private FishCatchTimerViewer _fishCatchTimerViewer;
+    private Resource _resource;
     private FishType _type;
     private Sprite _icon;
+    private string _name;
     private int _level;
-    private Resource _resource;
 
     public Resource Resource => _resource;
     public FishType Type => _type;
-    public string Name => _name;
     public Sprite Icon => _icon;
+    public string Name => _name;
     public int Level => _level;
 
     public float Catchtime { get; private set; }
@@ -29,7 +31,9 @@ public class Fish : MonoBehaviour
 
     private void Start()
     {
-        Catchtime = 2f;
+       // _fishCatchTimerViewer = GetComponent<FishCatchTimerViewer>();
+        Catchtime = 1f;
+        Init(_creature);
     }
 
     public void Init(SeaCreature seaCreature)

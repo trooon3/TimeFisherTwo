@@ -7,8 +7,6 @@ public class Bag : MonoBehaviour , IUpgradable
     private List<Fish> _fishes = new List<Fish>();
     private int _maxFishCount;
     private int _maxLevel = 5;
-    private int _maxResoursesToGet = 4;
-    private int _minResoursesToGet = 1;
     private List<ResourceCounter> _resources;
     private Resource _resourceToUpgrade;
     public Resource ResourceToUpgrade => _resourceToUpgrade;

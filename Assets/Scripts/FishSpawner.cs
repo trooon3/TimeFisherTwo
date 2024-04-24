@@ -4,15 +4,39 @@ using UnityEngine;
 
 public class FishSpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private List<Transform> _transforms;
+    [SerializeField] private List<GameObject> _prefabs;
+
+    [SerializeField] private int _maxFishCount;
+    [SerializeField] private Closet _closet;
+
+    private void Start()
     {
-        
+        for (int i = 0; i < _maxFishCount; i++)
+        {
+            Spawn();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Spawn()
     {
-        
+        var fish = _prefabs[Random.Range(0, _prefabs.Count)];
+        Instantiate(fish, _transforms[Random.Range(0, _transforms.Count)]);
+    }
+
+    private void OnFishTransferred(Fish fish)
+    {
+        fish.transform.position = _transforms[Random.Range(0, _transforms.Count)].position;
+        fish.gameObject.SetActive(true);
+    }
+
+    private void OnEnable()
+    {
+        _closet.FishTransferred += OnFishTransferred;
+    }
+
+    private void OnDisable()
+    {
+        _closet.FishTransferred -= OnFishTransferred;
     }
 }

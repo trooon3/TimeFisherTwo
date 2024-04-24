@@ -12,7 +12,6 @@ public class FieldOfView : MonoBehaviour
     public PlayerAnimationController playerRef;
 
     public LayerMask targetMask;
-    public LayerMask obstructionMask;
 
     public bool canSeePlayer;
 
@@ -42,14 +41,9 @@ public class FieldOfView : MonoBehaviour
             Transform target = rangeChecks[0].transform;
             Vector3 directionToTarget = (target.position - transform.position).normalized;
 
-            if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2)
+            if (Vector3.Angle(transform.forward, directionToTarget) < angle)
             {
-                float distanceToTarget = Vector3.Distance(transform.position, target.position);
-
-                if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))
-                    canSeePlayer = true;
-                else
-                    canSeePlayer = false;
+                Vector3.Distance(transform.position, target.position);
             }
             else
                 canSeePlayer = false;

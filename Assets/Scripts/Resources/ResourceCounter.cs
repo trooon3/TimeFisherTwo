@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class ResourceCounter : MonoBehaviour
+[Serializable]
+public class ResourceCounter
 {
-   [SerializeField] private Resource _resource;
-    private int _count;
+    private Resource _resource;
+    [Min(0)] private int _count;
 
     public Resource Resource => _resource;
     private int Count => _count;

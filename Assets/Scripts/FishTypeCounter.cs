@@ -1,8 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class FishTypeCounter : MonoBehaviour
+[Serializable]
+public class FishTypeCounter
 {
     private FishType _type;
     [Min(0)] private int _count;

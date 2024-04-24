@@ -1,4 +1,7 @@
-﻿public enum FishType
+﻿using System;
+
+[Serializable]
+public enum FishType
 {
     ClownFish = 1,
     Herring,

@@ -1,24 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Closet : MonoBehaviour
 {
     [SerializeField] private List<SeaCreature> _allFishes = new List<SeaCreature>();
-    private List<ResourceCounter> _resources;
+    private List<ResourceCounter> _resources = new List<ResourceCounter>();
     private List<FishTypeCounter> _catchedFishes;
-
     private Player _player;
-    [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
 
-    private void Awake()
+    [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
+    public UnityAction<Fish> FishTransferred;
+
+    private void Start()
     {
-        _resources = new List<ResourceCounter> { new ResourceCounter(Resource.FishBones), new ResourceCounter(Resource.SeaWeed) };
+        _resources = new List<ResourceCounter> { new ResourceCounter(Resource.FishBones), new ResourceCounter(Resource.SeaWeed)};
         _catchedFishes = new List<FishTypeCounter>();
 
         foreach (var creature in _allFishes)
         {
-            _catchedFishes.Add(new FishTypeCounter(creature.FishType));
+            FishTypeCounter counter = new FishTypeCounter(creature.FishType);
+            _catchedFishes.Add(counter);
         }
     }
 
@@ -39,6 +42,7 @@ public class Closet : MonoBehaviour
             if (item.Type == fish.Type)
             {
                 Debug.Log("увеличили значение пойманой рыбы");
+                FishTransferred?.Invoke(fish);
                 item.Increase();
             }
         }
@@ -48,7 +52,7 @@ public class Closet : MonoBehaviour
     {
         foreach (var item in _resources)
         {
-            if (item.Resource == fish.Resource)
+            if (item.Resource.ToString() == fish.Resource.ToString())
             {
                 item.Increase();
                 Debug.Log("увеличили значение ресурса");

@@ -17,3 +17,4 @@ MonoBehaviour:
   _foodFor: {fileID: 11400000, guid: 0f8b76a61ea5ecf46aba15e42b75e035, type: 2}
   _icon: {fileID: 21300000, guid: 365f3efb2f524364ab1029be992c69c6, type: 3}
   _level: 4
+  _resource: 1

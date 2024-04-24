@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5ffbee4852148c646b34170968f6d5ba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 147.615
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5ffbee4852148c646b34170968f6d5ba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.89
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5ffbee4852148c646b34170968f6d5ba, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 167.36885
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5ffbee4852148c646b34170968f6d5ba, type: 3}
       propertyPath: m_LocalRotation.w
@@ -60,6 +60,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7080476283249816269, guid: 5ffbee4852148c646b34170968f6d5ba, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -1104751823927148627, guid: 5ffbee4852148c646b34170968f6d5ba, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -38621603145786519, guid: 5ffbee4852148c646b34170968f6d5ba, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 92499127317972611, guid: 5ffbee4852148c646b34170968f6d5ba, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -67,6 +79,22 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5ffbee4852148c646b34170968f6d5ba, type: 3}
       propertyPath: m_Name
       value: FishAnimated
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5ffbee4852148c646b34170968f6d5ba, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670805411799936188, guid: 5ffbee4852148c646b34170968f6d5ba, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2234638374124979267, guid: 5ffbee4852148c646b34170968f6d5ba, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6866880679909356167, guid: 5ffbee4852148c646b34170968f6d5ba, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -275,3 +303,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a624a8c7d892ad44b9c6f8fc701abbe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _creature: {fileID: 0}
