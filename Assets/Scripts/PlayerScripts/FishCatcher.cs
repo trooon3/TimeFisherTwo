@@ -3,21 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(FieldOfView))]
 public class FishCatcher : MonoBehaviour
 {
     [SerializeField] private PlayerAnimationController _player;
-    [SerializeField] private float _radius;
-    [SerializeField] private float _maxDistance;
+
     [Range(0, 360)]
     [SerializeField] private float _minAngle;
     [SerializeField] private float _maxAngle;
+    [SerializeField] private float _radius;
 
     [SerializeField] public bool IsCanCatchFish;
+
     private float _angle = 100;
     private float _elapsedTime = 0;
     private Bag _bag;
     private Fish _fishToCatch;
 
+    private FieldOfView _fieldOfView;
+    
     private int FishNumber = 9;
     private int Fish;
     public float ElapsedTime => _elapsedTime;
@@ -25,6 +29,7 @@ public class FishCatcher : MonoBehaviour
 
     private void Start()
     {
+        _fieldOfView = GetComponent<FieldOfView>();
         Mathf.Clamp(_angle, _minAngle, _maxAngle);
         _bag = GetComponent<Bag>();
         Fish = 1 << FishNumber;
@@ -33,9 +38,8 @@ public class FishCatcher : MonoBehaviour
     private void Update()
     {
         //FieldOfViewCheck();
-        IsCanCatchFish = Physics.CheckSphere(transform.position, _radius, Fish);
+        _fishToCatch = _fieldOfView.FishToCatch;
         TryFindFish();
-        //_fishes.AddRange(Physics.SphereCastAll(transform.position, _radius, Vector3.forward, _maxDistance, Fish));
     }
 
     private void TryAddFish(Fish fish)
@@ -46,7 +50,7 @@ public class FishCatcher : MonoBehaviour
 
     private void TryFindFish()
     {
-        if (IsCanCatchFish)
+        if (_fishToCatch != null)
         {
             TryCatchFish();
         }
@@ -54,24 +58,14 @@ public class FishCatcher : MonoBehaviour
 
     private void TryCatchFish()
     {
-        if (Physics.SphereCast(transform.position, _radius, Vector3.forward, out RaycastHit hit))
+        if (CheckElapsedTime(_fishToCatch))
         {
-            Debug.Log("Reayycast попал в рыбу");
-            if (Vector3.Angle(transform.forward, Vector3.forward) < _angle)
-            {
-                Debug.Log("–ыба встала в поле");
-                _fishToCatch = hit.collider.gameObject.GetComponent<Fish>();
+            TryAddFish(_fishToCatch);
+            IsCanCatchFish = false;
+            _elapsedTime = 0;
+            ElapsedTimeChanged?.Invoke();
 
-                if (CheckElapsedTime(_fishToCatch))
-                {
-                    TryAddFish(_fishToCatch);
-                    IsCanCatchFish = false;
-                    _elapsedTime = 0;
-                    ElapsedTimeChanged?.Invoke();
-
-                    _fishToCatch = null;
-                }
-            }
+            _fishToCatch = null;
         }
     }
 

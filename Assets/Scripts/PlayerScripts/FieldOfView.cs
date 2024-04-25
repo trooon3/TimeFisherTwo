@@ -6,18 +6,24 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerAnimationController))]
 public class FieldOfView : MonoBehaviour
 {
-    public float radius;
-    public float angle;
+    [SerializeField] private float _radius;
+    [SerializeField] private float _angle;
+    [SerializeField] private LayerMask _targetMask;
 
-    public PlayerAnimationController playerRef;
+    private PlayerAnimationController _playerRef;
 
-    public LayerMask targetMask;
+    private Fish _fish;
+    private bool _canSeePlayer;
 
-    public bool canSeePlayer;
+    public float Radius => _radius;
+    public Fish FishToCatch => _fish;
+    public float Angle => _angle;
+    public bool CanSeePlayer => _canSeePlayer;
+    public PlayerAnimationController PlayerRef => _playerRef;
 
     private void Start()
     {
-        playerRef = GetComponent<PlayerAnimationController>();
+        _playerRef = GetComponent<PlayerAnimationController>();
         StartCoroutine(FOVRoutine());
     }
 
@@ -34,21 +40,28 @@ public class FieldOfView : MonoBehaviour
 
     private void FieldOfViewCheck()
     {
-        Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radius, targetMask);
+        Collider[] rangeChecks = Physics.OverlapSphere(transform.position, _radius, _targetMask);
 
         if (rangeChecks.Length != 0)
         {
-            Transform target = rangeChecks[0].transform;
-            Vector3 directionToTarget = (target.position - transform.position).normalized;
-
-            if (Vector3.Angle(transform.forward, directionToTarget) < angle)
+            if (rangeChecks[0].TryGetComponent(out Fish fish))
             {
-                Vector3.Distance(transform.position, target.position);
+                Vector3 directionToTarget = (fish.transform.position - transform.position).normalized;
+
+                if (Vector3.Angle(transform.forward, directionToTarget) <= _angle)
+                {
+                    _fish = fish;
+                }
+                else
+                {
+                    _fish = null;
+                    _canSeePlayer = false;
+                }
             }
-            else
-                canSeePlayer = false;
         }
-        else if (canSeePlayer)
-            canSeePlayer = false;
+        else
+        {
+            _fish = null;
+        } 
     }
 }
