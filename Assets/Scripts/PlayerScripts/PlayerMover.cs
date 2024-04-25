@@ -25,39 +25,19 @@ public class PlayerMover : MonoBehaviour
 
     private void Move()
     {
-        float direction = Input.GetAxisRaw(Vertical);
-        float distance = direction * _moveSpeed * Time.deltaTime;
+        _animator.SetGround(_placeChecker.IsOnGround, _placeChecker.InWater);
 
+        float direction = Input.GetAxis(Vertical);
+        float distance = direction * _moveSpeed * Time.deltaTime;
+        
         transform.Translate(distance * Vector3.forward);
 
-        if (direction > 0.1f)
-        {
-            if (_placeChecker.IsOnGround)
-            {
-                _animator.DoRunAnimation();
-            }
-
-            if (_placeChecker.InWater)
-            {
-                _animator.DoSwimAnimation();
-            }
-        }
-        else
-        {
-            if (_placeChecker.IsOnGround)
-            {
-                _animator.DoIdleAnimation();
-            }
-            if (_placeChecker.InWater)
-            {
-                _animator.DoTreadingAnimation();
-            }
-        }
+        _animator.DoMove(direction);
     }
 
     private void Rotate()
     {
-        float rotation = Input.GetAxisRaw(Horizontal);
+        float rotation = Input.GetAxis(Horizontal);
 
         transform.Rotate(rotation * _rotationSpeed * Time.deltaTime * Vector3.up);
         
@@ -67,15 +47,14 @@ public class PlayerMover : MonoBehaviour
     {
         float force = Input.GetAxisRaw(Jump);
 
+        _animator.SetGround(_placeChecker.IsOnGround, _placeChecker.InWater);
+
         if (_placeChecker.IsOnGround || _placeChecker.InWater)
         {
             _rigidbody.AddForce(Vector3.up * force, ForceMode.Impulse);
         }
 
-        if (_placeChecker.IsOnGround == false && _placeChecker.InWater == false)
-        {
-            _animator.DoJumpAnimation();
-        }
+        _animator.DoJumpAnimation(_placeChecker.IsOnGround, _placeChecker.InWater);
     }
 
     //private void Interact()
@@ -88,6 +67,7 @@ public class PlayerMover : MonoBehaviour
 
     void FixedUpdate()
     {
+
         Move();
         Rotate();
         JumpUp();

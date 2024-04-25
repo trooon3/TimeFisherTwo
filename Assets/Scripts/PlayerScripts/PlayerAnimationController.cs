@@ -17,9 +17,16 @@ public class PlayerAnimationController : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void DoJumpAnimation()
+    public void DoJumpAnimation(bool isOnGround, bool isInWater)
     {
-        _animator.Play(_jump);
+        if (isOnGround || isInWater)
+        {
+            return;
+        }
+        else 
+        {
+            _animator.Play(_jump);
+        }
     }
 
     public void DoSwimAnimation()
@@ -27,19 +34,29 @@ public class PlayerAnimationController : MonoBehaviour
         _animator.Play(_swimming);
     }
 
-    public void DoIdleAnimation()
-    {
-        _animator.Play(_happyIdle);
-    }
-
-    public void DoTreadingAnimation()
-    {
-        _animator.Play(_treadingWater);
-    }
-
     public void DoRunAnimation()
     {
         _animator.Play(_slowRun);
     }
+
+    public void DoMove(float speed)
+    {
+        _animator.SetFloat("Speed", speed);
+
+        //if (isOnGround)
+        //{
+        //    _animator.Play(_happyIdle);
+        //}
+        //else if (isInWater)
+        //{
+        //    _animator.Play(_treadingWater);
+        //}
+
+    }
+     public void SetGround(bool IsOnGround, bool InWater)
+     {
+        _animator.SetBool("InWater", InWater);
+        _animator.SetBool("OnEarth", IsOnGround);
+     }
 }
 
