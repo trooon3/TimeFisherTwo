@@ -78,16 +78,18 @@ public class Bag : MonoBehaviour , IUpgradable
         return fishes;
     }
 
-    public void TryAddFish(Fish fish)
+    public bool TryAddFish(Fish fish)
     {
         if (_fishes.Count < _maxFishCount)
         {
             _fishes.Add(fish);
+            return true;
         }
         else
         {
             Debug.Log("–юкзак полон");
         }
+        return false;
     }
 
     public Resource GetResourceToUpgrade()

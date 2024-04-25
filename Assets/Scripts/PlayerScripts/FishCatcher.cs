@@ -44,8 +44,10 @@ public class FishCatcher : MonoBehaviour
 
     private void TryAddFish(Fish fish)
     {
-        _bag.TryAddFish(fish);
-        fish.SetOffFish();
+        if (_bag.TryAddFish(fish))
+        {
+            fish.SetOffFish();
+        }
     }
 
     private void TryFindFish()
