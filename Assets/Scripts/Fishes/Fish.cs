@@ -29,9 +29,6 @@ public class Fish : MonoBehaviour
     public int Level => _level;
     public float Catchtime => _catchtime;
 
-
-    public UnityAction Catched;
-
     private void Start()
     {
         _fishCatchTimerViewer = GetComponent<FishCatchTimerViewer>();
@@ -51,12 +48,5 @@ public class Fish : MonoBehaviour
     public void SetCatcher(FishCatcher catcher)
     {
         _fishCatchTimerViewer.SetCatcher(catcher);
-    }
-
-    public void SetOffFish()
-    {
-        Catched?.Invoke();
-        Debug.Log("SetoffFish сработал");
-        gameObject.SetActive(false);
     }
 }

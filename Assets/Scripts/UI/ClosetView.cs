@@ -45,8 +45,13 @@ public class ClosetView : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        RefreshFishCounts();
+        _closet.FishTransferred += RefreshFishCounts;
+    }
+
+    private void OnDisable()
+    {
+        _closet.FishTransferred -= RefreshFishCounts;
     }
 }

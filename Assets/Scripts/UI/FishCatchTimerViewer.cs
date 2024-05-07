@@ -36,11 +36,6 @@ public class FishCatchTimerViewer : MonoBehaviour
         }
     }
 
-    public void OnFishCatched()
-    {
-        _sliderCatchTime.gameObject.SetActive(false);
-    }
-
     private IEnumerator DisplayCatch()
     {
         if (_cathcer == null)

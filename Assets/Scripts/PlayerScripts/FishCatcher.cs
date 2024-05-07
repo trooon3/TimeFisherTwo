@@ -12,7 +12,7 @@ public class FishCatcher : MonoBehaviour
     [SerializeField] private float _minAngle;
     [SerializeField] private float _maxAngle;
     [SerializeField] private float _radius;
-
+    [SerializeField] private FishSpawner _spawner;
     [SerializeField] public bool IsCanCatchFish;
 
     private float _angle = 100;
@@ -26,6 +26,7 @@ public class FishCatcher : MonoBehaviour
     private int Fish;
     public float ElapsedTime => _elapsedTime;
     public UnityAction ElapsedTimeChanged;
+    public UnityAction Catched;
 
     private void Start()
     {
@@ -45,7 +46,8 @@ public class FishCatcher : MonoBehaviour
     {
         if (_bag.TryAddFish(fish))
         {
-            fish.SetOffFish();
+            Catched?.Invoke();
+            _spawner.SetOffFish(fish);
         }
     }
 

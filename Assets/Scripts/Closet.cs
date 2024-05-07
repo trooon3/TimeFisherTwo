@@ -6,15 +6,14 @@ using UnityEngine.Events;
 public class Closet : MonoBehaviour
 {
     [SerializeField] private List<SeaCreature> _allFishes = new List<SeaCreature>();
+    [SerializeField] private FishSpawner _spawner;
+    [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
     private List<ResourceCounter> _resources;
     private List<FishTypeCounter> _catchedFishes;
     private Player _player;
-
-    [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
-    public UnityAction<Fish> FishTransferred;
-    
     public List<SeaCreature> AllFishes => _allFishes;
     public List<FishTypeCounter> CatchedFishes => _catchedFishes;
+    public UnityAction FishTransferred;
 
     private void Awake()
     {
@@ -41,12 +40,11 @@ public class Closet : MonoBehaviour
     {
         foreach (FishTypeCounter item in _catchedFishes)
         {
-            Debug.Log("зашли в форыч");
             if (item.Type == fish.Type)
             {
-                Debug.Log("увеличили значение пойманой рыбы");
-                FishTransferred?.Invoke(fish);
                 item.Increase();
+                FishTransferred?.Invoke();
+                _spawner.SetOffFish(fish);
             }
         }
     }
@@ -58,7 +56,6 @@ public class Closet : MonoBehaviour
             if (item.Resource.ToString() == fish.Resource.ToString())
             {
                 item.Increase();
-                Debug.Log("увеличили значение ресурса");
             }
         }
     }

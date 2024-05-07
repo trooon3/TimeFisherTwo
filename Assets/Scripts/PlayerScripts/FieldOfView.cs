@@ -11,12 +11,10 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private LayerMask _targetMask;
 
     private PlayerAnimationController _playerRef;
-
     private Fish _fish;
     private bool _canSeePlayer;
 
     public float Radius => _radius;
-
     public Fish FishToCatch => _fish;
     public float Angle => _angle;
     public bool CanSeePlayer => _canSeePlayer;
