@@ -16,6 +16,7 @@ public class FieldOfView : MonoBehaviour
     private bool _canSeePlayer;
 
     public float Radius => _radius;
+
     public Fish FishToCatch => _fish;
     public float Angle => _angle;
     public bool CanSeePlayer => _canSeePlayer;

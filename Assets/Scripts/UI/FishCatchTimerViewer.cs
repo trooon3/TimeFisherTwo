@@ -5,31 +5,24 @@ using UnityEngine.UI;
 
 public class FishCatchTimerViewer : MonoBehaviour
 {
-    private Fish _fish;
-    [SerializeField] private FishCatcher _cathcer;
+    [SerializeField] private Fish _fish;
     [SerializeField] private Slider _sliderCatchTime;
-    [SerializeField] private float _catchPointChangeSpeed;
+    private FishCatcher _cathcer;
+    private float _catchPointChangeSpeed = 1f;
 
     private Coroutine _coroutine;
-    private Vector3 _offset = new Vector3(0, 1);
-
-    private void Awake()
-    {
-        _fish = GetComponent<Fish>();
-        _sliderCatchTime.maxValue = _fish.Catchtime;
-    }
-
-    private void OnEnable()
-    {
-        _cathcer.ElapsedTimeChanged += StartDisplayCatching;
-       _fish.Catched += OnFishCatched;
-    }
 
     private void OnDisable()
     {
         _cathcer.ElapsedTimeChanged -= StartDisplayCatching;
-        _fish.Catched -= OnFishCatched;
     }
+
+    public void SetCatcher(FishCatcher catcher)
+    {
+        _cathcer = catcher;
+        _cathcer.ElapsedTimeChanged += StartDisplayCatching;
+    }
+
     public void StartDisplayCatching()
     {
         if (_coroutine != null)
@@ -37,7 +30,10 @@ public class FishCatchTimerViewer : MonoBehaviour
             StopCoroutine(_coroutine);
         }
 
-        _coroutine = StartCoroutine(DisplayCatch());
+        if (_fish.gameObject.activeSelf)
+        {
+            _coroutine = StartCoroutine(DisplayCatch());
+        }
     }
 
     public void OnFishCatched()
@@ -47,16 +43,22 @@ public class FishCatchTimerViewer : MonoBehaviour
 
     private IEnumerator DisplayCatch()
     {
+        if (_cathcer == null)
+        {
+            _sliderCatchTime.value = 0;
+            yield return null;
+        }
+
         while (_sliderCatchTime.value != _cathcer.ElapsedTime)
         {
             _sliderCatchTime.value = Mathf.MoveTowards(_sliderCatchTime.value, _cathcer.ElapsedTime, _catchPointChangeSpeed * Time.deltaTime);
 
+            if (_sliderCatchTime.value == 0)
+            {
+                _cathcer = null;
+            }
+
             yield return null;
         }
-    }
-
-    void Update()
-    {
-       _sliderCatchTime.transform.position = Camera.main.WorldToScreenPoint(_fish.transform.position + _offset);
     }
 }

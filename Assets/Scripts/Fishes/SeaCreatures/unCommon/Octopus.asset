@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Octopus
   m_EditorClassIdentifier: 
   _name: Octopus
+  _catchtime: 2
+  _level: 2
   _fishType: 6
   _foodFor: {fileID: 11400000, guid: 4bab9bda280e38941b877841d7daf972, type: 2}
   _icon: {fileID: 21300000, guid: d93fb368367681847affdf1b1e3df862, type: 3}
-  _level: 2
   _resource: 2

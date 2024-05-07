@@ -67,7 +67,6 @@ public class PlayerMover : MonoBehaviour
 
     void FixedUpdate()
     {
-
         Move();
         Rotate();
         JumpUp();

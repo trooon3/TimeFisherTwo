@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Eel
   m_EditorClassIdentifier: 
   _name: Eel
+  _catchtime: 2
+  _level: 0
   _fishType: 4
   _foodFor: {fileID: 11400000, guid: 0562b220385956c49a0e61c21a96b0a8, type: 2}
   _icon: {fileID: 21300000, guid: 131a3664f32043049abcc64fc4003c00, type: 3}
-  _level: 0
   _resource: 2
-  _prefab: {fileID: 4392299708808095407, guid: b7f2eaca5caea0744a20d6b04e70a9de, type: 3}

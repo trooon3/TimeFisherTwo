@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: AnlerFish
   m_EditorClassIdentifier: 
   _name: AnlerFish
+  _catchtime: 2
+  _level: 2
   _fishType: 5
   _foodFor: {fileID: 11400000, guid: aaa0d606bcc201a4ab3624cc5f352838, type: 2}
   _icon: {fileID: 21300000, guid: d5c8df1dd416c4f4ab5cac2a177f79d5, type: 3}
-  _level: 2
   _resource: 1

@@ -37,7 +37,6 @@ public class FishCatcher : MonoBehaviour
 
     private void Update()
     {
-        //FieldOfViewCheck();
         _fishToCatch = _fieldOfView.FishToCatch;
         TryFindFish();
     }
@@ -56,6 +55,11 @@ public class FishCatcher : MonoBehaviour
         {
             TryCatchFish();
         }
+        else
+        {
+            _elapsedTime = 0;
+            ElapsedTimeChanged?.Invoke();
+        }
     }
 
     private void TryCatchFish()
@@ -66,13 +70,15 @@ public class FishCatcher : MonoBehaviour
             IsCanCatchFish = false;
             _elapsedTime = 0;
             ElapsedTimeChanged?.Invoke();
-
+            
             _fishToCatch = null;
         }
     }
 
     private bool CheckElapsedTime(Fish fish)
     {
+        fish.SetCatcher(this);
+
         if (fish == null)
         {
             return false;
@@ -89,49 +95,4 @@ public class FishCatcher : MonoBehaviour
         return false;
     }
 
-    private void FieldOfViewCheck()
-    {
-        Collider[] rangeChecks = Physics.OverlapSphere(transform.position, _radius, Fish);
-
-        if (rangeChecks.Length != 0)
-        {
-
-            Transform target = rangeChecks[0].transform;
-            Vector3 directionToTarget = (target.position - transform.position).normalized;
-
-            if (Vector3.Angle(transform.forward, directionToTarget) < _angle)
-            {
-                IsCanCatchFish = true;
-                Debug.Log("Вижу рыбу");
-
-                _elapsedTime += Time.deltaTime;
-                ElapsedTimeChanged?.Invoke();
-                Debug.Log("прошло времени " + _elapsedTime);
-
-                if (IsCanCatchFish)
-                {
-                    if (_elapsedTime >= target.gameObject.GetComponent<Fish>().Catchtime)
-                    {
-                        TryAddFish(target.gameObject.GetComponent<Fish>());
-                        IsCanCatchFish = false;
-                        _elapsedTime = 0;
-                        ElapsedTimeChanged?.Invoke();
-                    }
-                }
-            }
-            else
-            {
-                IsCanCatchFish = false;
-                _elapsedTime = 0;
-                ElapsedTimeChanged?.Invoke();
-            }
-        }
-        else if (IsCanCatchFish)
-        {
-            IsCanCatchFish = false;
-            _elapsedTime = 0;
-            ElapsedTimeChanged?.Invoke();
-            Debug.Log("Потерял рыбу");
-        }
-    }
 }

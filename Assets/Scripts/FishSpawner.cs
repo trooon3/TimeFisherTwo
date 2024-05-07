@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FishSpawner : MonoBehaviour
 {
     [SerializeField] private List<Transform> _transforms;
-    [SerializeField] private List<GameObject> _prefabs;
-
+    [SerializeField] private List<Fish> _prefabs;
     [SerializeField] private int _maxFishCount;
     [SerializeField] private Closet _closet;
 
@@ -20,8 +20,7 @@ public class FishSpawner : MonoBehaviour
 
     private void Spawn()
     {
-        var fish = _prefabs[Random.Range(0, _prefabs.Count)];
-        Instantiate(fish, _transforms[Random.Range(0, _transforms.Count)]);
+        Fish fish = Instantiate(_prefabs[Random.Range(0, _prefabs.Count)], _transforms[Random.Range(0, _transforms.Count)]);
     }
 
     private void OnFishTransferred(Fish fish)
@@ -37,6 +36,6 @@ public class FishSpawner : MonoBehaviour
 
     private void OnDisable()
     {
-        _closet.FishTransferred -= OnFishTransferred;
+       _closet.FishTransferred -= OnFishTransferred;
     }
 }

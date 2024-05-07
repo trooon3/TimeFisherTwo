@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Blobfish
   m_EditorClassIdentifier: 
   _name: Blobfish
+  _catchtime: 2
+  _level: 2
   _fishType: 8
   _foodFor: {fileID: 11400000, guid: 51269c0622d151d4a8aa05ad323db0e8, type: 2}
   _icon: {fileID: 21300000, guid: f491a47963aa6fc47986c0993e5a54c1, type: 3}
-  _level: 2
   _resource: 2

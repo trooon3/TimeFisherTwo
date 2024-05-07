@@ -73,6 +73,7 @@ public class Bag : MonoBehaviour , IUpgradable
         {
             fishes.Add(fish);
         }
+
         _fishes.Clear();
 
         return fishes;
@@ -89,6 +90,7 @@ public class Bag : MonoBehaviour , IUpgradable
         {
             Debug.Log("–юкзак полон");
         }
+
         return false;
     }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.Events;
 
 [Serializable]
 public class FishTypeCounter
@@ -9,6 +10,8 @@ public class FishTypeCounter
 
     public FishType Type => _type;
     public int Count => _count;
+
+    public UnityAction CountChanged;
 
     public FishTypeCounter(FishType type)
     {
