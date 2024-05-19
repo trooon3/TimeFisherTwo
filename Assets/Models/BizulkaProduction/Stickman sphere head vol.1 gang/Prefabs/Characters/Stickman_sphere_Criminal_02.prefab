@@ -1329,6 +1329,7 @@ GameObject:
   - component: {fileID: 4083890557402787969}
   - component: {fileID: 5840916297840143864}
   - component: {fileID: 8671926990499904660}
+  - component: {fileID: 6086582056621300887}
   m_Layer: 0
   m_Name: Stickman_sphere_Criminal_02
   m_TagString: Untagged
@@ -1459,9 +1460,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 8220909830206599661}
+  _minAngle: 0
+  _maxAngle: 0
   _radius: 5
-  _maxDistance: 5
-  _angle: 80
+  _spawner: {fileID: 0}
   IsCanCatchFish: 0
 --- !u!114 &8220909830206599661
 MonoBehaviour:
@@ -1511,6 +1513,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8841a4b5b39298498b76949532c3c21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6086582056621300887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3863114220155206786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19d9f3138b890b444b8b852b1dda5fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _radius: 0
+  _angle: 0
+  _targetMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &3863114220269496629
 GameObject:
   m_ObjectHideFlags: 0

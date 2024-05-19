@@ -8,12 +8,16 @@ public class Closet : MonoBehaviour
     [SerializeField] private List<SeaCreature> _allFishes = new List<SeaCreature>();
     [SerializeField] private FishSpawner _spawner;
     [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
+    [SerializeField] private ClosetView _view;
+
     private List<ResourceCounter> _resources;
     private List<FishTypeCounter> _catchedFishes;
     private Player _player;
     public List<SeaCreature> AllFishes => _allFishes;
     public List<FishTypeCounter> CatchedFishes => _catchedFishes;
+
     public UnityAction FishTransferred;
+    public UnityAction ResourceCountChanged;
 
     private void Awake()
     {
@@ -33,6 +37,7 @@ public class Closet : MonoBehaviour
         {
             AddFish(fishes[i]);
             AddResources(fishes[i]);
+            Debug.Log("TakeFish сработал");
         }
     }
 
@@ -49,6 +54,30 @@ public class Closet : MonoBehaviour
         }
     }
 
+    public void AddFishOnRod(FishType type)
+    {
+        foreach (FishTypeCounter item in _catchedFishes)
+        {
+            if (item.Type == type)
+            {
+                item.Increase();
+                FishTransferred?.Invoke();
+            }
+        }
+    }
+
+    public void RemoveFish(FishType fish)
+    {
+        foreach (FishTypeCounter item in _catchedFishes)
+        {
+            if (item.Type == fish)
+            {
+                item.Decrease();
+                FishTransferred?.Invoke();
+            }
+        }
+    }
+
     private void AddResources(Fish fish)
     {
         foreach (var item in _resources)
@@ -56,20 +85,79 @@ public class Closet : MonoBehaviour
             if (item.Resource.ToString() == fish.Resource.ToString())
             {
                 item.Increase();
+                ResourceCountChanged?.Invoke();
             }
         }
+    }
+
+    public void SpendResources(int count, Resource type)
+    {
+        foreach (var resourceType in _resources)
+        {
+            if (resourceType.Resource == type)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    resourceType.Decrease();
+                    ResourceCountChanged?.Invoke();
+                }
+            }
+        }
+    }
+
+    public bool CheckIsCanPay(Resource resource, int count)
+    {
+        foreach (var resourceType in _resources)
+        {
+            if (resourceType.Resource == resource)
+            {
+                if (resourceType.Count >= count)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public int GetFishBonesCount()
+    {
+        foreach (var resource in _resources)
+        {
+            if (resource.Resource == Resource.FishBones)
+            {
+                return resource.Count;
+            }
+        }
+        return 0;
+    }
+    public int GetSeaWeedCount()
+    {
+        foreach (var resource in _resources)
+        {
+            if (resource.Resource == Resource.SeaWeed)
+            {
+                return resource.Count;
+            }
+        }
+        return 0;
     }
 
     private void Update()
     {
         if (_playerNearbyChecker.IsPlayerNearby)
         {
+            _view.gameObject.SetActive(true);
             if (_playerNearbyChecker.GetPlayer() != null)
             {
                 _player = _playerNearbyChecker.GetPlayer();
 
                 TakeFish(_player.GetFish());
             }
+        }
+        else
+        {
+            _view.gameObject.SetActive(false);
         }
     }
 

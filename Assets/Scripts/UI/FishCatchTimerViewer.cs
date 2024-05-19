@@ -14,7 +14,10 @@ public class FishCatchTimerViewer : MonoBehaviour
 
     private void OnDisable()
     {
-        _cathcer.ElapsedTimeChanged -= StartDisplayCatching;
+        if (_cathcer != null)
+        {
+            _cathcer.ElapsedTimeChanged -= StartDisplayCatching;
+        }
     }
 
     public void SetCatcher(FishCatcher catcher)

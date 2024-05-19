@@ -7,17 +7,24 @@ public class ClosetView : MonoBehaviour
     [SerializeField] private Closet _closet;
     [SerializeField] private FishCardViewer _template;
     [SerializeField] private Transform _container;
-    private List<FishCardViewer> _fishCardViewer;
+    [SerializeField] private Rod _rod;
+    private List<FishCardViewer> _fishCardViewers;
 
     private void Start()
     {
-        _fishCardViewer = new List<FishCardViewer>();
+        _fishCardViewers = new List<FishCardViewer>();
 
         foreach (var creature in _closet.AllFishes)
         {
             FishCardViewer fishCardViewer = Instantiate(_template, _container);
             fishCardViewer.Init(creature);
-            _fishCardViewer.Add(fishCardViewer);
+            fishCardViewer.SetCloset(this);
+            _fishCardViewers.Add(fishCardViewer);
+        }
+
+        foreach (var fishCard in _fishCardViewers)
+        {
+            fishCard.gameObject.SetActive(false);
         }
 
         SetCounters();
@@ -25,7 +32,7 @@ public class ClosetView : MonoBehaviour
 
     public void SetCounters()
     {
-        foreach (var card in _fishCardViewer)
+        foreach (var card in _fishCardViewers)
         {
             foreach (var counter in _closet.CatchedFishes)
             {
@@ -39,9 +46,14 @@ public class ClosetView : MonoBehaviour
 
     private void RefreshFishCounts()
     {
-        foreach (var card in _fishCardViewer)
+        foreach (var card in _fishCardViewers)
         {
             card.RefreshCount();
+
+            if (card.GetCount() > 0)
+            {
+                card.gameObject.SetActive(true);
+            }
         }
     }
 
@@ -53,5 +65,13 @@ public class ClosetView : MonoBehaviour
     private void OnDisable()
     {
         _closet.FishTransferred -= RefreshFishCounts;
+
+    }
+
+    public void OnHookButtonClick(FishType type)
+    {
+        _closet.RemoveFish(type);
+        _closet.AddFishOnRod(_rod.GetFishFoodFor(type));
+        RefreshFishCounts();
     }
 }

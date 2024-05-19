@@ -13,6 +13,8 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private PlaceChecker _placeChecker;
+    private float  _maxPlaceToSwim = 200;
+    private float  _minPlaceToSwim = 100;
     private Rigidbody _rigidbody;
     private PlayerAnimationController _animator;
 
@@ -70,5 +72,6 @@ public class PlayerMover : MonoBehaviour
         Move();
         Rotate();
         JumpUp();
+        
     }
 }

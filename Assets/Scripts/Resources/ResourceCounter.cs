@@ -8,7 +8,7 @@ public class ResourceCounter
     [Min(0)] private int _count;
 
     public Resource Resource => _resource;
-    private int Count => _count;
+    public int Count => _count;
 
     public ResourceCounter(Resource type)
     {

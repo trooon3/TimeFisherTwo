@@ -1,69 +1,29 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Bag : MonoBehaviour , IUpgradable
 {
-    private List<Fish> _fishes = new List<Fish>();
-    private int _maxFishCount;
     private int _maxLevel = 5;
-    private List<ResourceCounter> _resources;
+    private int _maxFishCount;
+    private int _countResourseToUpgrade;
+
+    private List<Fish> _fishes = new List<Fish>();
     private Resource _resourceToUpgrade;
     public Resource ResourceToUpgrade => _resourceToUpgrade;
+    public int FishesInsideCount;
     public int Level { get; private set; } = 1;
-    private int _countResourseToUpgrade;
+    public UnityAction FishCountChanged;
+    public UnityAction Upgraded;
 
     private void Start()
     {
-        _resources = new List<ResourceCounter>();
         _resourceToUpgrade = Resource.SeaWeed;
-
-        switch (Level)
-        {
-            case 1 :
-                _maxFishCount = 4;
-                _countResourseToUpgrade = 10;
-                break;
-
-            case 2 :
-                _maxFishCount = 6;
-                _countResourseToUpgrade = 25;
-                break;
-
-            case 3 :
-                _maxFishCount = 8;
-                _countResourseToUpgrade = 50;
-                break;
-
-            case 4 :
-                _maxFishCount = 10;
-                _countResourseToUpgrade = 75;
-                break;
-
-            case 5 :
-                _maxFishCount = 12;
-                _countResourseToUpgrade = 100;
-                break;
-
-            default:
-                break;
-        }
+        
+        CheckLevel();
     }
 
-    public bool CheckIsCanPay(Resource type, int count)
-    {
-        if (count >= GetNeedResourceCount(type))
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    public int GetNeedResourceCount(Resource resource)
-    {
-        return _resources.Count(res => _resources.GetType() == resource.GetType());
-    }
 
     public List<Fish> GetFish()
     {
@@ -75,7 +35,9 @@ public class Bag : MonoBehaviour , IUpgradable
         }
 
         _fishes.Clear();
-
+        FishesInsideCount = _fishes.Count;
+        FishCountChanged?.Invoke();
+        
         return fishes;
     }
 
@@ -84,6 +46,8 @@ public class Bag : MonoBehaviour , IUpgradable
         if (_fishes.Count < _maxFishCount)
         {
             _fishes.Add(fish);
+            FishesInsideCount = _fishes.Count;
+            FishCountChanged?.Invoke();
             return true;
         }
         else
@@ -94,17 +58,20 @@ public class Bag : MonoBehaviour , IUpgradable
         return false;
     }
 
-    public Resource GetResourceToUpgrade()
-    {
-        return ResourceToUpgrade;
-    }
 
     public void Upgrade()
     {
         if (Level < _maxLevel)
         {
             Level++;
+            Upgraded?.Invoke();
         }
+        CheckLevel();
+    }
+
+    public Resource GetResourceToUpgrade()
+    {
+        return ResourceToUpgrade;
     }
 
     public int GetResourceCountToUpgrade()
@@ -112,14 +79,37 @@ public class Bag : MonoBehaviour , IUpgradable
         return _countResourseToUpgrade;
     }
 
-    public void SpendResources(int count, Resource type)
+    private void CheckLevel()
     {
-        for (int i = 0; i < count; i++)
+        switch (Level)
         {
-            if (_resources[i].GetType() == type.GetType())
-            {
-                _resources.Remove(_resources[i]);
-            }
+            case 1:
+                _maxFishCount = 4;
+                _countResourseToUpgrade = 10;
+                break;
+
+            case 2:
+                _maxFishCount = 6;
+                _countResourseToUpgrade = 25;
+                break;
+
+            case 3:
+                _maxFishCount = 8;
+                _countResourseToUpgrade = 50;
+                break;
+
+            case 4:
+                _maxFishCount = 10;
+                _countResourseToUpgrade = 75;
+                break;
+
+            case 5:
+                _maxFishCount = 12;
+                _countResourseToUpgrade = 100;
+                break;
+
+            default:
+                break;
         }
     }
 }

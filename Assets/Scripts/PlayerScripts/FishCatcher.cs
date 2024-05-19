@@ -93,7 +93,7 @@ public class FishCatcher : MonoBehaviour
 
         _elapsedTime += Time.deltaTime;
         ElapsedTimeChanged?.Invoke();
-        Debug.Log("прошло времени " + _elapsedTime);
+       // Debug.Log("прошло времени " + _elapsedTime);
         return false;
     }
 

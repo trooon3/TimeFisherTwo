@@ -1,22 +1,63 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Rod : MonoBehaviour , IUpgradable
 {
-    private FishGetter _getter;
+    [SerializeField] private List<SeaCreature> _allFishes = new List<SeaCreature>();
+    [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
+
     private int _spicesFishRewardCount = 2;
     private int _maxLevel = 5;
-    [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
     private int _countResourseToUpgrade;
     public int Level { get; private set; } = 1;
     private Resource _resourceToUpgrade;
     public Resource ResourceToUpgrade => _resourceToUpgrade;
+    public UnityAction Upgraded;
 
     private void Start()
     {
         _resourceToUpgrade = Resource.FishBones;
 
+        CheckLevel();
+    }
+
+    public void Upgrade()
+    {
+        if (Level < _maxLevel)
+        {
+            Level++;
+            Upgraded?.Invoke();
+        }
+        CheckLevel();
+    }
+
+    public FishType GetFishFoodFor(FishType type)
+    {
+        foreach (var fish in _allFishes)
+        {
+            if (fish.FishType == type)
+            {
+                return fish.FoodFor.FishType;
+            }
+        }
+
+        return 0;
+    }
+
+    public Resource GetResourceToUpgrade()
+    {
+        return ResourceToUpgrade;
+    }
+
+    public int GetResourceCountToUpgrade()
+    {
+        return _countResourseToUpgrade;
+    }
+
+    private void CheckLevel()
+    {
         switch (Level)
         {
             case 1:
@@ -42,54 +83,5 @@ public class Rod : MonoBehaviour , IUpgradable
             default:
                 break;
         }
-    }
-
-    private void Update()
-    {
-        //if (_playerNearbyChecker.IsPlayerNearby && Input.GetKeyDown(KeyCode.E))
-        //{
-        //    // открыть UI меню и там уже вызвать методы ниже.
-        //}
-    }
-
-    public void Upgrade()
-    {
-        if (Level < _maxLevel)
-        {
-            Level++;
-        }
-    }
-
-    public Fish GetFish(SeaCreature fish)
-    {
-
-        //if (если рак в специях)
-        //{
-        //  GetFishes(fish);
-        //}
-
-        return _getter.GetFishOnHook(fish);
-    }
-
-    private List<Fish> GetFishes(SeaCreature fish)
-    {
-        List<Fish> fishes = new List<Fish>();
-
-        for (int i = 0; i < 4; i++)
-        {
-            fishes.Add(_getter.GetFishOnHook(fish.FoodFor));
-        }
-
-        return fishes;
-    }
-
-    public Resource GetResourceToUpgrade()
-    {
-        return ResourceToUpgrade;
-    }
-
-    public int GetResourceCountToUpgrade()
-    {
-        return _countResourseToUpgrade;
     }
 }
