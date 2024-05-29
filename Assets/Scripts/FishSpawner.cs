@@ -19,7 +19,7 @@ public class FishSpawner : MonoBehaviour
         fish => { fish.gameObject.SetActive(true); },
         fish => { fish.gameObject.SetActive(false); },
         fish => { Destroy(fish.gameObject); },
-        false, 30, 100);
+        false, 30, 50);
 
         for (int i = 0; i < _maxFishCount; i++)
         {
@@ -36,6 +36,7 @@ public class FishSpawner : MonoBehaviour
     public void SetOffFish(Fish fish)
     {
         _pool.Release(fish);
+       // fish.ResetTimer();
         Spawn();
     }
 }

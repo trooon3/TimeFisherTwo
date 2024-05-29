@@ -9,6 +9,7 @@ public class Closet : MonoBehaviour
     [SerializeField] private FishSpawner _spawner;
     [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
     [SerializeField] private ClosetView _view;
+    [SerializeField] private ActiveButtonView _buttonView;
 
     private List<ResourceCounter> _resources;
     private List<FishTypeCounter> _catchedFishes;
@@ -37,7 +38,6 @@ public class Closet : MonoBehaviour
         {
             AddFish(fishes[i]);
             AddResources(fishes[i]);
-            Debug.Log("TakeFish сработал");
         }
     }
 
@@ -85,9 +85,10 @@ public class Closet : MonoBehaviour
             if (item.Resource.ToString() == fish.Resource.ToString())
             {
                 item.Increase();
-                ResourceCountChanged?.Invoke();
             }
         }
+        
+        ResourceCountChanged?.Invoke();
     }
 
     public void SpendResources(int count, Resource type)
@@ -99,10 +100,11 @@ public class Closet : MonoBehaviour
                 for (int i = 0; i < count; i++)
                 {
                     resourceType.Decrease();
-                    ResourceCountChanged?.Invoke();
                 }
             }
         }
+
+        ResourceCountChanged?.Invoke();
     }
 
     public bool CheckIsCanPay(Resource resource, int count)
@@ -131,6 +133,7 @@ public class Closet : MonoBehaviour
         }
         return 0;
     }
+
     public int GetSeaWeedCount()
     {
         foreach (var resource in _resources)
@@ -147,7 +150,18 @@ public class Closet : MonoBehaviour
     {
         if (_playerNearbyChecker.IsPlayerNearby)
         {
+            _buttonView.SetActiveEImage(true);
+        }
+        else
+        {
+            _buttonView.SetActiveEImage(false);
+        }
+
+        if (_playerNearbyChecker.IsPlayerNearby && Input.GetKey(KeyCode.E))
+        {
+            _buttonView.SetActiveEImage(false);
             _view.gameObject.SetActive(true);
+
             if (_playerNearbyChecker.GetPlayer() != null)
             {
                 _player = _playerNearbyChecker.GetPlayer();
@@ -155,7 +169,7 @@ public class Closet : MonoBehaviour
                 TakeFish(_player.GetFish());
             }
         }
-        else
+        else if (_playerNearbyChecker.IsPlayerNearby == false)
         {
             _view.gameObject.SetActive(false);
         }

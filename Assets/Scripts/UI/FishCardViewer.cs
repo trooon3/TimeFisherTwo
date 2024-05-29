@@ -44,6 +44,11 @@ public class FishCardViewer : MonoBehaviour
         return _counter.Count;
     }
 
+    public void SetActiveHookButton(bool active)
+    {
+        _hook.gameObject.SetActive(active);
+    }
+
     public void Hook()
     {
         if (_counter.Count <= 0)

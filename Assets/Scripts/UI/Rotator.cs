@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TimeViewRotator : MonoBehaviour
+public class Rotator : MonoBehaviour
 {
     private Camera _camera;
 
@@ -9,7 +9,7 @@ public class TimeViewRotator : MonoBehaviour
         _camera = Camera.main;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         gameObject.transform.LookAt(_camera.transform.position);
     }

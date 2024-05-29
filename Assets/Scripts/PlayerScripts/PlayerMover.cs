@@ -13,12 +13,11 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private PlaceChecker _placeChecker;
-    private float  _maxPlaceToSwim = 200;
-    private float  _minPlaceToSwim = 100;
+    private float  _maxPlaceToSwim = 210;
+    private float  _minPlaceToSwim = 80;
     private Rigidbody _rigidbody;
     private PlayerAnimationController _animator;
 
-    [SerializeField] public bool IsRun { get; private set; }
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -29,20 +28,22 @@ public class PlayerMover : MonoBehaviour
     {
         _animator.SetGround(_placeChecker.IsOnGround, _placeChecker.InWater);
 
-        float direction = Input.GetAxis(Vertical);
-        float distance = direction * _moveSpeed * Time.deltaTime;
-        
-        transform.Translate(distance * Vector3.forward);
+        Vector3 direction = new Vector3(Input.GetAxisRaw(Horizontal),0, Input.GetAxisRaw(Vertical)).normalized;
 
-        _animator.DoMove(direction);
-    }
+        Vector3 distance = direction * _moveSpeed * Time.deltaTime;
+        Vector3 nextPosition = transform.position + distance;
 
-    private void Rotate()
-    {
-        float rotation = Input.GetAxis(Horizontal);
+        if (nextPosition.x <= _maxPlaceToSwim && nextPosition.x >= _minPlaceToSwim && nextPosition.z <= _maxPlaceToSwim && nextPosition.z >= _minPlaceToSwim)
+        {
+            if (direction != Vector3.zero)
+            {
+                transform.forward = direction;
+            }
 
-        transform.Rotate(rotation * _rotationSpeed * Time.deltaTime * Vector3.up);
-        
+            transform.position = transform.position + distance;
+
+            _animator.DoMove(direction.magnitude);
+        }
     }
 
     private void JumpUp()
@@ -59,19 +60,9 @@ public class PlayerMover : MonoBehaviour
         _animator.DoJumpAnimation(_placeChecker.IsOnGround, _placeChecker.InWater);
     }
 
-    //private void Interact()
-    //{
-    //    if (_groundChecker.IsInteractbleNearby )
-    //    {
-
-    //    }
-    //}
-
     void FixedUpdate()
     {
         Move();
-        Rotate();
         JumpUp();
-        
     }
 }

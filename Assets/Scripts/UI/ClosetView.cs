@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ClosetView : MonoBehaviour
@@ -8,6 +9,9 @@ public class ClosetView : MonoBehaviour
     [SerializeField] private FishCardViewer _template;
     [SerializeField] private Transform _container;
     [SerializeField] private Rod _rod;
+
+    [SerializeField] private TMP_Text _boneCount;
+    [SerializeField] private TMP_Text _weedCount;
     private List<FishCardViewer> _fishCardViewers;
 
     private void Start()
@@ -27,6 +31,7 @@ public class ClosetView : MonoBehaviour
             fishCard.gameObject.SetActive(false);
         }
 
+        OnResourceCountChanged();
         SetCounters();
     }
 
@@ -57,21 +62,43 @@ public class ClosetView : MonoBehaviour
         }
     }
 
+    private void SetButtonsActive(bool active)
+    {
+        foreach (var fish in _fishCardViewers)
+        {
+            fish.SetActiveHookButton(active);
+        }
+    }
+
     private void OnEnable()
     {
         _closet.FishTransferred += RefreshFishCounts;
+        _closet.ResourceCountChanged += OnResourceCountChanged;
     }
 
     private void OnDisable()
     {
         _closet.FishTransferred -= RefreshFishCounts;
+        _closet.ResourceCountChanged -= OnResourceCountChanged;
+    }
 
+    public void OnResourceCountChanged()
+    {
+        _weedCount.text = _closet.GetSeaWeedCount().ToString();
+        _boneCount.text = _closet.GetFishBonesCount().ToString();
     }
 
     public void OnHookButtonClick(FishType type)
     {
         _closet.RemoveFish(type);
-        _closet.AddFishOnRod(_rod.GetFishFoodFor(type));
+        _rod.GetReadyCatch(type);
+        SetButtonsActive(false);
+    }
+
+    public void AddFishAndRefresh()
+    {
+        _closet.AddFishOnRod(_rod.FishFoodFor);
+        SetButtonsActive(true);
         RefreshFishCounts();
     }
 }

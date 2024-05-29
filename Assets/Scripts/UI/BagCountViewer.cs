@@ -3,30 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class CountViewer : MonoBehaviour
+public class BagCountViewer : MonoBehaviour
 {
-    [SerializeField] private Closet _closet;
     [SerializeField] private Bag _bag;
     [SerializeField] private TMP_Text _fishCount;
-    [SerializeField] private TMP_Text _boneCount;
-    [SerializeField] private TMP_Text _weedCount;
+    [SerializeField] private TMP_Text _filledBagText;
 
     private void Start()
     {
         OnFishAdded();
-        OnResourceAdded();
+        OnBagEmpty();
     }
 
     private void OnEnable()
     {
         _bag.FishCountChanged += OnFishAdded;
-        _closet.ResourceCountChanged += OnResourceAdded;
+        _bag.BagFilled += OnBagFilled;
+        _bag.BagDevastated += OnBagEmpty;
     }
 
     private void OnDisable()
     {
         _bag.FishCountChanged -= OnFishAdded;
-        _closet.ResourceCountChanged -= OnResourceAdded;
+        _bag.BagFilled -= OnBagFilled;
+        _bag.BagDevastated -= OnBagEmpty;
     }
 
     private void OnFishAdded()
@@ -34,9 +34,13 @@ public class CountViewer : MonoBehaviour
         _fishCount.text = _bag.FishesInsideCount.ToString();
     }
 
-    private void OnResourceAdded()
+    private void OnBagFilled()
     {
-        _weedCount.text = _closet.GetSeaWeedCount().ToString();
-        _boneCount.text = _closet.GetFishBonesCount().ToString();
+        _filledBagText.gameObject.SetActive(true);
+    }
+
+    private void OnBagEmpty()
+    {
+        _filledBagText.gameObject.SetActive(false);
     }
 }

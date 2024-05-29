@@ -59,8 +59,11 @@ public class FishCatcher : MonoBehaviour
         }
         else
         {
-            _elapsedTime = 0;
-            ElapsedTimeChanged?.Invoke();
+            if (_elapsedTime != 0)
+            {
+                _elapsedTime = 0;
+                ElapsedTimeChanged?.Invoke();
+            }
         }
     }
 
@@ -93,7 +96,6 @@ public class FishCatcher : MonoBehaviour
 
         _elapsedTime += Time.deltaTime;
         ElapsedTimeChanged?.Invoke();
-       // Debug.Log("прошло времени " + _elapsedTime);
         return false;
     }
 

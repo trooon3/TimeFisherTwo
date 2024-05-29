@@ -32,6 +32,7 @@ public class Fish : MonoBehaviour
     private void Start()
     {
         _fishCatchTimerViewer = GetComponent<FishCatchTimerViewer>();
+       // ResetTimer();
         Init(_creature);
     }
 
@@ -43,6 +44,11 @@ public class Fish : MonoBehaviour
         _level = seaCreature.Level;
         _type = seaCreature.FishType;
         _icon = seaCreature.Icon;
+    }
+
+    public void ResetTimer()
+    {
+        _fishCatchTimerViewer.ResetTimeValue();
     }
 
     public void SetCatcher(FishCatcher catcher)

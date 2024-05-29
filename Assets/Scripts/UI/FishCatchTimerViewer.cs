@@ -22,8 +22,12 @@ public class FishCatchTimerViewer : MonoBehaviour
 
     public void SetCatcher(FishCatcher catcher)
     {
-        _cathcer = catcher;
-        _cathcer.ElapsedTimeChanged += StartDisplayCatching;
+        if (_cathcer == null)
+        {
+            _cathcer = catcher;
+            _cathcer.ElapsedTimeChanged += StartDisplayCatching;
+        }
+        
     }
 
     public void StartDisplayCatching()
@@ -37,6 +41,11 @@ public class FishCatchTimerViewer : MonoBehaviour
         {
             _coroutine = StartCoroutine(DisplayCatch());
         }
+    }
+
+    public void ResetTimeValue()
+    {
+        _sliderCatchTime.value = 0;
     }
 
     private IEnumerator DisplayCatch()
@@ -58,5 +67,7 @@ public class FishCatchTimerViewer : MonoBehaviour
 
             yield return null;
         }
+
+        
     }
 }
