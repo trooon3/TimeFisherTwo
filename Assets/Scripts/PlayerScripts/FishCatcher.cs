@@ -25,7 +25,7 @@ public class FishCatcher : MonoBehaviour
     private int FishNumber = 9;
     private int Fish;
     public float ElapsedTime => _elapsedTime;
-    public UnityAction ElapsedTimeChanged;
+    
     public UnityAction Catched;
 
     private void Start()
@@ -62,7 +62,6 @@ public class FishCatcher : MonoBehaviour
             if (_elapsedTime != 0)
             {
                 _elapsedTime = 0;
-                ElapsedTimeChanged?.Invoke();
             }
         }
     }
@@ -74,7 +73,6 @@ public class FishCatcher : MonoBehaviour
             TryAddFish(_fishToCatch);
             IsCanCatchFish = false;
             _elapsedTime = 0;
-            ElapsedTimeChanged?.Invoke();
             
             _fishToCatch = null;
         }
@@ -95,7 +93,6 @@ public class FishCatcher : MonoBehaviour
         }
 
         _elapsedTime += Time.deltaTime;
-        ElapsedTimeChanged?.Invoke();
         return false;
     }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerAnimationController))]
 public class FieldOfView : MonoBehaviour
@@ -19,7 +20,7 @@ public class FieldOfView : MonoBehaviour
     public float Angle => _angle;
     public bool CanSeePlayer => _canSeePlayer;
     public PlayerAnimationController PlayerRef => _playerRef;
-
+    public UnityAction FishFinded;
     private void Start()
     {
         _playerRef = GetComponent<PlayerAnimationController>();
@@ -50,6 +51,7 @@ public class FieldOfView : MonoBehaviour
                 if (Vector3.Angle(transform.forward, directionToTarget) <= _angle)
                 {
                     _fish = fish;
+                    _fish.StartChangeTimerValue();
                 }
                 else
                 {
