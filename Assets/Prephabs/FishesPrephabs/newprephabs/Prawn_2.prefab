@@ -694,3 +694,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fish: {fileID: 5644564929473178636}
   _sliderCatchTime: {fileID: 7316132782660826571}
+  _catchPointChangeSpeed: 2000

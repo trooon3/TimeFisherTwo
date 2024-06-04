@@ -50,8 +50,14 @@ public class Fish : MonoBehaviour
         _fishCatchTimerViewer.StartDisplayCatching();
     }
 
+    public void ResetTime()
+    {
+        _fishCatchTimerViewer.ResetValue();
+    }
+
     public void SetCatcher(FishCatcher catcher)
     {
         _fishCatchTimerViewer.SetCatcher(catcher);
+        Debug.Log("установили кетчера");
     }
 }

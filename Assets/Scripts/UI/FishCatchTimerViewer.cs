@@ -7,8 +7,9 @@ public class FishCatchTimerViewer : MonoBehaviour
 {
     [SerializeField] private Fish _fish;
     [SerializeField] private Slider _sliderCatchTime;
+    [SerializeField] private float _catchPointChangeSpeed;
     private FishCatcher _cathcer;
-    private float _catchPointChangeSpeed = 1f;
+    private FieldOfView _fieldOfView;
 
     private Coroutine _coroutine;
 
@@ -17,8 +18,17 @@ public class FishCatchTimerViewer : MonoBehaviour
         if (_cathcer == null)
         {
             _cathcer = catcher;
+            _fieldOfView = _cathcer.FieldOfView;
         }
         
+    }
+
+    private void Update()
+    {
+        if (_cathcer == null)
+        {
+            _sliderCatchTime.value = Mathf.MoveTowards(_sliderCatchTime.value, 0, _catchPointChangeSpeed * Time.deltaTime);
+        }
     }
 
     public void StartDisplayCatching()
@@ -34,21 +44,29 @@ public class FishCatchTimerViewer : MonoBehaviour
         }
     }
 
+    public void ResetValue()
+    {
+        _sliderCatchTime.value = 0;
+    }
+
     private IEnumerator DisplayCatch()
     {
-        if (_cathcer == null)
-        {
-            _sliderCatchTime.value = 0;
-            yield return null;
-        }
-        Debug.Log("aaaaaa");
-        while (_sliderCatchTime.value != _cathcer.ElapsedTime && _cathcer != null)
-        {
-            _sliderCatchTime.value = Mathf.MoveTowards(_sliderCatchTime.value, _cathcer.ElapsedTime, _catchPointChangeSpeed * Time.deltaTime);
+        
+        Debug.Log("зашли в дисплей кетч");
 
-            if (_sliderCatchTime.value == 0)
+        while (_sliderCatchTime.value != _cathcer.ElapsedTime)
+        {
+            if (_cathcer != null)
             {
-                _cathcer = null;
+                
+                _sliderCatchTime.value = Mathf.MoveTowards(_sliderCatchTime.value, _cathcer.ElapsedTime, _catchPointChangeSpeed * Time.deltaTime);
+
+            }
+
+            if (_sliderCatchTime.value == _cathcer.ElapsedTime)
+            {
+                Debug.Log("значение славйдера равно значению кетчера");
+                _fieldOfView.SetFishNull();
             }
 
             yield return null;

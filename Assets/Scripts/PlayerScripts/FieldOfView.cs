@@ -10,11 +10,12 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private float _radius;
     [SerializeField] private float _angle;
     [SerializeField] private LayerMask _targetMask;
+    [SerializeField] private FishCatcher _fishCatcher;
 
     private PlayerAnimationController _playerRef;
     private Fish _fish;
     private bool _canSeePlayer;
-
+    private WaitForSeconds _wait;
     public float Radius => _radius;
     public Fish FishToCatch => _fish;
     public float Angle => _angle;
@@ -23,19 +24,25 @@ public class FieldOfView : MonoBehaviour
     public UnityAction FishFinded;
     private void Start()
     {
+        _wait = new WaitForSeconds(0.2f);
         _playerRef = GetComponent<PlayerAnimationController>();
         StartCoroutine(FOVRoutine());
     }
 
     private IEnumerator FOVRoutine()
     {
-        WaitForSeconds wait = new WaitForSeconds(0.2f);
-
         while (true)
         {
-            yield return wait;
-            FieldOfViewCheck();
+            
+                FieldOfViewCheck();
+            
+            yield return _wait;
         }
+    }
+
+    public void SetFishNull()
+    {
+        _fish = null;
     }
 
     private void FieldOfViewCheck()
@@ -50,12 +57,17 @@ public class FieldOfView : MonoBehaviour
 
                 if (Vector3.Angle(transform.forward, directionToTarget) <= _angle)
                 {
+                    Debug.Log("рыба попала в область видимости");
                     _fish = fish;
+                    _fishCatcher.SetCatchFish(_fish);
+                    _fishCatcher.TryFindFish();
+                    Debug.Log("nononononono");
                     _fish.StartChangeTimerValue();
                 }
                 else
                 {
                     _fish = null;
+                    _fishCatcher.ResetSettings();
                     _canSeePlayer = false;
                 }
             }

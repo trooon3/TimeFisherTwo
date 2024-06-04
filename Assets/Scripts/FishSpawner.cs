@@ -36,6 +36,7 @@ public class FishSpawner : MonoBehaviour
     public void SetOffFish(Fish fish)
     {
         _pool.Release(fish);
+        fish.ResetTime();
         Spawn();
     }
 }

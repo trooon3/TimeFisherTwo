@@ -633,6 +633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fish: {fileID: 6858619275172159963}
   _sliderCatchTime: {fileID: 2481888528433113825}
+  _catchPointChangeSpeed: 2000
 --- !u!4 &1457678425951841581 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400018, guid: 987782ebbd3719a4c96c77ec59e6a422, type: 3}

@@ -13,14 +13,16 @@ public class FishCatcher : MonoBehaviour
     [SerializeField] private float _maxAngle;
     [SerializeField] private float _radius;
     [SerializeField] private FishSpawner _spawner;
-    [SerializeField] public bool IsCanCatchFish;
+    [SerializeField] private bool _isCanCatchFish;
 
     private float _angle = 100;
     private float _elapsedTime = 0;
     private Bag _bag;
     private Fish _fishToCatch;
+    private Coroutine _coroutine;
 
     private FieldOfView _fieldOfView;
+    public FieldOfView FieldOfView => _fieldOfView;
     
     private int FishNumber = 9;
     private int Fish;
@@ -36,25 +38,27 @@ public class FishCatcher : MonoBehaviour
         Fish = 1 << FishNumber;
     }
 
-    private void Update()
+    public void SetCatchFish(Fish fish)
     {
-        _fishToCatch = _fieldOfView.FishToCatch;
-        TryFindFish();
+        Debug.Log("устанавливаем рыбу");
+        _isCanCatchFish = true;
+        _fishToCatch = fish;
     }
 
-    private void TryAddFish(Fish fish)
+    public void ResetSettings()
     {
-        if (_bag.TryAddFish(fish))
-        {
-            Catched?.Invoke();
-            _spawner.SetOffFish(fish);
-        }
+        _isCanCatchFish = false;
+        _fishToCatch = null;
+        _elapsedTime = 0;
     }
 
-    private void TryFindFish()
+    public void TryFindFish()
     {
+        Debug.Log("защи в поиск рыбы");
         if (_fishToCatch != null)
         {
+        Debug.Log("рыба не нулл");
+            _fishToCatch.SetCatcher(this);
             TryCatchFish();
         }
         else
@@ -68,32 +72,68 @@ public class FishCatcher : MonoBehaviour
 
     private void TryCatchFish()
     {
-        if (CheckElapsedTime(_fishToCatch))
+        Debug.Log("зашли в трай кетч фиш");
+        StartElapseTime();
+    }
+
+    private void TryAddFish(Fish fish)
+    {
+        if (_bag.TryAddFish(fish))
         {
-            TryAddFish(_fishToCatch);
-            IsCanCatchFish = false;
-            _elapsedTime = 0;
-            
-            _fishToCatch = null;
+            Catched?.Invoke();
+            _spawner.SetOffFish(fish);
         }
     }
 
-    private bool CheckElapsedTime(Fish fish)
+    //private bool CheckElapsedTime(Fish fish)
+    //{
+    //    if (fish == null)
+    //    {
+    //        
+    //        return false;
+    //    }
+
+    //    if (_elapsedTime >= fish.Catchtime)
+    //    {
+    //        return true;
+    //    }
+
+    //    _elapsedTime += Time.deltaTime;
+    //    return false;
+    //}
+
+    private void StartElapseTime()
     {
-        fish.SetCatcher(this);
-
-        if (fish == null)
+        if (_coroutine != null)
         {
-            return false;
+            StopCoroutine(_coroutine);
         }
 
-        if (_elapsedTime >= fish.Catchtime)
+        if (_fishToCatch != null)
         {
-            return true;
+            Debug.Log("рыба не нулл");
+            _coroutine = StartCoroutine(ElapseTime());
         }
+    }
 
-        _elapsedTime += Time.deltaTime;
-        return false;
+    private IEnumerator ElapseTime()
+    {
+        Debug.Log($"зашли в корутину проверки времени");
+
+        while (_isCanCatchFish)
+        {
+            if (_elapsedTime >= _fishToCatch.Catchtime)
+            {
+                _isCanCatchFish = false;
+                _elapsedTime = 0;
+                TryAddFish(_fishToCatch);
+                _fishToCatch = null;
+            }
+
+            _elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        
     }
 
 }
