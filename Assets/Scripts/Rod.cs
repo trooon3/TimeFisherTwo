@@ -13,10 +13,16 @@ public class Rod : MonoBehaviour , IUpgradable
     private int _countResourseToUpgrade;
     private int _spicesFishRewardCount = 2;
     private int _maxLevel = 5;
+    private float _catchingSpeed;
+
     private FishType _fishFoodFor;
     private FishType _cathchingFish;
     private Resource _resourceToUpgrade;
 
+    private Coroutine _coroutine;
+    private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
+
+    public float CatchingSpeed => _catchingSpeed;
     public int CountResourseToUpgrade => _countResourseToUpgrade;
     public int Level { get; private set; }
     public string NextLevel { get; private set; }
@@ -29,6 +35,29 @@ public class Rod : MonoBehaviour , IUpgradable
         Level = 0;
         NextLevel = (Level + 1).ToString();
         _resourceToUpgrade = Resource.FishBones;
+
+        CheckLevel();
+    }
+
+    public void SetActiveIncrease()
+    {
+        _catchingSpeed = _catchingSpeed * 2;
+        StartIncreaseTimer();
+    }
+
+    private void StartIncreaseTimer()
+    {
+        if (_coroutine != null)
+        {
+            StopCoroutine(IncreaseTimer());
+        }
+
+        _coroutine = StartCoroutine(IncreaseTimer());
+    }
+
+    private IEnumerator IncreaseTimer()
+    {
+        yield return _increaseTime;
 
         CheckLevel();
     }
@@ -92,22 +121,27 @@ public class Rod : MonoBehaviour , IUpgradable
         {
             case 0:
                 _countResourseToUpgrade = 10;
+                _catchingSpeed = 0.01f;
                 break;
 
             case 1:
                 _countResourseToUpgrade = 25;
+                _catchingSpeed = 0.02f;
                 break;
 
             case 2:
                 _countResourseToUpgrade = 50;
+                _catchingSpeed = 0.04f;
                 break;
 
             case 3:
                 _countResourseToUpgrade = 75;
+                _catchingSpeed = 0.1f;
                 break;
 
             case 4:
                 _countResourseToUpgrade = 100;
+                _catchingSpeed = 0.2f;
                 break;
 
             default:

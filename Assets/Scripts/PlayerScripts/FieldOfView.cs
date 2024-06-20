@@ -16,12 +16,15 @@ public class FieldOfView : MonoBehaviour
     private Fish _fish;
     private bool _canSeePlayer;
     private WaitForSeconds _wait;
+
     public float Radius => _radius;
-    public Fish FishToCatch => _fish;
     public float Angle => _angle;
     public bool CanSeePlayer => _canSeePlayer;
+    public Fish FishToCatch => _fish;
     public PlayerAnimationController PlayerRef => _playerRef;
+
     public UnityAction FishFinded;
+
     private void Start()
     {
         _wait = new WaitForSeconds(0.2f);
@@ -33,9 +36,7 @@ public class FieldOfView : MonoBehaviour
     {
         while (true)
         {
-            
-                FieldOfViewCheck();
-            
+            FieldOfViewCheck();
             yield return _wait;
         }
     }
@@ -57,11 +58,9 @@ public class FieldOfView : MonoBehaviour
 
                 if (Vector3.Angle(transform.forward, directionToTarget) <= _angle)
                 {
-                    Debug.Log("рыба попала в область видимости");
                     _fish = fish;
                     _fishCatcher.SetCatchFish(_fish);
                     _fishCatcher.TryFindFish();
-                    Debug.Log("nononononono");
                     _fish.StartChangeTimerValue();
                 }
                 else

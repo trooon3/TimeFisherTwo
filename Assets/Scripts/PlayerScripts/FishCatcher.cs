@@ -23,6 +23,7 @@ public class FishCatcher : MonoBehaviour
 
     private FieldOfView _fieldOfView;
     public FieldOfView FieldOfView => _fieldOfView;
+    public Fish FishToCatch => _fishToCatch;
     
     private int FishNumber = 9;
     private int Fish;

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class FieldOfCatchViewer : MonoBehaviour
 {
-    [SerializeField] private FieldOfView _field;
+    [SerializeField] private FishCatcher _field;
     [SerializeField] private Image _image;
 
     private void Update()

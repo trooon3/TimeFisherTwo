@@ -10,12 +10,18 @@ public class Closet : MonoBehaviour
     [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
     [SerializeField] private ClosetView _view;
     [SerializeField] private ActiveButtonView _buttonView;
+    [SerializeField] private RodCatchViewer _rodView;
 
     private List<ResourceCounter> _resources;
     private List<FishTypeCounter> _catchedFishes;
     private Player _player;
     public List<SeaCreature> AllFishes => _allFishes;
     public List<FishTypeCounter> CatchedFishes => _catchedFishes;
+    private bool _isActiveIncreaseAd;
+
+
+    private Coroutine _coroutine;
+    private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
 
     public UnityAction FishTransferred;
     public UnityAction ResourceCountChanged;
@@ -30,6 +36,29 @@ public class Closet : MonoBehaviour
             FishTypeCounter counter = new FishTypeCounter(creature.FishType);
             _catchedFishes.Add(counter);
         }
+    }
+
+    public void SetActiveIncrease()
+    {
+        _isActiveIncreaseAd = true;
+        StartIncreaseTimer();
+    }
+
+    private void StartIncreaseTimer()
+    {
+        if (_coroutine != null)
+        {
+            StopCoroutine(IncreaseTimer());
+        }
+
+        _coroutine = StartCoroutine(IncreaseTimer());
+    }
+
+    private IEnumerator IncreaseTimer()
+    {
+        yield return _increaseTime;
+
+        _isActiveIncreaseAd = false;
     }
 
     public void TakeFish(List<Fish> fishes)
@@ -84,6 +113,11 @@ public class Closet : MonoBehaviour
         {
             if (item.Resource.ToString() == fish.Resource.ToString())
             {
+                if (_isActiveIncreaseAd)
+                {
+                    item.Increase();
+                }
+
                 item.Increase();
             }
         }
@@ -161,6 +195,7 @@ public class Closet : MonoBehaviour
         {
             _buttonView.SetActiveEImage(false);
             _view.gameObject.SetActive(true);
+            _rodView.SetOffHappyFace();
 
             if (_playerNearbyChecker.GetPlayer() != null)
             {

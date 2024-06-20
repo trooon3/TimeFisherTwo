@@ -8,11 +8,11 @@ public class RodCatchViewer : MonoBehaviour
     [SerializeField] private Image _slider;
     [SerializeField] private Image _fishIcon;
     [SerializeField] private Image _happyFaceIcon;
-    [SerializeField] private float _changeSpeed;
-    [SerializeField] private float _catchTime;
     [SerializeField] private Rod _rod;
-    private Coroutine _coroutine;
     
+    private Coroutine _coroutine;
+    private float _changeSpeed;
+    private float _catchTime = 1;
 
     private void Start()
     {
@@ -37,16 +37,22 @@ public class RodCatchViewer : MonoBehaviour
         StopCoroutine(_coroutine);
     }
 
+    public void SetOffHappyFace()
+    {
+        _happyFaceIcon.gameObject.SetActive(false);
+    }
+
     private IEnumerator DisplayCatchingTime()
     {
         _happyFaceIcon.gameObject.SetActive(false);
         _fishIcon.gameObject.SetActive(true);
+        _changeSpeed = _rod.CatchingSpeed;
 
         while (_slider.fillAmount != _catchTime)
         {
             _slider.fillAmount = Mathf.MoveTowards(_slider.fillAmount, _catchTime, _changeSpeed * Time.deltaTime);
 
-            if (_slider.fillAmount == 1)
+            if (_slider.fillAmount == _catchTime)
             {
                 _fishIcon.gameObject.SetActive(false);
                 _happyFaceIcon.gameObject.SetActive(true);

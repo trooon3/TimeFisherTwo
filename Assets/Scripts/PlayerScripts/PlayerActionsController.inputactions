@@ -1,0 +1,56 @@
+{
+    "name": "PlayerActionsController",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "ee3ef231-2bb2-4e9a-841e-b09aa8b98bd0",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "2b2bc654-48d5-40f8-beac-75340f6289ac",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8debf40f-f1e6-495a-8d92-ae2fb1c0136c",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyBoardAndMouce",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "KeyBoardAndMouce",
+            "bindingGroup": "KeyBoardAndMouce",
+            "devices": []
+        },
+        {
+            "name": "New control scheme",
+            "bindingGroup": "New control scheme",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<VirtualMouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}

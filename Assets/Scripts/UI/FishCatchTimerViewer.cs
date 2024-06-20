@@ -65,7 +65,6 @@ public class FishCatchTimerViewer : MonoBehaviour
 
             if (_sliderCatchTime.value == _cathcer.ElapsedTime)
             {
-                Debug.Log("значение славйдера равно значению кетчера");
                 _fieldOfView.SetFishNull();
             }
 

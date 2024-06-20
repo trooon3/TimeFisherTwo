@@ -18,13 +18,39 @@ public class PlayerMover : MonoBehaviour
     private Rigidbody _rigidbody;
     private PlayerAnimationController _animator;
 
+    private Coroutine _coroutine;
+    private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
+
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<PlayerAnimationController>();
     }
 
-    private void Move()
+    public void SetActiveIncrease()
+    {
+        _moveSpeed = _moveSpeed * 2;
+        StartIncreaseTimer();
+    }
+
+    private void StartIncreaseTimer()
+    {
+        if (_coroutine != null)
+        {
+            StopCoroutine(IncreaseTimer());
+        }
+
+        _coroutine = StartCoroutine(IncreaseTimer());
+    }
+
+    private IEnumerator IncreaseTimer()
+    {
+        yield return _increaseTime;
+
+        _moveSpeed = _moveSpeed/2;
+    }
+
+    public void Move()
     {
         _animator.SetGround(_placeChecker.IsOnGround, _placeChecker.InWater);
 
@@ -46,7 +72,25 @@ public class PlayerMover : MonoBehaviour
         }
     }
 
-    private void JumpUp()
+    public void JoyStickMove(Vector3 direction)
+    {
+        Vector3 distance = direction * _moveSpeed * Time.deltaTime;
+        Vector3 nextPosition = transform.position + distance;
+
+        if (nextPosition.x <= _maxPlaceToSwim && nextPosition.x >= _minPlaceToSwim && nextPosition.z <= _maxPlaceToSwim && nextPosition.z >= _minPlaceToSwim)
+        {
+            if (direction != Vector3.zero)
+            {
+                transform.forward = direction;
+            }
+
+            transform.position = transform.position + distance;
+
+            _animator.DoMove(direction.magnitude);
+        }
+    }
+
+    public void JumpUp()
     {
         float force = Input.GetAxisRaw(Jump);
 

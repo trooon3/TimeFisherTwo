@@ -2,15 +2,19 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
 
 public class Bag : MonoBehaviour , IUpgradable
 {
     private int _maxLevel = 5;
     private int _maxFishCount;
     private int _countResourseToUpgrade;
+    private bool _isActiveIncreaseAd;
 
     private List<Fish> _fishes = new List<Fish>();
     private Resource _resourceToUpgrade;
+    private Coroutine _coroutine;
+    private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
     public Resource ResourceToUpgrade => _resourceToUpgrade;
     public int CountResourseToUpgrade => _countResourseToUpgrade;
     public int FishesInsideCount;
@@ -31,13 +35,40 @@ public class Bag : MonoBehaviour , IUpgradable
         CheckLevel();
     }
 
+    public void SetActiveIncrease()
+    {
+        _isActiveIncreaseAd = true;
+        StartIncreaseTimer();
+    }
 
+    private void StartIncreaseTimer()
+    {
+        if (_coroutine != null)
+        {
+            StopCoroutine(IncreaseTimer());
+        }
+
+        _coroutine = StartCoroutine(IncreaseTimer());
+    }
+
+    private IEnumerator IncreaseTimer()
+    {
+        yield return _increaseTime;
+
+        _isActiveIncreaseAd = false;
+    }
+    
     public List<Fish> GetFish()
     {
         List<Fish> fishes = new List<Fish>();
 
         foreach (var fish in _fishes)
         {
+            if (_isActiveIncreaseAd)
+            {
+                fishes.Add(fish);
+            }
+
             fishes.Add(fish);
         }
 
