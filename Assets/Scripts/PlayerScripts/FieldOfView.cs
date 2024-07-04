@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PlayerAnimationController))]
+[RequireComponent(typeof(Player))]
 public class FieldOfView : MonoBehaviour
 {
     [SerializeField] private float _radius;
@@ -12,7 +12,7 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private LayerMask _targetMask;
     [SerializeField] private FishCatcher _fishCatcher;
 
-    private PlayerAnimationController _playerRef;
+    private Player _playerRef;
     private Fish _fish;
     private bool _canSeePlayer;
     private WaitForSeconds _wait;
@@ -21,14 +21,14 @@ public class FieldOfView : MonoBehaviour
     public float Angle => _angle;
     public bool CanSeePlayer => _canSeePlayer;
     public Fish FishToCatch => _fish;
-    public PlayerAnimationController PlayerRef => _playerRef;
+    public Player PlayerRef => _playerRef;
 
     public UnityAction FishFinded;
 
     private void Start()
     {
         _wait = new WaitForSeconds(0.2f);
-        _playerRef = GetComponent<PlayerAnimationController>();
+        _playerRef = GetComponent<Player>();
         StartCoroutine(FOVRoutine());
     }
 

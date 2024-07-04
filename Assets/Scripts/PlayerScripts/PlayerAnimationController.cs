@@ -1,9 +1,8 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 public class PlayerAnimationController : MonoBehaviour
 {
-    private Animator _animator;
+    [SerializeField] private Animator _animator;
 
     private int _slowRun = Animator.StringToHash("Slow Run");
     private int _jump = Animator.StringToHash("Jump");
@@ -14,7 +13,13 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Start()
     {
-        _animator = GetComponent<Animator>();
+       //_animator = GetComponent<Animator>();
+    }
+
+    public void SetAnimator(Animator animator)
+    {
+        _animator = animator;
+        _animator.Play(_jump);
     }
 
     public void DoJumpAnimation(bool isOnGround, bool isInWater)
@@ -42,21 +47,12 @@ public class PlayerAnimationController : MonoBehaviour
     public void DoMove(float speed)
     {
         _animator.SetFloat("Speed", speed);
-
-        //if (isOnGround)
-        //{
-        //    _animator.Play(_happyIdle);
-        //}
-        //else if (isInWater)
-        //{
-        //    _animator.Play(_treadingWater);
-        //}
-
     }
-     public void SetGround(bool IsOnGround, bool InWater)
-     {
-        _animator.SetBool("InWater", InWater);
-        _animator.SetBool("OnEarth", IsOnGround);
-     }
+
+    public void SetGround(bool IsOnGround, bool InWater)
+    {
+       _animator.SetBool("InWater", InWater);
+       _animator.SetBool("OnEarth", IsOnGround);
+    }
 }
 

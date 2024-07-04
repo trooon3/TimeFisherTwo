@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(PlayerAnimationController))]
 public class PlayerMover : MonoBehaviour
 {
     private const string Horizontal = nameof(Horizontal);
@@ -13,10 +12,10 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private PlaceChecker _placeChecker;
+    [SerializeField] private PlayerAnimationController _animator;
     private float  _maxPlaceToSwim = 210;
     private float  _minPlaceToSwim = 80;
     private Rigidbody _rigidbody;
-    private PlayerAnimationController _animator;
 
     private Coroutine _coroutine;
     private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
@@ -24,7 +23,6 @@ public class PlayerMover : MonoBehaviour
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _animator = GetComponent<PlayerAnimationController>();
     }
 
     public void SetActiveIncrease()

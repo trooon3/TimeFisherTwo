@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 898ce3ecd05a4684182494e2851ff8fd, type: 3}
+  m_Name: PoliceCost
+  m_EditorClassIdentifier: 
+  _fourthFishTypeCost: {fileID: 11400000, guid: 7a5b8cc6fdd196d47930e4380ee61a67, type: 2}
+  _firstFishTypeCost: {fileID: 11400000, guid: fe122c0ae9876c44180d36a68f0d042f, type: 2}
+  _secondFishTypeCost: {fileID: 11400000, guid: 68fe5f0d28467004b9f3b146f512ce78, type: 2}
+  _thirdFishTypeCost: {fileID: 11400000, guid: a6c1e6c9dd241c744a2e30aa72a37b97, type: 2}

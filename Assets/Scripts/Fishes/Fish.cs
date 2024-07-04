@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(FishMover))]
@@ -58,6 +54,5 @@ public class Fish : MonoBehaviour
     public void SetCatcher(FishCatcher catcher)
     {
         _fishCatchTimerViewer.SetCatcher(catcher);
-        Debug.Log("установили кетчера");
     }
 }

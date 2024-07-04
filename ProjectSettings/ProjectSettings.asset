@@ -443,9 +443,9 @@ PlayerSettings:
   openGLRequireES31AEP: 0
   openGLRequireES32: 0
   m_TemplateCustomTags:
-    MOBILE_RENDER_SCALE: 
+    MOBILE_RENDER_SCALE: 1.6
     PRODUCT_DESCRIPTION: 
-    RENDER_SCALE: 
+    RENDER_SCALE: 1.0
   mobileMTRendering:
     Android: 1
     iPhone: 1
@@ -719,7 +719,7 @@ PlayerSettings:
   webGLDebugSymbols: 0
   webGLEmscriptenArgs: 
   webGLModulesDirectory: 
-  webGLTemplate: APPLICATION:Default
+  webGLTemplate: PROJECT:FullscreenWindow
   webGLAnalyzeBuildSize: 0
   webGLUseEmbeddedResources: 0
   webGLCompressionFormat: 0

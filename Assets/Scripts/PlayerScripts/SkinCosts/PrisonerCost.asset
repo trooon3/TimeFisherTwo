@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 898ce3ecd05a4684182494e2851ff8fd, type: 3}
+  m_Name: PrisonerCost
+  m_EditorClassIdentifier: 
+  _fourthFishTypeCost: {fileID: 11400000, guid: d1e7032cb7b4c334cbd7c77c3a78c618, type: 2}
+  _firstFishTypeCost: {fileID: 11400000, guid: 43fa7b30ba60ef74da2e3ab701591916, type: 2}
+  _secondFishTypeCost: {fileID: 11400000, guid: 53b6254d7d1f1f94fa55daff10d90d7a, type: 2}
+  _thirdFishTypeCost: {fileID: 11400000, guid: d985adf489c7c444985b638a8461dff9, type: 2}

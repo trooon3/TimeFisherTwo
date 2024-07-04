@@ -7,15 +7,15 @@ TerrainLayer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: layer_RockGrassy608c3929b87867c
-  m_DiffuseTexture: {fileID: 2800000, guid: d64e707b7eb5d144fa11d381b14d1fa1, type: 3}
-  m_NormalMapTexture: {fileID: 0}
-  m_MaskMapTexture: {fileID: 0}
+  m_DiffuseTexture: {fileID: 2800000, guid: 64bc32bd28e661d4ea2d0c91f51c31b4, type: 3}
+  m_NormalMapTexture: {fileID: 2800000, guid: 259dc9171cc755d45968484723b1d1cd, type: 3}
+  m_MaskMapTexture: {fileID: 2800000, guid: 259dc9171cc755d45968484723b1d1cd, type: 3}
   m_TileSize: {x: 1, y: 1}
   m_TileOffset: {x: 0.33333334, y: 0.33333334}
-  m_Specular: {r: 0, g: 0, b: 0, a: 0}
+  m_Specular: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 0}
   m_Metallic: 0
   m_Smoothness: 0
-  m_NormalScale: 1
+  m_NormalScale: 7
   m_DiffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
   m_DiffuseRemapMax: {x: 1, y: 1, z: 1, w: 1}
   m_MaskMapRemapMin: {x: 0, y: 0, z: 0, w: 0}

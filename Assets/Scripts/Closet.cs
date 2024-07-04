@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,7 +20,7 @@ public class Closet : MonoBehaviour
     public List<FishTypeCounter> CatchedFishes => _catchedFishes;
     private bool _isActiveIncreaseAd;
 
-
+    private SkinEditor _skinEditor;
     private Coroutine _coroutine;
     private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
 
@@ -37,6 +38,8 @@ public class Closet : MonoBehaviour
             _catchedFishes.Add(counter);
         }
     }
+
+
 
     public void SetActiveIncrease()
     {
@@ -103,6 +106,40 @@ public class Closet : MonoBehaviour
             {
                 item.Decrease();
                 FishTransferred?.Invoke();
+            }
+        }
+    }
+
+    public bool CheckCanPaySkin(SkinView skin)
+    {
+        SkinCost cost = skin.Cost;
+        foreach (var fishPrice in cost.FishCountPrices)
+        {
+            foreach (var fish in _catchedFishes)
+            {
+                if (fishPrice.Type == fish.Type)
+                {
+                    if (fishPrice.Cost > fish.Count)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        PaySkin(skin);
+        return true;
+    }
+
+    private void PaySkin(SkinView skin)
+    {
+        SkinCost cost = skin.Cost;
+
+        foreach (var fishPrice in cost.FishCountPrices)
+        {
+            for (int i = 0; i < fishPrice.Cost; i++)
+            {
+                RemoveFish(fishPrice.Type);
             }
         }
     }
@@ -193,16 +230,7 @@ public class Closet : MonoBehaviour
 
         if (_playerNearbyChecker.IsPlayerNearby && Input.GetKey(KeyCode.E))
         {
-            _buttonView.SetActiveEImage(false);
-            _view.gameObject.SetActive(true);
-            _rodView.SetOffHappyFace();
-
-            if (_playerNearbyChecker.GetPlayer() != null)
-            {
-                _player = _playerNearbyChecker.GetPlayer();
-
-                TakeFish(_player.GetFish());
-            }
+            OnClosetButtonClick();
         }
         else if (_playerNearbyChecker.IsPlayerNearby == false)
         {
@@ -210,4 +238,17 @@ public class Closet : MonoBehaviour
         }
     }
 
+    public void OnClosetButtonClick()
+    {
+        _buttonView.SetActiveEImage(false);
+        _view.gameObject.SetActive(true);
+        _rodView.SetOffHappyFace();
+
+        if (_playerNearbyChecker.GetPlayer() != null)
+        {
+            _player = _playerNearbyChecker.GetPlayer();
+
+            TakeFish(_player.GetFish());
+        }
+    }
 }

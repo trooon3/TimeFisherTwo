@@ -6,12 +6,13 @@ using UnityEngine;
 public class ClosetView : MonoBehaviour
 {
     [SerializeField] private Closet _closet;
+    [SerializeField] private Rod _rod;
     [SerializeField] private FishCardViewer _template;
     [SerializeField] private Transform _container;
-    [SerializeField] private Rod _rod;
 
     [SerializeField] private TMP_Text _boneCount;
     [SerializeField] private TMP_Text _weedCount;
+
     private List<FishCardViewer> _fishCardViewers;
 
     private void Start()

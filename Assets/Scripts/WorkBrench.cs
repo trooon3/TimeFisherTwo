@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,17 +24,22 @@ public class WorkBrench : MonoBehaviour
 
         if (_playerNearbyChecker.IsPlayerNearby && Input.GetKey(KeyCode.E))
         {
-            _buttonView.SetActiveEImage(false);
-            _viewer.gameObject.SetActive(true);
-
-            if (_playerNearbyChecker.GetPlayer() != null)
-            {
-                _player = _playerNearbyChecker.GetPlayer();
-            }
+            OnBrenchButtonClick();
         }
         else if(_playerNearbyChecker.IsPlayerNearby == false)
         {
             _viewer.gameObject.SetActive(false);
+        }
+    }
+
+    public void OnBrenchButtonClick()
+    {
+        _buttonView.SetActiveEImage(false);
+        _viewer.gameObject.SetActive(true);
+
+        if (_playerNearbyChecker.GetPlayer() != null)
+        {
+            _player = _playerNearbyChecker.GetPlayer();
         }
     }
 

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 898ce3ecd05a4684182494e2851ff8fd, type: 3}
+  m_Name: DefaultPlayerSkinCost
+  m_EditorClassIdentifier: 
+  _fourthFishTypeCost: {fileID: 11400000, guid: f3742600154b2a042a60f3db0faafbfd, type: 2}
+  _firstFishTypeCost: {fileID: 11400000, guid: 88c3c0aed456e6e44a4b50c077e3e1ae, type: 2}
+  _secondFishTypeCost: {fileID: 11400000, guid: d884a5024fdde384c81f6332ad37fc0e, type: 2}
+  _thirdFishTypeCost: {fileID: 11400000, guid: 7c7b2ae5e126f7c489ddc924f0572df5, type: 2}
