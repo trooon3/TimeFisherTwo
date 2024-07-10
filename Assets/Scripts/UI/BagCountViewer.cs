@@ -9,6 +9,8 @@ public class BagCountViewer : MonoBehaviour
     [SerializeField] private TMP_Text _fishCount;
     [SerializeField] private TMP_Text _filledBagText;
 
+    [SerializeField] private TutorialViewer _tutorial;
+    private bool _isTutorialShowed;
     private void Start()
     {
         OnFishAdded();
@@ -36,6 +38,12 @@ public class BagCountViewer : MonoBehaviour
 
     private void OnBagFilled()
     {
+        if (_isTutorialShowed == false)
+        {
+            _tutorial.ShowWhereFishesCollect();
+            _isTutorialShowed = true;
+        }
+
         _filledBagText.gameObject.SetActive(true);
     }
 

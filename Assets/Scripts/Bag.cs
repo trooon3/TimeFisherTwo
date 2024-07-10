@@ -15,6 +15,10 @@ public class Bag : MonoBehaviour , IUpgradable
     private Resource _resourceToUpgrade;
     private Coroutine _coroutine;
     private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
+
+    [SerializeField] private TutorialViewer _tutorial;
+    private bool _isTutorialShowed;
+
     public Resource ResourceToUpgrade => _resourceToUpgrade;
     public int CountResourseToUpgrade => _countResourseToUpgrade;
     public int FishesInsideCount;
@@ -88,10 +92,18 @@ public class Bag : MonoBehaviour , IUpgradable
             FishesInsideCount = _fishes.Count;
             FishCountChanged?.Invoke();
 
+            if (_isTutorialShowed == false)
+            {
+                _tutorial.ShowWhereFishesCount();
+                _isTutorialShowed = true;
+            }
+
             if (_fishes.Count == _maxFishCount)
             {
                 BagFilled?.Invoke();
             }
+
+            _tutorial.SetOffControlTutorial();
 
             return true;
         }

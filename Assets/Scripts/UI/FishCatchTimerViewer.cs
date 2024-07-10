@@ -51,9 +51,6 @@ public class FishCatchTimerViewer : MonoBehaviour
 
     private IEnumerator DisplayCatch()
     {
-        
-        Debug.Log("зашли в дисплей кетч");
-
         while (_sliderCatchTime.value != _cathcer.ElapsedTime)
         {
             if (_cathcer != null)

@@ -15,7 +15,10 @@ public class ClosetView : MonoBehaviour
 
     private List<FishCardViewer> _fishCardViewers;
 
-    private void Start()
+    [SerializeField] private TutorialViewer _tutorial;
+    private bool _isTutorialShowed;
+
+    private void Awake()
     {
         _fishCardViewers = new List<FishCardViewer>();
 
@@ -34,6 +37,44 @@ public class ClosetView : MonoBehaviour
 
         OnResourceCountChanged();
         SetCounters();
+    }
+
+
+    private void OnEnable()
+    {
+        _closet.FishTransferred += RefreshFishCounts;
+        _closet.ResourceCountChanged += OnResourceCountChanged;
+    }
+
+    private void OnDisable()
+    {
+        _closet.FishTransferred -= RefreshFishCounts;
+        _closet.ResourceCountChanged -= OnResourceCountChanged;
+    }
+
+    public void OnResourceCountChanged()
+    {
+        if (_isTutorialShowed == false)
+        {
+            _isTutorialShowed = true;
+        }
+
+        _weedCount.text = _closet.GetSeaWeedCount().ToString();
+        _boneCount.text = _closet.GetFishBonesCount().ToString();
+    }
+
+    public void OnHookButtonClick(FishType type)
+    {
+        _closet.RemoveFish(type);
+        _rod.GetReadyCatch(type);
+        SetButtonsActive(false);
+    }
+
+    public void AddFishAndRefresh()
+    {
+        _closet.AddFishOnRod(_rod.FishFoodFor);
+        SetButtonsActive(true);
+        RefreshFishCounts();
     }
 
     public void SetCounters()
@@ -69,37 +110,5 @@ public class ClosetView : MonoBehaviour
         {
             fish.SetActiveHookButton(active);
         }
-    }
-
-    private void OnEnable()
-    {
-        _closet.FishTransferred += RefreshFishCounts;
-        _closet.ResourceCountChanged += OnResourceCountChanged;
-    }
-
-    private void OnDisable()
-    {
-        _closet.FishTransferred -= RefreshFishCounts;
-        _closet.ResourceCountChanged -= OnResourceCountChanged;
-    }
-
-    public void OnResourceCountChanged()
-    {
-        _weedCount.text = _closet.GetSeaWeedCount().ToString();
-        _boneCount.text = _closet.GetFishBonesCount().ToString();
-    }
-
-    public void OnHookButtonClick(FishType type)
-    {
-        _closet.RemoveFish(type);
-        _rod.GetReadyCatch(type);
-        SetButtonsActive(false);
-    }
-
-    public void AddFishAndRefresh()
-    {
-        _closet.AddFishOnRod(_rod.FishFoodFor);
-        SetButtonsActive(true);
-        RefreshFishCounts();
     }
 }

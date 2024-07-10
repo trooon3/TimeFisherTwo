@@ -20,12 +20,14 @@ public class Closet : MonoBehaviour
     public List<FishTypeCounter> CatchedFishes => _catchedFishes;
     private bool _isActiveIncreaseAd;
 
-    private SkinEditor _skinEditor;
     private Coroutine _coroutine;
     private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
 
     public UnityAction FishTransferred;
     public UnityAction ResourceCountChanged;
+
+    [SerializeField] private TutorialViewer _tutorial;
+    private bool _isTutorialShowed;
 
     private void Awake()
     {
@@ -38,8 +40,6 @@ public class Closet : MonoBehaviour
             _catchedFishes.Add(counter);
         }
     }
-
-
 
     public void SetActiveIncrease()
     {
@@ -160,6 +160,7 @@ public class Closet : MonoBehaviour
         }
         
         ResourceCountChanged?.Invoke();
+        _tutorial.ShowWhereUpgrade();
     }
 
     public void SpendResources(int count, Resource type)
@@ -243,6 +244,12 @@ public class Closet : MonoBehaviour
         _buttonView.SetActiveEImage(false);
         _view.gameObject.SetActive(true);
         _rodView.SetOffHappyFace();
+
+        if (_isTutorialShowed == false)
+        {
+            _tutorial.ShowHowCatchFishOnRod();
+            _isTutorialShowed = true;
+        }
 
         if (_playerNearbyChecker.GetPlayer() != null)
         {

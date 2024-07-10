@@ -41,7 +41,6 @@ public class FishCatcher : MonoBehaviour
 
     public void SetCatchFish(Fish fish)
     {
-        Debug.Log("устанавливаем рыбу");
         _isCanCatchFish = true;
         _fishToCatch = fish;
     }
@@ -55,10 +54,8 @@ public class FishCatcher : MonoBehaviour
 
     public void TryFindFish()
     {
-        Debug.Log("защи в поиск рыбы");
         if (_fishToCatch != null)
         {
-        Debug.Log("рыба не нулл");
             _fishToCatch.SetCatcher(this);
             TryCatchFish();
         }
@@ -73,7 +70,6 @@ public class FishCatcher : MonoBehaviour
 
     private void TryCatchFish()
     {
-        Debug.Log("зашли в трай кетч фиш");
         StartElapseTime();
     }
 
@@ -112,14 +108,12 @@ public class FishCatcher : MonoBehaviour
 
         if (_fishToCatch != null)
         {
-            Debug.Log("рыба не нулл");
             _coroutine = StartCoroutine(ElapseTime());
         }
     }
 
     private IEnumerator ElapseTime()
     {
-        Debug.Log($"зашли в корутину проверки времени");
 
         while (_isCanCatchFish)
         {

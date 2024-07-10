@@ -8,7 +8,6 @@ public class ActiveButtonView : MonoBehaviour
 
     public void SetActiveEImage(bool active)
     {
-        _eButtonImage.gameObject.SetActive(active);
         _eButton.gameObject.SetActive(active);
     }
 }

@@ -8,8 +8,10 @@ public class WorkBrench : MonoBehaviour
     [SerializeField] private List<GameObject> _tools;
     [SerializeField] private WorkBranchViewer _viewer;
     [SerializeField] private ActiveButtonView _buttonView;
+    [SerializeField] private TutorialViewer _tutorial;
 
     private Player _player;
+    private bool _isTutorialShowed;
 
     private void Update()
     {
@@ -37,6 +39,12 @@ public class WorkBrench : MonoBehaviour
         _buttonView.SetActiveEImage(false);
         _viewer.gameObject.SetActive(true);
 
+        if (_isTutorialShowed == false)
+        {
+            _tutorial.ShowHowUpgrade();
+            _isTutorialShowed = true;
+        }
+        
         if (_playerNearbyChecker.GetPlayer() != null)
         {
             _player = _playerNearbyChecker.GetPlayer();
