@@ -10,12 +10,6 @@ public class PlayerAnimationController : MonoBehaviour
     private int _happyIdle = Animator.StringToHash("Happy Idle");
     private int _swimming = Animator.StringToHash("Swimming");
 
-
-    private void Start()
-    {
-       //_animator = GetComponent<Animator>();
-    }
-
     public void SetAnimator(Animator animator)
     {
         _animator = animator;

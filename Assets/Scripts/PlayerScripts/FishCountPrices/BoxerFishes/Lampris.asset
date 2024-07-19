@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Lampris
   m_EditorClassIdentifier: 
   _creature: {fileID: 11400000, guid: 1c7fe7e904c3ff64a876f0663c05bc7d, type: 2}
-  _cost: 0
+  _cost: 20

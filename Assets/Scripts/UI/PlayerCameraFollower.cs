@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCameraFollower : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private Vector3 _offset;
+
     private void LateUpdate()
     {
         Vector3 temp = gameObject.transform.position;
 
-        //gameObject.transform.LookAt(_player.transform.position);
         temp.z = _player.transform.position.z;
         temp.x = _player.transform.position.x;
         temp.y = _player.transform.position.y;

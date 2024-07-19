@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -81,23 +80,6 @@ public class FishCatcher : MonoBehaviour
             _spawner.SetOffFish(fish);
         }
     }
-
-    //private bool CheckElapsedTime(Fish fish)
-    //{
-    //    if (fish == null)
-    //    {
-    //        
-    //        return false;
-    //    }
-
-    //    if (_elapsedTime >= fish.Catchtime)
-    //    {
-    //        return true;
-    //    }
-
-    //    _elapsedTime += Time.deltaTime;
-    //    return false;
-    //}
 
     private void StartElapseTime()
     {

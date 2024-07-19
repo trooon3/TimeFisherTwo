@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MantaRey
   m_EditorClassIdentifier: 
   _creature: {fileID: 11400000, guid: c7b0c559264fc7444b42cd1b8fcae39f, type: 2}
-  _cost: 0
+  _cost: 50

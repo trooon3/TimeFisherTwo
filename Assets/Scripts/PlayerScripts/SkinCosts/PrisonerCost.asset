@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 898ce3ecd05a4684182494e2851ff8fd, type: 3}
   m_Name: PrisonerCost
   m_EditorClassIdentifier: 
-  _fourthFishTypeCost: {fileID: 11400000, guid: d1e7032cb7b4c334cbd7c77c3a78c618, type: 2}
-  _firstFishTypeCost: {fileID: 11400000, guid: 43fa7b30ba60ef74da2e3ab701591916, type: 2}
-  _secondFishTypeCost: {fileID: 11400000, guid: 53b6254d7d1f1f94fa55daff10d90d7a, type: 2}
-  _thirdFishTypeCost: {fileID: 11400000, guid: d985adf489c7c444985b638a8461dff9, type: 2}
+  _fourthFishTypeCost: {fileID: 11400000, guid: 9d4c290b819b5684f8587ab6d8fef98e, type: 2}
+  _firstFishTypeCost: {fileID: 11400000, guid: cd950fdcedadb104da42efb27f0e227c, type: 2}
+  _secondFishTypeCost: {fileID: 11400000, guid: d90076e1835cdcd4abe60f8906c4d6d8, type: 2}
+  _thirdFishTypeCost: {fileID: 11400000, guid: 11f628bf248bbd8409b850b0a93739f1, type: 2}

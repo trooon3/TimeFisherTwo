@@ -1,5 +1,4 @@
 using Agava.YandexGames;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +9,30 @@ public class YandexLeaderboard : MonoBehaviour
 
     private readonly List<LeaderboardPlayer> _leaderboardPlayers = new();
     [SerializeField] private LeaderboardView _leaderboardView;
+    [SerializeField] private GameObject _offerLogInPanel;
+
+
+    private void OfferLogIn()
+    {
+        _offerLogInPanel.SetActive(true);
+    }
+
+    public void OpenLeaderBoard()
+    {
+        if (PlayerAccount.IsAuthorized)
+        {
+           PlayerAccount.RequestPersonalProfileDataPermission();
+        }
+        else
+        {
+            OfferLogIn();
+        }
+    }
+
+    public void Authorize()
+    {
+        PlayerAccount.Authorize();
+    }
 
     public void SetPlayerScore(int score)
     {

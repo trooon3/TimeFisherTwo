@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Redarowzna
   m_EditorClassIdentifier: 
   _creature: {fileID: 11400000, guid: 8c0e2c54af375804fa57f0ddeea69b65, type: 2}
-  _cost: 0
+  _cost: 50

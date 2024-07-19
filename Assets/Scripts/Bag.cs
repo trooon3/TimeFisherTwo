@@ -9,18 +9,22 @@ public class Bag : MonoBehaviour , IUpgradable
     private int _maxLevel = 5;
     private int _maxFishCount;
     private int _countResourseToUpgrade;
+    private int _countAllCatchedFishes;
     private bool _isActiveIncreaseAd;
 
     private List<Fish> _fishes = new List<Fish>();
     private Resource _resourceToUpgrade;
+    private AudioSource _audioSource;
     private Coroutine _coroutine;
     private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
 
+    [SerializeField] private AudioClip _catchSound;
     [SerializeField] private TutorialViewer _tutorial;
     private bool _isTutorialShowed;
 
     public Resource ResourceToUpgrade => _resourceToUpgrade;
     public int CountResourseToUpgrade => _countResourseToUpgrade;
+    public int CountAllCatchedFishes => _countAllCatchedFishes;
     public int FishesInsideCount;
     public int Level { get; private set; }
     public string NextLevel { get; private set; }
@@ -35,7 +39,7 @@ public class Bag : MonoBehaviour , IUpgradable
         Level = 0;
         NextLevel = (Level + 1).ToString();
         _resourceToUpgrade = Resource.SeaWeed;
-        
+        _audioSource = GetComponent<AudioSource>();
         CheckLevel();
     }
 
@@ -91,6 +95,8 @@ public class Bag : MonoBehaviour , IUpgradable
             _fishes.Add(fish);
             FishesInsideCount = _fishes.Count;
             FishCountChanged?.Invoke();
+            _audioSource.PlayOneShot(_catchSound);
+            _countAllCatchedFishes++;
 
             if (_isTutorialShowed == false)
             {

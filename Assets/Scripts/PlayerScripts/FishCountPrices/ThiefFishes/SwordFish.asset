@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SwordFish
   m_EditorClassIdentifier: 
   _creature: {fileID: 11400000, guid: 1028f86cc20edd34ba5c6b4879be52b2, type: 2}
-  _cost: 0
+  _cost: 30
