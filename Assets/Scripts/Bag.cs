@@ -18,13 +18,13 @@ public class Bag : MonoBehaviour , IUpgradable
     private Coroutine _coroutine;
     private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
 
+    [SerializeField] private YandexLeaderboard _yandexLeaderboard;
     [SerializeField] private AudioClip _catchSound;
     [SerializeField] private TutorialViewer _tutorial;
     private bool _isTutorialShowed;
 
     public Resource ResourceToUpgrade => _resourceToUpgrade;
     public int CountResourseToUpgrade => _countResourseToUpgrade;
-    public int CountAllCatchedFishes => _countAllCatchedFishes;
     public int FishesInsideCount;
     public int Level { get; private set; }
     public string NextLevel { get; private set; }
@@ -86,6 +86,11 @@ public class Bag : MonoBehaviour , IUpgradable
         BagDevastated?.Invoke();
 
         return fishes;
+    }
+
+    public void SetScore()
+    {
+        _yandexLeaderboard.SetPlayerScore(_countAllCatchedFishes);
     }
 
     public bool TryAddFish(Fish fish)
