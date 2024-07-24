@@ -77,5 +77,6 @@ public class YandexLeaderboard : MonoBehaviour
 
             _leaderboardView.ConstructLeaderboard(_leaderboardPlayers);
         });
+
     }
 }

@@ -8,8 +8,8 @@ public class FishMover : MonoBehaviour
     private float _maxValue = 90;
     private float _minValue = 200;
     private Vector3 _targetPosition;
-    private Vector3 _boatUpRightPosition = new Vector3(157, 1, 145);
-    private Vector3 _boatDownLeftPosition = new Vector3(135, 1, 162);
+    private Vector3 _boatUpRightPosition = new Vector3(162, 1, 140);
+    private Vector3 _boatDownLeftPosition = new Vector3(130, 1, 168);
 
     private void Awake()
     {
