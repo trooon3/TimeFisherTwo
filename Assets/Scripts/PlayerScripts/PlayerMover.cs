@@ -53,19 +53,9 @@ public class PlayerMover : MonoBehaviour
 
         Vector3 direction = new Vector3(Input.GetAxisRaw(Horizontal),0, Input.GetAxisRaw(Vertical)).normalized;
 
-        Vector3 distance = direction * _moveSpeed * Time.deltaTime;
-        Vector3 nextPosition = transform.position + distance;
-
-        if (nextPosition.x <= _maxPlaceToSwim && nextPosition.x >= _minPlaceToSwim && nextPosition.z <= _maxPlaceToSwim && nextPosition.z >= _minPlaceToSwim)
+        if (!Input.GetMouseButton(0) && !Input.GetMouseButton(1) && !Input.GetMouseButton(2))
         {
-            if (direction != Vector3.zero)
-            {
-                transform.forward = direction;
-            }
-
-            transform.position = transform.position + distance;
-
-            _animator.DoMove(direction.magnitude);
+            JoyStickMove(direction);
         }
     }
 

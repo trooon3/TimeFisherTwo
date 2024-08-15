@@ -35,10 +35,15 @@ public class ClosetView : MonoBehaviour
             fishCard.gameObject.SetActive(false);
         }
 
+        
         OnResourceCountChanged();
         SetCounters();
     }
 
+    private void Start()
+    {
+        RefreshFishCounts();
+    }
 
     private void OnEnable()
     {

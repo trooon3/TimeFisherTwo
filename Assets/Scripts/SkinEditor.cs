@@ -6,6 +6,10 @@ public class SkinEditor : MonoBehaviour
     [SerializeField] private Skin _defaultSkin;
     [SerializeField] private List<Skin> _skins;
     [SerializeField] private PlayerAnimationController _controller;
+    [SerializeField] private DataSaver _saver;
+    public DTOSkin DTOChosenSkin;
+    public string _chosenSkinName;
+    public string _chosenSkinKey = "defaultSkinKey";
 
     public List<Skin> Skins => _skins;
  
@@ -21,7 +25,29 @@ public class SkinEditor : MonoBehaviour
             skin.gameObject.SetActive(false);
         }
 
-        _defaultSkin.gameObject.SetActive(true);
+        string chosenSkinName = _saver.LoadChosenSkin(_chosenSkinKey);
+
+        if (chosenSkinName != null)
+        {
+            _chosenSkinName = chosenSkinName;
+        }
+        else
+        {
+            _chosenSkinName = null;
+        }
+
+        foreach (var skin in _skins)
+        {
+            if (skin.Name == _chosenSkinName)
+            {
+                SetSkin(skin);
+            }
+        }
+
+        if (_chosenSkinName == null || _chosenSkinName == "")
+        {
+            SetSkin(_defaultSkin);
+        }
     }
 
     public void SetSkin(Skin skinToChoose)
@@ -33,9 +59,10 @@ public class SkinEditor : MonoBehaviour
             if (skin == skinToChoose)
             {
                 skinToChoose.gameObject.SetActive(true);
+                _chosenSkinName = skin.Name;
                 _controller.SetAnimator(skinToChoose.Animator);
-                
             }
         }
+                _saver.SaveChosenSkin(_chosenSkinKey, _chosenSkinName);
     }
 }

@@ -12,7 +12,7 @@ public class SeaCreature : ScriptableObject
     [SerializeField] Resource _resource;
 
      public float Catchtime => _catchtime;
-     public string Name => _name;
+     public string Name => Lean.Localization.LeanLocalization.GetTranslationText(_name);
      public int Level => _level;
      public FishType FishType => _fishType;
      public SeaCreature FoodFor => _foodFor;

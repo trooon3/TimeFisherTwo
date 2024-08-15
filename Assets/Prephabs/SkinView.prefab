@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2270770375628588953}
   - component: {fileID: 8137793928320938765}
   - component: {fileID: 8657177535633696086}
+  - component: {fileID: 4213417946216537417}
   m_Layer: 5
   m_Name: SkinView
   m_TagString: Untagged
@@ -102,6 +103,19 @@ MonoBehaviour:
   - {fileID: 2911729959752276433}
   - {fileID: 4429596452304206524}
   - {fileID: 7243445195652210405}
+  _saver: {fileID: 4213417946216537417}
+--- !u!114 &4213417946216537417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106659171951284803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2247f6d54fc8d65469239a74f6660a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4921502921500334475
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,10 +148,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8050004009196065890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.21300001, y: 0.60911125}
-  m_AnchorMax: {x: 0.21300001, y: 0.60911125}
-  m_AnchoredPosition: {x: -5, y: 3}
-  m_SizeDelta: {x: 378.7052, y: 676.5203}
+  m_AnchorMin: {x: 0.20816725, y: 0.55018187}
+  m_AnchorMax: {x: 0.20816725, y: 0.55018187}
+  m_AnchoredPosition: {x: 1, y: -2.9663239}
+  m_SizeDelta: {x: 378.7052, y: 534.5877}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3248126796731851124
 CanvasRenderer:
@@ -461,6 +475,7 @@ MonoBehaviour:
   _tryBuyButtonText: {fileID: 0}
   _skinIcon: {fileID: 0}
   _fishCosts: []
+  _saver: {fileID: 0}
 --- !u!1001 &1728215573204792462
 PrefabInstance:
   m_ObjectHideFlags: 0

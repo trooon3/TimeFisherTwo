@@ -5,8 +5,8 @@ using UnityEngine.Events;
 [Serializable]
 public class FishTypeCounter
 {
-    private FishType _type;
-    [Min(0)] private int _count;
+    [SerializeField] public FishType _type;
+    [SerializeField] [Min(0)] public int _count;
 
     public FishType Type => _type;
     public int Count => _count;

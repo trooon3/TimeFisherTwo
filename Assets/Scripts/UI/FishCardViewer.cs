@@ -16,7 +16,7 @@ public class FishCardViewer : MonoBehaviour
     public void Init(SeaCreature fish)
     {
         _seaCreature = fish;
-        _label.text = fish.FishType.ToString();
+        _label.text = fish.Name;
         _icon.sprite = fish.Icon;
     }
 

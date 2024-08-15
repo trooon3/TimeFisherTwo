@@ -9,11 +9,12 @@ public class Rod : MonoBehaviour , IUpgradable
     [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
     [SerializeField] private RodCatchViewer _catchViewer;
     [SerializeField] private ClosetView _closetView;
+    [SerializeField] private DataSaver _saver;
    
     private int _countResourseToUpgrade;
-    private int _spicesFishRewardCount = 2;
     private int _maxLevel = 5;
     private float _catchingSpeed;
+    private string _levelSave = "RodLevel";
 
     private FishType _fishFoodFor;
     private FishType _cathchingFish;
@@ -24,7 +25,7 @@ public class Rod : MonoBehaviour , IUpgradable
 
     public float CatchingSpeed => _catchingSpeed;
     public int CountResourseToUpgrade => _countResourseToUpgrade;
-    public int Level { get; private set; }
+    public int Level;
     public string NextLevel { get; private set; }
     public Resource ResourceToUpgrade => _resourceToUpgrade;
     public FishType FishFoodFor => _fishFoodFor;
@@ -32,11 +33,11 @@ public class Rod : MonoBehaviour , IUpgradable
 
     private void Awake()
     {
-        Level = 0;
         NextLevel = (Level + 1).ToString();
         _resourceToUpgrade = Resource.FishBones;
-
         CheckLevel();
+
+        Level = _saver.LoadLevel(_levelSave);
     }
 
     public void SetActiveIncrease()
@@ -79,6 +80,8 @@ public class Rod : MonoBehaviour , IUpgradable
 
             Upgraded?.Invoke();
         }
+
+        _saver.SaveLevel(_levelSave, Level);
         CheckLevel();
     }
 

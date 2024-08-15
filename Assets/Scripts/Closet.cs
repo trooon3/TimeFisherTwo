@@ -11,32 +11,54 @@ public class Closet : MonoBehaviour
     [SerializeField] private ClosetView _view;
     [SerializeField] private ActiveButtonView _buttonView;
     [SerializeField] private RodCatchViewer _rodView;
+    [SerializeField] private TutorialViewer _tutorial;
+    [SerializeField] private DataSaver _saver;
 
     private List<ResourceCounter> _resources;
     private List<FishTypeCounter> _catchedFishes;
-    private Player _player;
-    public List<SeaCreature> AllFishes => _allFishes;
-    public List<FishTypeCounter> CatchedFishes => _catchedFishes;
+    
     private bool _isActiveIncreaseAd;
+    private bool _isTutorialShowed;
+
+    private string _fishesCountSaves = "FishTypeCount";
+    private string _resurcesCountSaves = "ResourcesCount";
 
     private Coroutine _coroutine;
     private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
+    private Player _player;
+    public List<SeaCreature> AllFishes => _allFishes;
+    public List<FishTypeCounter> CatchedFishes => _catchedFishes;
+    public DataSaver Saver => _saver;
 
     public UnityAction FishTransferred;
     public UnityAction ResourceCountChanged;
 
-    [SerializeField] private TutorialViewer _tutorial;
-    private bool _isTutorialShowed;
 
     private void Awake()
     {
-        _resources = new List<ResourceCounter> { new ResourceCounter(Resource.FishBones), new ResourceCounter(Resource.SeaWeed)};
-        _catchedFishes = new List<FishTypeCounter>();
+        _catchedFishes = _saver.LoadFishesCountData(_fishesCountSaves);
+        _resources = _saver.LoadResourcesCountData(_resurcesCountSaves);
 
-        foreach (var creature in _allFishes)
+        if (_catchedFishes == null)
         {
-            FishTypeCounter counter = new FishTypeCounter(creature.FishType);
-            _catchedFishes.Add(counter);
+            _catchedFishes = new List<FishTypeCounter>();
+
+            foreach (var creature in _allFishes)
+            {
+                FishTypeCounter counter = new FishTypeCounter(creature.FishType);
+                _catchedFishes.Add(counter);
+            }
+        }
+    }
+
+    public void GetAllFishes()
+    {
+        foreach (var fish in _catchedFishes)
+        {
+            for (int i = 0; i < 1000; i++)
+            {
+                fish.Increase();
+            }
         }
     }
 
@@ -74,11 +96,11 @@ public class Closet : MonoBehaviour
 
     private void AddFish(Fish fish)
     {
-        foreach (FishTypeCounter item in _catchedFishes)
+        foreach (FishTypeCounter catchedFish in _catchedFishes)
         {
-            if (item.Type == fish.Type)
+            if (catchedFish.Type == fish.Type)
             {
-                item.Increase();
+                catchedFish.Increase();
                 FishTransferred?.Invoke();
                 _spawner.SetOffFish(fish);
             }
@@ -87,11 +109,11 @@ public class Closet : MonoBehaviour
 
     public void AddFishOnRod(FishType type)
     {
-        foreach (FishTypeCounter item in _catchedFishes)
+        foreach (FishTypeCounter catchedFish in _catchedFishes)
         {
-            if (item.Type == type)
+            if (catchedFish.Type == type)
             {
-                item.Increase();
+                catchedFish.Increase();
                 FishTransferred?.Invoke();
             }
         }
@@ -107,11 +129,14 @@ public class Closet : MonoBehaviour
                 FishTransferred?.Invoke();
             }
         }
+
+        _saver.SaveFishesCountData(_fishesCountSaves, _catchedFishes);
     }
 
     public bool CheckCanPaySkin(SkinView skin)
     {
         SkinCost cost = skin.Cost;
+
         foreach (var fishPrice in cost.FishCountPrices)
         {
             foreach (var fish in _catchedFishes)
@@ -157,7 +182,8 @@ public class Closet : MonoBehaviour
                 item.Increase();
             }
         }
-        
+
+        _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
         ResourceCountChanged?.Invoke();
         _tutorial.ShowWhereUpgrade();
     }
@@ -175,6 +201,7 @@ public class Closet : MonoBehaviour
             }
         }
 
+        _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
         ResourceCountChanged?.Invoke();
     }
 
@@ -242,6 +269,7 @@ public class Closet : MonoBehaviour
     {
         _buttonView.SetActiveEImage(false);
         _view.gameObject.SetActive(true);
+
         _rodView.SetOffHappyFace();
 
         if (_isTutorialShowed == false)
@@ -256,5 +284,8 @@ public class Closet : MonoBehaviour
 
             TakeFish(_player.GetFish());
         }
+
+        _saver.SaveFishesCountData(_fishesCountSaves, _catchedFishes);
+        _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
     }
 }

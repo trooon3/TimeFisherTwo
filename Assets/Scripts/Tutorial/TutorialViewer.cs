@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Agava.WebUtility;
 
 public class TutorialViewer : MonoBehaviour
 {
@@ -27,7 +28,15 @@ public class TutorialViewer : MonoBehaviour
 
     private void ShowHowWalk()
     {
-        _howWalk.gameObject.SetActive(true);
+        if (Device.IsMobile)
+        {
+            _howWalkMobile.gameObject.SetActive(true);
+        }
+        else
+        {
+            _howWalk.gameObject.SetActive(true);
+        }
+        
     }
 
     private void ShowHowCatchFish()

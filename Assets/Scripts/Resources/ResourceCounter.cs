@@ -4,8 +4,8 @@ using System;
 [Serializable]
 public class ResourceCounter
 {
-    private Resource _resource;
-    [Min(0)] private int _count;
+    public Resource _resource;
+    [Min(0)] public int _count;
 
     public Resource Resource => _resource;
     public int Count => _count;

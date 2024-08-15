@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,27 +5,31 @@ using System.Collections;
 
 public class Bag : MonoBehaviour , IUpgradable
 {
+    [SerializeField] private YandexLeaderboard _yandexLeaderboard;
+    [SerializeField] private AudioClip _catchSound;
+    [SerializeField] private TutorialViewer _tutorial;
+    [SerializeField] private DataSaver _saver;
+
     private int _maxLevel = 5;
     private int _maxFishCount;
     private int _countResourseToUpgrade;
     private int _countAllCatchedFishes;
+    private int _fishesInsideCount;
+
     private bool _isActiveIncreaseAd;
+    private bool _isTutorialShowed;
 
     private List<Fish> _fishes = new List<Fish>();
     private Resource _resourceToUpgrade;
     private AudioSource _audioSource;
-    private Coroutine _coroutine;
+    private Coroutine _coroutine; 
     private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
-
-    [SerializeField] private YandexLeaderboard _yandexLeaderboard;
-    [SerializeField] private AudioClip _catchSound;
-    [SerializeField] private TutorialViewer _tutorial;
-    private bool _isTutorialShowed;
+    private string _levelSave = "BagLevel";
 
     public Resource ResourceToUpgrade => _resourceToUpgrade;
     public int CountResourseToUpgrade => _countResourseToUpgrade;
-    public int FishesInsideCount;
-    public int Level { get; private set; }
+    public int FishesInsideCount => _fishesInsideCount;
+    public int Level;
     public string NextLevel { get; private set; }
 
     public UnityAction FishCountChanged;
@@ -36,11 +39,12 @@ public class Bag : MonoBehaviour , IUpgradable
 
     private void Awake()
     {
-        Level = 0;
         NextLevel = (Level + 1).ToString();
         _resourceToUpgrade = Resource.SeaWeed;
         _audioSource = GetComponent<AudioSource>();
         CheckLevel();
+
+        Level = _saver.LoadLevel(_levelSave);
     }
 
     public void SetActiveIncrease()
@@ -81,7 +85,7 @@ public class Bag : MonoBehaviour , IUpgradable
         }
 
         _fishes.Clear();
-        FishesInsideCount = _fishes.Count;
+        _fishesInsideCount = _fishes.Count;
         FishCountChanged?.Invoke();
         BagDevastated?.Invoke();
 
@@ -98,7 +102,7 @@ public class Bag : MonoBehaviour , IUpgradable
         if (_fishes.Count < _maxFishCount)
         {
             _fishes.Add(fish);
-            FishesInsideCount = _fishes.Count;
+            _fishesInsideCount = _fishes.Count;
             FishCountChanged?.Invoke();
             _audioSource.PlayOneShot(_catchSound);
             _countAllCatchedFishes++;
@@ -140,6 +144,8 @@ public class Bag : MonoBehaviour , IUpgradable
 
             Upgraded?.Invoke();
         }
+
+        _saver.SaveLevel(_levelSave, Level);
         CheckLevel();
     }
 

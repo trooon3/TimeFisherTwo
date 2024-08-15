@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: ClownFish
   _catchtime: 1
-  _level: 0
+  _level: 1
   _fishType: 1
   _foodFor: {fileID: 11400000, guid: 5b2fd05e1aa84ec419dc8a4b752c8ada, type: 2}
   _icon: {fileID: 21300000, guid: b036663e572325f43a0eb6f92bafbcd8, type: 3}

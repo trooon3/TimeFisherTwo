@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class YandexLeaderboard : MonoBehaviour
 {
-    private const string LeaderboardName = "Таблица лидеров";
+    private const string LeaderboardName = "Leaderboard";
     private const string AnonymousName = "Anonymous";
 
     private readonly List<LeaderboardPlayer> _leaderboardPlayers = new();
@@ -77,6 +77,5 @@ public class YandexLeaderboard : MonoBehaviour
 
             _leaderboardView.ConstructLeaderboard(_leaderboardPlayers);
         });
-
     }
 }
