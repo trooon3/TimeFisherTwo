@@ -8,6 +8,7 @@ public class FishSpawner : MonoBehaviour
     [SerializeField] private List<Fish> _prefabs;
     [SerializeField] private int _maxFishCount;
     [SerializeField] private Closet _closet;
+
     private ObjectPool<Fish> _pool;
 
     private void Start()

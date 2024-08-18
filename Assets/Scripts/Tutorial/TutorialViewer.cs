@@ -13,6 +13,7 @@ public class TutorialViewer : MonoBehaviour
     [SerializeField] private Image _arrowToResouces;
     [SerializeField] private Image _arrowToFishCount;
     [SerializeField] private Image _arrowToShop;
+
     [SerializeField] private GameObject _howGetFishToCloset;
     [SerializeField] private GameObject _howUpgrade;
     [SerializeField] private GameObject _howCatchOnRodTutorial;
@@ -36,7 +37,6 @@ public class TutorialViewer : MonoBehaviour
         {
             _howWalk.gameObject.SetActive(true);
         }
-        
     }
 
     private void ShowHowCatchFish()

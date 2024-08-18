@@ -1,16 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class BagCountViewer : MonoBehaviour
 {
     [SerializeField] private Bag _bag;
+    [SerializeField] private TutorialViewer _tutorial;
+
     [SerializeField] private TMP_Text _fishCount;
     [SerializeField] private TMP_Text _filledBagText;
 
-    [SerializeField] private TutorialViewer _tutorial;
     private bool _isTutorialShowed;
+
     private void Start()
     {
         OnFishAdded();

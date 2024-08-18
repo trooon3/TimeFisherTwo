@@ -24,15 +24,6 @@ public class Tutorial : MonoBehaviour
         SelectTutorial();
     }
 
-    private void OnADPlayed(bool isPlayed)
-    {
-        if (isPlayed == true && _isFirstLaunch == true)
-            _maxExitCount++;
-
-        if (isPlayed == false && _isFirstLaunch == true)
-            SelectTutorial();
-    }
-
     private void OnTriggerExit(Collider other)
     {
         if (other.TryGetComponent(out Player player))
@@ -45,6 +36,15 @@ public class Tutorial : MonoBehaviour
             _keyboardInputTutorial.SetActive(false);
             _isFirstLaunch = false;
         }
+    }
+
+    private void OnADPlayed(bool isPlayed)
+    {
+        if (isPlayed == true && _isFirstLaunch == true)
+            _maxExitCount++;
+
+        if (isPlayed == false && _isFirstLaunch == true)
+            SelectTutorial();
     }
 
     private void SelectTutorial()

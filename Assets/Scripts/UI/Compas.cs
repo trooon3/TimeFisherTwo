@@ -24,8 +24,12 @@ public class Compas : MonoBehaviour
     {
         Vector3 target = new Vector3(_ship.position.x, transform.position.y, _ship.position.z);
         Vector3 direction = target - transform.position;
+
         if (direction == Vector3.zero)
+        {
             return;
+        }
+
         Quaternion targetQuternion = Quaternion.LookRotation(direction, transform.up);
         transform.rotation = targetQuternion;
     }

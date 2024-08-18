@@ -5,7 +5,7 @@ using UnityEngine;
 public class InterAd : MonoBehaviour
 {
     private Coroutine _coroutine;
-    private WaitForSeconds _twoMinets = new WaitForSeconds(120f);
+    private WaitForSeconds _twoMinets = new WaitForSeconds(180f);
 
     private void Start()
     {

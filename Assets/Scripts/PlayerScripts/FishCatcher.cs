@@ -11,11 +11,12 @@ public class FishCatcher : MonoBehaviour
     [SerializeField] private float _minAngle;
     [SerializeField] private float _maxAngle;
     [SerializeField] private float _radius;
-    [SerializeField] private FishSpawner _spawner;
     [SerializeField] private bool _isCanCatchFish;
+    [SerializeField] private FishSpawner _spawner;
 
     private float _angle = 100;
     private float _elapsedTime = 0;
+
     private Bag _bag;
     private Fish _fishToCatch;
     private Coroutine _coroutine;
@@ -96,7 +97,6 @@ public class FishCatcher : MonoBehaviour
 
     private IEnumerator ElapseTime()
     {
-
         while (_isCanCatchFish)
         {
             if (_elapsedTime >= _fishToCatch.Catchtime)
@@ -110,7 +110,5 @@ public class FishCatcher : MonoBehaviour
             _elapsedTime += Time.deltaTime;
             yield return null;
         }
-        
     }
-
 }

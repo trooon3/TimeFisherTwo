@@ -10,6 +10,7 @@ public class RodCatchViewer : MonoBehaviour
     [SerializeField] private Rod _rod;
     
     private Coroutine _coroutine;
+
     private float _changeSpeed;
     private float _catchTime = 1;
 

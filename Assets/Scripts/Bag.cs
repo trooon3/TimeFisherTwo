@@ -25,11 +25,13 @@ public class Bag : MonoBehaviour , IUpgradable
     private Coroutine _coroutine; 
     private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
     private string _levelSave = "BagLevel";
+    private string _tutorialShowedKey = "TutorialKey";
 
     public Resource ResourceToUpgrade => _resourceToUpgrade;
     public int CountResourseToUpgrade => _countResourseToUpgrade;
     public int FishesInsideCount => _fishesInsideCount;
     public int Level;
+    public bool IsTutorialShowed;
     public string NextLevel { get; private set; }
 
     public UnityAction FishCountChanged;
@@ -44,13 +46,24 @@ public class Bag : MonoBehaviour , IUpgradable
         _audioSource = GetComponent<AudioSource>();
         CheckLevel();
 
-        Level = _saver.LoadLevel(_levelSave);
+        var dtoTutorial = _saver.LoadTutorialData(_tutorialShowedKey);
+        ApplySaves(dtoTutorial);
     }
 
     public void SetActiveIncrease()
     {
         _isActiveIncreaseAd = true;
         StartIncreaseTimer();
+    }
+
+    private void ApplySaves(DTOTutorial dtoTutorial)
+    {
+        if (dtoTutorial != null)
+        {
+            _isTutorialShowed = dtoTutorial.IsShowed;
+        }
+
+        Level = _saver.LoadLevel(_levelSave);
     }
 
     private void StartIncreaseTimer()
@@ -111,6 +124,7 @@ public class Bag : MonoBehaviour , IUpgradable
             {
                 _tutorial.ShowWhereFishesCount();
                 _isTutorialShowed = true;
+                _saver.SaveTutorialData(_tutorialShowedKey, new DTOTutorial { IsShowed = _isTutorialShowed });
             }
 
             if (_fishes.Count == _maxFishCount)
@@ -125,7 +139,6 @@ public class Bag : MonoBehaviour , IUpgradable
 
         return false;
     }
-
 
     public void Upgrade()
     {

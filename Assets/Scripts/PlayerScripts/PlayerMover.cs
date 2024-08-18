@@ -12,16 +12,22 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _moveSpeed;
     [SerializeField] private PlaceChecker _placeChecker;
     [SerializeField] private PlayerAnimationController _animator;
+
     private float  _maxPlaceToSwim = 210;
     private float  _minPlaceToSwim = 80;
     private Rigidbody _rigidbody;
-
     private Coroutine _coroutine;
     private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+    }
+
+    void FixedUpdate()
+    {
+        Move();
+        JumpUp();
     }
 
     public void SetActiveIncrease()
@@ -89,11 +95,5 @@ public class PlayerMover : MonoBehaviour
         }
 
         _animator.DoJumpAnimation(_placeChecker.IsOnGround, _placeChecker.InWater);
-    }
-
-    void FixedUpdate()
-    {
-        Move();
-        JumpUp();
     }
 }

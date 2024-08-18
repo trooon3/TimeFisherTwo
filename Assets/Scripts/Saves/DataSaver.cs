@@ -93,4 +93,24 @@ public class DataSaver : MonoBehaviour
     {
         return PlayerPrefs.GetString(key, null);
     }
+
+    public void SaveTutorialData(string key, DTOTutorial dtoTutorial)
+    {
+        var jsonString = JsonUtility.ToJson(dtoTutorial);
+        PlayerPrefs.SetString(key, jsonString);
+        PlayerPrefs.Save();
+    }
+
+    public DTOTutorial LoadTutorialData(string key)
+    {
+        var jsonString = PlayerPrefs.GetString(key);
+        var dtoTutorial = JsonUtility.FromJson<DTOTutorial>(jsonString);
+
+        if (dtoTutorial != null)
+        {
+            return dtoTutorial;
+        }
+
+        return new DTOTutorial();
+    }
 }

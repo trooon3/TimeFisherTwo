@@ -7,10 +7,18 @@ public class FishCatchTimerViewer : MonoBehaviour
     [SerializeField] private Fish _fish;
     [SerializeField] private Slider _sliderCatchTime;
     [SerializeField] private float _catchPointChangeSpeed;
+
     private FishCatcher _cathcer;
     private FieldOfView _fieldOfView;
-
     private Coroutine _coroutine;
+
+    private void Update()
+    {
+        if (_cathcer == null)
+        {
+            _sliderCatchTime.value = Mathf.MoveTowards(_sliderCatchTime.value, 0, _catchPointChangeSpeed * Time.deltaTime);
+        }
+    }
 
     public void SetCatcher(FishCatcher catcher)
     {
@@ -18,15 +26,6 @@ public class FishCatchTimerViewer : MonoBehaviour
         {
             _cathcer = catcher;
             _fieldOfView = _cathcer.FieldOfView;
-        }
-        
-    }
-
-    private void Update()
-    {
-        if (_cathcer == null)
-        {
-            _sliderCatchTime.value = Mathf.MoveTowards(_sliderCatchTime.value, 0, _catchPointChangeSpeed * Time.deltaTime);
         }
     }
 

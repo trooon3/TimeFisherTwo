@@ -23,12 +23,13 @@ public class Rod : MonoBehaviour , IUpgradable
     private Coroutine _coroutine;
     private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
 
-    public float CatchingSpeed => _catchingSpeed;
-    public int CountResourseToUpgrade => _countResourseToUpgrade;
     public int Level;
     public string NextLevel { get; private set; }
     public Resource ResourceToUpgrade => _resourceToUpgrade;
+    public int CountResourseToUpgrade => _countResourseToUpgrade;
+    public float CatchingSpeed => _catchingSpeed;
     public FishType FishFoodFor => _fishFoodFor;
+
     public UnityAction Upgraded;
 
     private void Awake()
@@ -85,7 +86,6 @@ public class Rod : MonoBehaviour , IUpgradable
         CheckLevel();
     }
 
-
     public void GetFishFoodFor()
     {
         _catchViewer.StopDisplayCatchingTime();
@@ -100,7 +100,6 @@ public class Rod : MonoBehaviour , IUpgradable
         }
     }
 
-    
     public Resource GetResourceToUpgrade()
     {
         return ResourceToUpgrade;

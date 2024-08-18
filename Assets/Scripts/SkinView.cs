@@ -19,7 +19,6 @@ public class SkinView : MonoBehaviour
     
     private bool _isBuyed;
 
-
     public SkinCost Cost => _cost;
     public Skin Skin => _skin;
 
@@ -39,11 +38,11 @@ public class SkinView : MonoBehaviour
 
         if (_isBuyed)
         {
-            _tryBuyButtonText.text = "Выбрать";
+            _tryBuyButtonText.text = Lean.Localization.LeanLocalization.GetTranslationText("Buyed");
         }
         else
         {
-            _tryBuyButtonText.text = "Купить";
+            _tryBuyButtonText.text = Lean.Localization.LeanLocalization.GetTranslationText("NotBuyed");
         }
         
         for (int i = 0; i < _fishCosts.Count; i++)
@@ -72,7 +71,7 @@ public class SkinView : MonoBehaviour
             if (_closet.CheckCanPaySkin(this))
             {
                 _isBuyed = true;
-                _tryBuyButtonText.text = "Выбрать";
+                _tryBuyButtonText.text = Lean.Localization.LeanLocalization.GetTranslationText("Buyed");
 
                 _saver.SaveSkinData(_nameKey, new DTOSkin { Isbuyed = _isBuyed, Name = _nameKey });
             }

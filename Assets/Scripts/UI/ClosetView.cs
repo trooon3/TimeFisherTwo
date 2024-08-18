@@ -9,13 +9,12 @@ public class ClosetView : MonoBehaviour
     [SerializeField] private Rod _rod;
     [SerializeField] private FishCardViewer _template;
     [SerializeField] private Transform _container;
+    [SerializeField] private TutorialViewer _tutorial;
 
     [SerializeField] private TMP_Text _boneCount;
     [SerializeField] private TMP_Text _weedCount;
 
     private List<FishCardViewer> _fishCardViewers;
-
-    [SerializeField] private TutorialViewer _tutorial;
     private bool _isTutorialShowed;
 
     private void Awake()
@@ -35,7 +34,6 @@ public class ClosetView : MonoBehaviour
             fishCard.gameObject.SetActive(false);
         }
 
-        
         OnResourceCountChanged();
         SetCounters();
     }

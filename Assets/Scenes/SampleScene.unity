@@ -2028,9 +2028,9 @@ MonoBehaviour:
   _rod: {fileID: 5676301965097580309}
   _template: {fileID: 639684273822437186, guid: 7d878218701c6d245acce818b3145946, type: 3}
   _container: {fileID: 492408775}
+  _tutorial: {fileID: 1005040031}
   _boneCount: {fileID: 1433049343}
   _weedCount: {fileID: 800820501}
-  _tutorial: {fileID: 1005040031}
 --- !u!1 &299228030
 GameObject:
   m_ObjectHideFlags: 0
@@ -5336,6 +5336,8 @@ Transform:
   - {fileID: 1167481532}
   - {fileID: 1024190614}
   - {fileID: 1577261140}
+  - {fileID: 1331122041}
+  - {fileID: 962541042}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &711555562
@@ -7292,6 +7294,61 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 777193700858563552, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
   m_PrefabInstance: {fileID: 4765830072993272562}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &962541041
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 962541042}
+  - component: {fileID: 962541043}
+  m_Layer: 0
+  m_Name: NotBuyed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &962541042
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962541041}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 711260028}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &962541043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962541041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: Russian
+    Text: "\u041A\u0443\u043F\u0438\u0442\u044C"
+    Object: {fileID: 0}
+  - Language: English
+    Text: Buy
+    Object: {fileID: 0}
+  - Language: Turkish
+    Text: "Sat\u0131n almak"
+    Object: {fileID: 0}
 --- !u!1 &1005040023
 GameObject:
   m_ObjectHideFlags: 0
@@ -7427,9 +7484,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bag: {fileID: 1454740026988430808}
+  _tutorial: {fileID: 1005040031}
   _fishCount: {fileID: 267016734}
   _filledBagText: {fileID: 472114814}
-  _tutorial: {fileID: 1005040031}
 --- !u!114 &1005040029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10570,6 +10627,61 @@ MonoBehaviour:
     Object: {fileID: 0}
   - Language: Turkish
     Text: "\rKarides"
+    Object: {fileID: 0}
+--- !u!1 &1331122040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1331122041}
+  - component: {fileID: 1331122042}
+  m_Layer: 0
+  m_Name: Buyed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1331122041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331122040}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 711260028}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1331122042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331122040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: Russian
+    Text: "\u0412\u044B\u0431\u0440\u0430\u0442\u044C"
+    Object: {fileID: 0}
+  - Language: English
+    Text: Choose
+    Object: {fileID: 0}
+  - Language: Turkish
+    Text: "Se\xE7mek"
     Object: {fileID: 0}
 --- !u!1 &1356481491
 GameObject:

@@ -7,7 +7,9 @@ public class SkinEditor : MonoBehaviour
     [SerializeField] private List<Skin> _skins;
     [SerializeField] private PlayerAnimationController _controller;
     [SerializeField] private DataSaver _saver;
+
     public DTOSkin DTOChosenSkin;
+
     public string _chosenSkinName;
     public string _chosenSkinKey = "defaultSkinKey";
 
@@ -63,6 +65,7 @@ public class SkinEditor : MonoBehaviour
                 _controller.SetAnimator(skinToChoose.Animator);
             }
         }
-                _saver.SaveChosenSkin(_chosenSkinKey, _chosenSkinName);
+
+        _saver.SaveChosenSkin(_chosenSkinKey, _chosenSkinName);
     }
 }

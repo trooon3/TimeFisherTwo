@@ -18,6 +18,5 @@ public class SeaCreature : ScriptableObject
      public SeaCreature FoodFor => _foodFor;
      public Sprite Icon => _icon;
      public Resource Resource => _resource;
-
 }
 

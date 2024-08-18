@@ -51,6 +51,27 @@ public class Closet : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (_playerNearbyChecker.IsPlayerNearby)
+        {
+            _buttonView.SetActiveEImage(true);
+        }
+        else
+        {
+            _buttonView.SetActiveEImage(false);
+        }
+
+        if (_playerNearbyChecker.IsPlayerNearby && Input.GetKey(KeyCode.E))
+        {
+            OnClosetButtonClick();
+        }
+        else if (_playerNearbyChecker.IsPlayerNearby == false)
+        {
+            _view.gameObject.SetActive(false);
+        }
+    }
+
     public void GetAllFishes()
     {
         foreach (var fish in _catchedFishes)
@@ -242,27 +263,6 @@ public class Closet : MonoBehaviour
             }
         }
         return 0;
-    }
-
-    private void Update()
-    {
-        if (_playerNearbyChecker.IsPlayerNearby)
-        {
-            _buttonView.SetActiveEImage(true);
-        }
-        else
-        {
-            _buttonView.SetActiveEImage(false);
-        }
-
-        if (_playerNearbyChecker.IsPlayerNearby && Input.GetKey(KeyCode.E))
-        {
-            OnClosetButtonClick();
-        }
-        else if (_playerNearbyChecker.IsPlayerNearby == false)
-        {
-            _view.gameObject.SetActive(false);
-        }
     }
 
     public void OnClosetButtonClick()

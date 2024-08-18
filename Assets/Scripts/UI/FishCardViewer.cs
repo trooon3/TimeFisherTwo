@@ -8,11 +8,12 @@ public class FishCardViewer : MonoBehaviour
     [SerializeField] private TMP_Text _count;
     [SerializeField] private Image _icon;
     [SerializeField] private Button _hook;
-    private ClosetView _closet; 
 
+    private ClosetView _closet; 
     private SeaCreature _seaCreature;
     private FishTypeCounter _counter;
     public SeaCreature SeaCreature => _seaCreature;
+
     public void Init(SeaCreature fish)
     {
         _seaCreature = fish;

@@ -11,7 +11,6 @@ public class YandexLeaderboard : MonoBehaviour
     [SerializeField] private LeaderboardView _leaderboardView;
     [SerializeField] private GameObject _offerLogInPanel;
 
-
     private void OfferLogIn()
     {
         _offerLogInPanel.SetActive(true);
