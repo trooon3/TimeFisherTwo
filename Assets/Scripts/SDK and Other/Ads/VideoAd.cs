@@ -17,6 +17,7 @@ public class VideoAd
         Time.timeScale = 1;
         AudioListener.volume = 1f;
     }
+
     private void OnCloseCallback(bool isError)
     {
         Time.timeScale = 1;

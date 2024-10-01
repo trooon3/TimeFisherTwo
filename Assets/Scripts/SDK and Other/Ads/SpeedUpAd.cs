@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpeedUpAd : MonoBehaviour
 {
     [SerializeField] private PlayerMover _mover;
+    [SerializeField] private Image _slider;
+    [SerializeField] private AdTimeWorkView _adTimeWork;
 
     public void OnClick()
     {
@@ -14,6 +15,7 @@ public class SpeedUpAd : MonoBehaviour
 
     private void OnRevard()
     {
+        _adTimeWork.StartShowAdTimeWork(_slider, _mover.IncreaseTimeSec);
         _mover.SetActiveIncrease();
     }
 }

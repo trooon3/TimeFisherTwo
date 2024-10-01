@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Agava.WebUtility;
+using System;
 
 public class TutorialViewer : MonoBehaviour
 {
@@ -20,11 +21,44 @@ public class TutorialViewer : MonoBehaviour
     [SerializeField] private GameObject _howCatchFishTuturial;
     [SerializeField] private GameObject _howWalk;
     [SerializeField] private GameObject _howWalkMobile;
+    [SerializeField] private DataSaver _saver;
+    [SerializeField] private ButtonChangerController _buttonChangerController;
+
+    private bool _isShowedWalkTutorial;
+    private bool _isShowedCatchTutorial;
+    private bool _isShowedGetFishTutorial;
+    private string _tutorialShowedKey = "DirectonGuideKey";
+
+    private void Awake()
+    {
+        var dtoTutorial = _saver.LoadTutorialDirectonGuideData(_tutorialShowedKey);
+        ApplySaves(dtoTutorial);
+    }
+
+    private void ApplySaves(DTODirectionGuide dtoTutorial)
+    {
+        if (dtoTutorial != null)
+        {
+            _isShowedWalkTutorial = dtoTutorial.IsShowedWalkTutorial;
+            _isShowedCatchTutorial = dtoTutorial.IsShowedCatchTutorial;
+            _isShowedGetFishTutorial = dtoTutorial.IsShowedGetFishTutorial;
+        }
+    }
 
     private void Start()
     {
-        ShowHowWalk();
-        ShowHowCatchFish();
+        if (_isShowedCatchTutorial == false || _isShowedWalkTutorial == false)
+        {
+            ShowHowWalk();
+            ShowHowCatchFish();
+            _buttonChangerController.SetButtonChangerOff();
+            _saver.SaveTutorialDirectonGuideData(_tutorialShowedKey, new DTODirectionGuide
+            {
+                IsShowedGetFishTutorial = _isShowedGetFishTutorial,
+                IsShowedCatchTutorial = _isShowedCatchTutorial,
+                IsShowedWalkTutorial = _isShowedWalkTutorial
+            });
+        }
     }
 
     private void ShowHowWalk()
@@ -37,28 +71,49 @@ public class TutorialViewer : MonoBehaviour
         {
             _howWalk.gameObject.SetActive(true);
         }
+
+        _isShowedWalkTutorial = true;
     }
 
     private void ShowHowCatchFish()
     {
         _howCatchFishTuturial.gameObject.SetActive(true);
+        _isShowedCatchTutorial = true;
     }
 
     public void ShowWhereFishesCollect()
     {
-        _arrowToCloset.gameObject.SetActive(true);
-        _arrowToFishCount.gameObject.SetActive(false);
-        _howGetFishToCloset.SetActive(true);
+        if (_isShowedGetFishTutorial == false)
+        {
+
+            _arrowToCloset.gameObject.SetActive(true);
+            _arrowToFishCount.gameObject.SetActive(false);
+            _howGetFishToCloset.SetActive(true);
+            _buttonChangerController.SetButtonChangerOff();
+            Time.timeScale = 0;
+
+            _isShowedGetFishTutorial = true;
+            _saver.SaveTutorialDirectonGuideData(_tutorialShowedKey, new DTODirectionGuide
+            {
+                IsShowedGetFishTutorial = _isShowedGetFishTutorial,
+                IsShowedCatchTutorial = _isShowedCatchTutorial,
+                IsShowedWalkTutorial = _isShowedWalkTutorial
+            });
+        }
     }
 
     public void ShowWhereFishesCount()
     {
-        _arrowToFishCount.gameObject.SetActive(true);
+        if (_isShowedGetFishTutorial == false)
+        {
+            _arrowToFishCount.gameObject.SetActive(true);
+        }
     }
 
     public void ShowHowCatchFishOnRod()
     {
         _howCatchOnRodTutorial.gameObject.SetActive(true);
+        _buttonChangerController.SetButtonChangerOff();
         _arrowToCloset.gameObject.SetActive(false);
     }
 
@@ -74,6 +129,7 @@ public class TutorialViewer : MonoBehaviour
     public void ShowHowUpgrade()
     {
         _howUpgrade.gameObject.SetActive(true);
+        _buttonChangerController.SetButtonChangerOff();
     }
 
     public void ShowWhereResources()

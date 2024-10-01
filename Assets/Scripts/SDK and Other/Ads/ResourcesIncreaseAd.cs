@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ResourcesIncreaseAd : MonoBehaviour
 {
     [SerializeField] private Closet _closet;
+    [SerializeField] private Image _slider;
+    [SerializeField] private AdTimeWorkView _adTimeWork;
 
     public void OnClick()
     {
@@ -14,6 +15,7 @@ public class ResourcesIncreaseAd : MonoBehaviour
 
     private void OnRevard()
     {
+        _adTimeWork.StartShowAdTimeWork(_slider, _closet.IncreaseTimeSec);
         _closet.SetActiveIncrease();
     }
 }

@@ -7,16 +7,20 @@ public class FishCatchTimerViewer : MonoBehaviour
     [SerializeField] private Fish _fish;
     [SerializeField] private Slider _sliderCatchTime;
     [SerializeField] private float _catchPointChangeSpeed;
+    [SerializeField] private Image _filledBag;
 
+    private WaitForSeconds _showTime = new WaitForSeconds(5f);
     private FishCatcher _cathcer;
     private FieldOfView _fieldOfView;
     private Coroutine _coroutine;
+    private Coroutine _bagCoroutine;
 
     private void Update()
     {
         if (_cathcer == null)
         {
             _sliderCatchTime.value = Mathf.MoveTowards(_sliderCatchTime.value, 0, _catchPointChangeSpeed * Time.deltaTime);
+            ShowFilledBag(false);
         }
     }
 
@@ -53,9 +57,7 @@ public class FishCatchTimerViewer : MonoBehaviour
         {
             if (_cathcer != null)
             {
-                
                 _sliderCatchTime.value = Mathf.MoveTowards(_sliderCatchTime.value, _cathcer.ElapsedTime, _catchPointChangeSpeed * Time.deltaTime);
-
             }
 
             if (_sliderCatchTime.value == _cathcer.ElapsedTime)
@@ -65,5 +67,30 @@ public class FishCatchTimerViewer : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    public void ShowFilledBag(bool active)
+    {
+        _filledBag.gameObject.SetActive(active);
+
+        if (_bagCoroutine != null)
+        {
+            StopCoroutine(_bagCoroutine);
+        }
+
+        if (_fish.gameObject.activeSelf)
+        {
+            _bagCoroutine = StartCoroutine(ShowBagFilledDelay());
+        }
+
+    }
+
+    private IEnumerator ShowBagFilledDelay()
+    {
+        if (_filledBag.gameObject.activeSelf)
+        {
+            yield return _showTime;
+        }
+            _filledBag.gameObject.SetActive(false);
     }
 }

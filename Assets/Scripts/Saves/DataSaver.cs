@@ -72,15 +72,16 @@ public class DataSaver : MonoBehaviour
         return new DTOSkin();
      }
 
-    public void SaveLevel(string key, int level)
+    
+    public void SaveUpgradeCost(string key, int cost)
     {
-        PlayerPrefs.SetInt(key, level);
+        PlayerPrefs.SetInt(key, cost);
         PlayerPrefs.Save();
     }
 
-    public int LoadLevel(string key)
+    public int LoadUpgradeCost(string key)
     {
-        return PlayerPrefs.GetInt(key, 0);
+        return PlayerPrefs.GetInt(key, 10);
     }
 
     public void SaveChosenSkin(string key, string skinName)
@@ -92,6 +93,26 @@ public class DataSaver : MonoBehaviour
     public string LoadChosenSkin(string key)
     {
         return PlayerPrefs.GetString(key, null);
+    }
+
+    public DTOLevel LoadLevelData(string key)
+    {
+        var jsonString = PlayerPrefs.GetString(key);
+        var dtoLevelData = JsonUtility.FromJson<DTOLevel>(jsonString);
+
+        if (dtoLevelData != null)
+        {
+            return dtoLevelData;
+        }
+
+        return new DTOLevel { Level = 0, Count = 10 };
+    }
+
+    public void SaveLevelData(string key, DTOLevel dtoLevelData)
+    {
+        var jsonString = JsonUtility.ToJson(dtoLevelData);
+        PlayerPrefs.SetString(key, jsonString);
+        PlayerPrefs.Save();
     }
 
     public void SaveTutorialData(string key, DTOTutorial dtoTutorial)
@@ -112,5 +133,25 @@ public class DataSaver : MonoBehaviour
         }
 
         return new DTOTutorial();
+    }
+
+    public void SaveTutorialDirectonGuideData(string key, DTODirectionGuide dtoTutorial)
+    {
+        var jsonString = JsonUtility.ToJson(dtoTutorial);
+        PlayerPrefs.SetString(key, jsonString);
+        PlayerPrefs.Save();
+    }
+
+    public DTODirectionGuide LoadTutorialDirectonGuideData(string key)
+    {
+        var jsonString = PlayerPrefs.GetString(key);
+        var dtoTutorial = JsonUtility.FromJson<DTODirectionGuide>(jsonString);
+
+        if (dtoTutorial != null)
+        {
+            return dtoTutorial;
+        }
+
+        return new DTODirectionGuide();
     }
 }

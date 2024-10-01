@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class IncreaseCountCatchedFishAd : MonoBehaviour
 {
     [SerializeField] private Bag _bag;
-    
+    [SerializeField] private Image _slider;
+    [SerializeField] private AdTimeWorkView _adTimeWork;
+
     public void OnClick()
     {
         var videoAd = new VideoAd();
@@ -14,6 +15,7 @@ public class IncreaseCountCatchedFishAd : MonoBehaviour
 
     private void OnRevard()
     {
+        _adTimeWork.StartShowAdTimeWork(_slider, _bag.IncreaseTimeSec);
         _bag.SetActiveIncrease();
     }
 }

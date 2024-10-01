@@ -3,47 +3,67 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Rod : MonoBehaviour , IUpgradable
+public class Rod : MonoBehaviour, IUpgradable
 {
     [SerializeField] private List<SeaCreature> _allFishes = new List<SeaCreature>();
     [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
     [SerializeField] private RodCatchViewer _catchViewer;
     [SerializeField] private ClosetView _closetView;
     [SerializeField] private DataSaver _saver;
-   
+    [SerializeField] private ButtonChangerController _buttonChangerController;
+
     private int _countResourseToUpgrade;
+    private int _level;
     private int _maxLevel = 5;
     private float _catchingSpeed;
-    private string _levelSave = "RodLevel";
+    private string _levelDataKey = "RodKey";
+    private string _tutorialShowedKey = "RodTutorialShowed";
 
     private FishType _fishFoodFor;
     private FishType _cathchingFish;
     private Resource _resourceToUpgrade;
 
     private Coroutine _coroutine;
-    private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
+    private WaitForSeconds _increaseTime;
+    private bool _isActiveIncreaseAd;
+    private float _increaseTimeSec = 60f;
 
-    public int Level;
+    public bool IsActiveIncreaseAd => _isActiveIncreaseAd;
     public string NextLevel { get; private set; }
     public Resource ResourceToUpgrade => _resourceToUpgrade;
     public int CountResourseToUpgrade => _countResourseToUpgrade;
     public float CatchingSpeed => _catchingSpeed;
     public FishType FishFoodFor => _fishFoodFor;
+    public int Level => _level;
+    public float IncreaseTimeSec => _increaseTimeSec;
 
     public UnityAction Upgraded;
 
     private void Awake()
     {
-        NextLevel = (Level + 1).ToString();
+        _increaseTime = new WaitForSeconds(_increaseTimeSec); 
+        NextLevel = (_level + 1).ToString();
         _resourceToUpgrade = Resource.FishBones;
         CheckLevel();
 
-        Level = _saver.LoadLevel(_levelSave);
+        var dtoLevel = _saver.LoadLevelData(_levelDataKey);
+        ApplySaves(dtoLevel);
+    }
+
+    private void ApplySaves(DTOLevel dtoLevel)
+    {
+        if (dtoLevel != null)
+        {
+            _level = dtoLevel.Level;
+            _countResourseToUpgrade = dtoLevel.Count;
+        }
     }
 
     public void SetActiveIncrease()
     {
         _catchingSpeed = _catchingSpeed * 2;
+        _isActiveIncreaseAd = true;
+        _buttonChangerController.SetButtonChangerOff();
         StartIncreaseTimer();
     }
 
@@ -60,30 +80,31 @@ public class Rod : MonoBehaviour , IUpgradable
     private IEnumerator IncreaseTimer()
     {
         yield return _increaseTime;
-
+        _isActiveIncreaseAd = false;
+        _buttonChangerController.SetButtonChangerOn();
         CheckLevel();
     }
 
     public void Upgrade()
     {
-        if (Level < _maxLevel)
+        if (_level < _maxLevel)
         {
-            Level++;
+            _level++;
 
-            if (Level + 1 > _maxLevel)
+            if (_level + 1 > _maxLevel)
             {
                 NextLevel = "MAX";
             }
             else
             {
-                NextLevel = (Level + 1).ToString();
+                NextLevel = (_level + 1).ToString();
             }
 
             Upgraded?.Invoke();
         }
 
-        _saver.SaveLevel(_levelSave, Level);
         CheckLevel();
+        _saver.SaveLevelData(_levelDataKey, new DTOLevel { Count = _countResourseToUpgrade, Level = _level });
     }
 
     public void GetFishFoodFor()
@@ -119,7 +140,7 @@ public class Rod : MonoBehaviour , IUpgradable
 
     private void CheckLevel()
     {
-        switch (Level)
+        switch (_level)
         {
             case 0:
                 _countResourseToUpgrade = 10;

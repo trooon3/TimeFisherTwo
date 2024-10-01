@@ -55,4 +55,9 @@ public class Fish : MonoBehaviour
     {
         _fishCatchTimerViewer.SetCatcher(catcher);
     }
+
+    public void ShowFillBag(bool active)
+    {
+        _fishCatchTimerViewer.ShowFilledBag(active);
+    }
 }

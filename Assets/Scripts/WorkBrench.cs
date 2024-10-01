@@ -9,9 +9,24 @@ public class WorkBrench : MonoBehaviour
     [SerializeField] private WorkBranchViewer _viewer;
     [SerializeField] private ActiveButtonView _buttonView;
     [SerializeField] private TutorialViewer _tutorial;
+    [SerializeField] private DataSaver _saver;
 
-    private Player _player;
     private bool _isTutorialShowed;
+    private string _tutorialShowedKey = "TutorialWorkBrenchKey";
+
+    private void Awake()
+    {
+        var dtoTutorial = _saver.LoadTutorialData(_tutorialShowedKey);
+        ApplySaves(dtoTutorial);
+    }
+
+    private void ApplySaves(DTOTutorial dtoTutorial)
+    {
+        if (dtoTutorial != null)
+        {
+            _isTutorialShowed = dtoTutorial.IsShowed;
+        }
+    }
 
     private void Update()
     {
@@ -24,11 +39,7 @@ public class WorkBrench : MonoBehaviour
             _buttonView.SetActiveEImage(false);
         }
 
-        if (_playerNearbyChecker.IsPlayerNearby && Input.GetKey(KeyCode.E))
-        {
-            OnBrenchButtonClick();
-        }
-        else if(_playerNearbyChecker.IsPlayerNearby == false)
+        if(_playerNearbyChecker.IsPlayerNearby == false)
         {
             _viewer.gameObject.SetActive(false);
         }
@@ -43,11 +54,7 @@ public class WorkBrench : MonoBehaviour
         {
             _tutorial.ShowHowUpgrade();
             _isTutorialShowed = true;
-        }
-        
-        if (_playerNearbyChecker.GetPlayer() != null)
-        {
-            _player = _playerNearbyChecker.GetPlayer();
+            _saver.SaveTutorialData(_tutorialShowedKey, new DTOTutorial { IsShowed = _isTutorialShowed });
         }
     }
 
@@ -62,5 +69,4 @@ public class WorkBrench : MonoBehaviour
             tool.Upgrade();
         }
     }
-
 }

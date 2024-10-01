@@ -5,7 +5,8 @@ using UnityEngine;
 public class InterAd : MonoBehaviour
 {
     private Coroutine _coroutine;
-    private WaitForSeconds _twoMinets = new WaitForSeconds(180f);
+    private WaitForSeconds _threeMinutes = new WaitForSeconds(180f);
+    private bool _isAvalibleAdd;
 
     private void Start()
     {
@@ -19,16 +20,20 @@ public class InterAd : MonoBehaviour
 
     public void ShowAd()
     {
-        var videoAd = new VideoAd();
-        videoAd.ShowInter();
+        if (_isAvalibleAdd)
+        {
+            var videoAd = new VideoAd();
+            videoAd.ShowInter();
+            _isAvalibleAdd = false;
+        }
     }
 
     private IEnumerator InterViewer()
     {
         while (true)
         {
-            ShowAd();
-            yield return _twoMinets;
+            yield return _threeMinutes;
+            _isAvalibleAdd = true;
         }
     }
 }

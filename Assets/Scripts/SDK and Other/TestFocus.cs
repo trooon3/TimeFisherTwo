@@ -1,11 +1,10 @@
 using Agava.WebUtility;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TestFocus : MonoBehaviour
 {
-    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioSource _backgroundMusic;
+    [SerializeField] private AudioSource _catchSound;
 
     private void OnEnable()
     {
@@ -34,7 +33,8 @@ public class TestFocus : MonoBehaviour
 
     private void MuteAudio(bool value)
     {
-        _audioSource.volume = value ? 0 : 1;
+        _backgroundMusic.volume = value ? 0 : 1;
+        _catchSound.volume = value ? 0 : 1;
     }
 
     private void PauseGame(bool value)

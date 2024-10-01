@@ -12,19 +12,26 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _moveSpeed;
     [SerializeField] private PlaceChecker _placeChecker;
     [SerializeField] private PlayerAnimationController _animator;
+    [SerializeField] private ButtonChangerController _buttonChangerController;
 
     private float  _maxPlaceToSwim = 210;
     private float  _minPlaceToSwim = 80;
+    private float _increaseTimeSec = 60f;
     private Rigidbody _rigidbody;
     private Coroutine _coroutine;
-    private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
+    private WaitForSeconds _increaseTime;
+    private bool _isActiveIncreaseAd;
+
+    public bool IsActiveIncreaseAd => _isActiveIncreaseAd;
+    public float IncreaseTimeSec => _increaseTimeSec;
 
     private void Start()
     {
+        _increaseTime = new WaitForSeconds(_increaseTimeSec);
         _rigidbody = GetComponent<Rigidbody>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         Move();
         JumpUp();
@@ -33,6 +40,8 @@ public class PlayerMover : MonoBehaviour
     public void SetActiveIncrease()
     {
         _moveSpeed = _moveSpeed * 2;
+        _isActiveIncreaseAd = true;
+        _buttonChangerController.SetButtonChangerOff();
         StartIncreaseTimer();
     }
 
@@ -49,7 +58,8 @@ public class PlayerMover : MonoBehaviour
     private IEnumerator IncreaseTimer()
     {
         yield return _increaseTime;
-
+        _isActiveIncreaseAd = false;
+        _buttonChangerController.SetButtonChangerOn();
         _moveSpeed = _moveSpeed/2;
     }
 
@@ -57,7 +67,7 @@ public class PlayerMover : MonoBehaviour
     {
         _animator.SetGround(_placeChecker.IsOnGround, _placeChecker.InWater);
 
-        Vector3 direction = new Vector3(Input.GetAxisRaw(Horizontal),0, Input.GetAxisRaw(Vertical)).normalized;
+        Vector3 direction = new Vector3(Input.GetAxisRaw(Horizontal), 0, Input.GetAxisRaw(Vertical)).normalized;
 
         if (!Input.GetMouseButton(0) && !Input.GetMouseButton(1) && !Input.GetMouseButton(2))
         {
@@ -74,13 +84,18 @@ public class PlayerMover : MonoBehaviour
         {
             if (direction != Vector3.zero)
             {
-                transform.forward = direction;
+                Rotate(direction);
             }
 
             transform.position = transform.position + distance;
 
             _animator.DoMove(direction.magnitude);
         }
+    }
+
+    private void Rotate(Vector3 forward)
+    {
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(forward), _rotationSpeed);
     }
 
     public void JumpUp()

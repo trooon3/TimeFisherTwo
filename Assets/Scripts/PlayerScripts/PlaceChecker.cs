@@ -6,7 +6,6 @@ public class PlaceChecker : MonoBehaviour
     public bool InWater { get; private set; }
     public bool IsInteractbleNearby { get; private set; }
 
-
     private void OnTriggerExit(Collider collider)
     {
         if (collider.TryGetComponent(out Ground ground))

@@ -9,7 +9,10 @@ public class Bag : MonoBehaviour , IUpgradable
     [SerializeField] private AudioClip _catchSound;
     [SerializeField] private TutorialViewer _tutorial;
     [SerializeField] private DataSaver _saver;
+    [SerializeField] private ButtonChangerController _buttonChangerController;
 
+    private int _level;
+    private float _increaseTimeSec = 60f;
     private int _maxLevel = 5;
     private int _maxFishCount;
     private int _countResourseToUpgrade;
@@ -23,17 +26,19 @@ public class Bag : MonoBehaviour , IUpgradable
     private Resource _resourceToUpgrade;
     private AudioSource _audioSource;
     private Coroutine _coroutine; 
-    private WaitForSeconds _increaseTime = new WaitForSeconds(60f);
-    private string _levelSave = "BagLevel";
+    private WaitForSeconds _increaseTime;
+    private string _levelDataKey = "BagKey";
     private string _tutorialShowedKey = "TutorialKey";
 
+    public string NextLevel { get; private set; }
     public Resource ResourceToUpgrade => _resourceToUpgrade;
     public int CountResourseToUpgrade => _countResourseToUpgrade;
     public int FishesInsideCount => _fishesInsideCount;
-    public int Level;
-    public bool IsTutorialShowed;
-    public string NextLevel { get; private set; }
+    public int Level => _level;
+    public float IncreaseTimeSec => _increaseTimeSec;
+    public bool IsActiveIncreaseAd => _isActiveIncreaseAd;
 
+    public bool IsTutorialShowed;
     public UnityAction FishCountChanged;
     public UnityAction Upgraded;
     public UnityAction BagFilled;
@@ -41,29 +46,36 @@ public class Bag : MonoBehaviour , IUpgradable
 
     private void Awake()
     {
-        NextLevel = (Level + 1).ToString();
+        NextLevel = (_level + 1).ToString();
         _resourceToUpgrade = Resource.SeaWeed;
+        _increaseTime = new WaitForSeconds(_increaseTimeSec);
         _audioSource = GetComponent<AudioSource>();
         CheckLevel();
 
         var dtoTutorial = _saver.LoadTutorialData(_tutorialShowedKey);
-        ApplySaves(dtoTutorial);
+        var dtoLevel = _saver.LoadLevelData(_levelDataKey);
+        ApplySaves(dtoTutorial, dtoLevel);
     }
 
     public void SetActiveIncrease()
     {
         _isActiveIncreaseAd = true;
+        _buttonChangerController.SetButtonChangerOff();
         StartIncreaseTimer();
     }
 
-    private void ApplySaves(DTOTutorial dtoTutorial)
+    private void ApplySaves(DTOTutorial dtoTutorial, DTOLevel dtoLevel)
     {
         if (dtoTutorial != null)
         {
             _isTutorialShowed = dtoTutorial.IsShowed;
         }
 
-        Level = _saver.LoadLevel(_levelSave);
+        if (dtoLevel != null)
+        {
+            _level = dtoLevel.Level;
+            _countResourseToUpgrade = dtoLevel.Count;
+        }
     }
 
     private void StartIncreaseTimer()
@@ -79,8 +91,8 @@ public class Bag : MonoBehaviour , IUpgradable
     private IEnumerator IncreaseTimer()
     {
         yield return _increaseTime;
-
         _isActiveIncreaseAd = false;
+        _buttonChangerController.SetButtonChangerOn();
     }
     
     public List<Fish> GetFish()
@@ -137,29 +149,31 @@ public class Bag : MonoBehaviour , IUpgradable
             return true;
         }
 
+        fish.ShowFillBag(true);
+
         return false;
     }
 
     public void Upgrade()
     {
-        if (Level < _maxLevel)
+        if (_level < _maxLevel)
         {
-            Level++;
+            _level++;
 
-            if (Level + 1 > _maxLevel)
+            if (_level + 1 > _maxLevel)
             {
                 NextLevel = "MAX";
             }
             else
             {
-                NextLevel = (Level + 1).ToString();
+                NextLevel = (_level + 1).ToString();
             }
 
             Upgraded?.Invoke();
         }
 
-        _saver.SaveLevel(_levelSave, Level);
         CheckLevel();
+        _saver.SaveLevelData(_levelDataKey, new DTOLevel { Count = _countResourseToUpgrade, Level = _level });
     }
 
     public Resource GetResourceToUpgrade()
@@ -174,7 +188,7 @@ public class Bag : MonoBehaviour , IUpgradable
 
     private void CheckLevel()
     {
-        switch (Level)
+        switch (_level)
         {
             case 0:
                 _maxFishCount = 4;

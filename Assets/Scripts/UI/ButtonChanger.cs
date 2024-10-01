@@ -6,11 +6,11 @@ using UnityEngine;
 public class ButtonChanger : MonoBehaviour
 {
     [SerializeField] private List<Button> _buttons;
-    private WaitForSeconds _showTime = new WaitForSeconds(2f);
+    private WaitForSeconds _showTime = new WaitForSeconds(14f);
     private WaitForSeconds _delay = new WaitForSeconds(180f);
     private Coroutine _coroutine;
 
-    private void Start()
+    private void OnEnable()
     {
         foreach (var button in _buttons)
         {
@@ -18,20 +18,26 @@ public class ButtonChanger : MonoBehaviour
         }
 
         _coroutine = StartCoroutine(ChangeButton());
-
     }
 
     private IEnumerator ChangeButton()
     {
+        int i = 0;
+
         while (true)
         {
-            Button currentButton = _buttons[Random.Range(0, _buttons.Count)];
+            if (i == _buttons.Count)
+            {
+                i = 0;
+            }
+
+            yield return _showTime;
+            Button currentButton = _buttons[i];
             currentButton.gameObject.SetActive(true);
 
             yield return _showTime;
             currentButton.gameObject.SetActive(false);
-
-            yield return _showTime;
+            i++;
         }
     }
 
@@ -41,7 +47,7 @@ public class ButtonChanger : MonoBehaviour
         StopCoroutine(_coroutine);
        _coroutine = StartCoroutine(RestartChangeBottonWithDelay());
     }
-
+    
     public IEnumerator RestartChangeBottonWithDelay()
     {
         yield return _delay;

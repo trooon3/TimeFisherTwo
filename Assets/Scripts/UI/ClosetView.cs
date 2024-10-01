@@ -15,7 +15,6 @@ public class ClosetView : MonoBehaviour
     [SerializeField] private TMP_Text _weedCount;
 
     private List<FishCardViewer> _fishCardViewers;
-    private bool _isTutorialShowed;
 
     private void Awake()
     {
@@ -57,11 +56,6 @@ public class ClosetView : MonoBehaviour
 
     public void OnResourceCountChanged()
     {
-        if (_isTutorialShowed == false)
-        {
-            _isTutorialShowed = true;
-        }
-
         _weedCount.text = _closet.GetSeaWeedCount().ToString();
         _boneCount.text = _closet.GetFishBonesCount().ToString();
     }
