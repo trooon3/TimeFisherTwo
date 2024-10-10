@@ -1,6 +1,7 @@
 using Agava.YandexGames;
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
 
 public class YandexLeaderboard : MonoBehaviour
 {
@@ -18,19 +19,24 @@ public class YandexLeaderboard : MonoBehaviour
 
     public void OpenLeaderBoard()
     {
+        if (YandexGame.auth)
+        {
+            
+        }
         if (PlayerAccount.IsAuthorized)
         {
-           PlayerAccount.RequestPersonalProfileDataPermission();
+            PlayerAccount.RequestPersonalProfileDataPermission();
         }
         else
         {
+            _leaderboardView.gameObject.SetActive(false);
             OfferLogIn();
         }
     }
 
     public void Authorize()
     {
-        PlayerAccount.Authorize();
+        YandexGame.AuthDialog();
     }
 
     public void SetPlayerScore(int score)
@@ -51,7 +57,7 @@ public class YandexLeaderboard : MonoBehaviour
 
     public void Fill()
     {
-        if (PlayerAccount.IsAuthorized == false)
+        if (!YandexGame.auth)
         {
             return;
         }
