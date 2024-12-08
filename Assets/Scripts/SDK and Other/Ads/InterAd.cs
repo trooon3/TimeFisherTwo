@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using YG;
 
 public class InterAd : MonoBehaviour
 {
@@ -22,8 +22,7 @@ public class InterAd : MonoBehaviour
     {
         if (_isAvalibleAdd)
         {
-            var videoAd = new VideoAd();
-            videoAd.ShowInter();
+            YandexGame.FullscreenShow();
             _isAvalibleAdd = false;
         }
     }

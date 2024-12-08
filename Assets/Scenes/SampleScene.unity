@@ -1399,18 +1399,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 145211306}
-        m_TargetAssemblyTypeName: SpeedUpAd, Assembly-CSharp
-        m_MethodName: OnClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1482899437}
         m_TargetAssemblyTypeName: AdTimeWorkView, Assembly-CSharp
         m_MethodName: StartShowAdTimeWork
@@ -1427,6 +1415,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 145211306}
+        m_TargetAssemblyTypeName: RewardAdCaller, Assembly-CSharp
+        m_MethodName: OpenRewardAd
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1482,12 +1482,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 145211301}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fdc61bf6174941409dab5ab337568d6, type: 3}
+  m_Script: {fileID: 11500000, guid: d59359df2bd72314ea8aece7c05b78fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mover: {fileID: 7706325485056836023}
-  _slider: {fileID: 195043909}
-  _adTimeWork: {fileID: 1482899437}
+  _id: 1
 --- !u!1 &150768479
 GameObject:
   m_ObjectHideFlags: 0
@@ -1551,6 +1549,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2211564899198745196, guid: caf9732433f4dc044845763962493607, type: 3}
+      propertyPath: OpenVideoAd.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211564899198745196, guid: caf9732433f4dc044845763962493607, type: 3}
+      propertyPath: OpenVideoAd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 145211301}
+    - target: {fileID: 2211564899198745196, guid: caf9732433f4dc044845763962493607, type: 3}
+      propertyPath: OpenVideoAd.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2211564899198745197, guid: caf9732433f4dc044845763962493607, type: 3}
       propertyPath: m_Name
       value: YandexGame
@@ -1600,6 +1610,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: caf9732433f4dc044845763962493607, type: 3}
+--- !u!114 &165299198 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2211564899198745196, guid: caf9732433f4dc044845763962493607, type: 3}
+  m_PrefabInstance: {fileID: 165299197}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 404d6214ebdd58d43a94c7ed650dc2f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &183808321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2458,18 +2479,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1005040032}
-        m_TargetAssemblyTypeName: YandexLeaderboard, Assembly-CSharp
-        m_MethodName: Fill
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1454740026988430808}
         m_TargetAssemblyTypeName: Bag, Assembly-CSharp
         m_MethodName: SetScore
@@ -2482,22 +2491,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1005040032}
-        m_TargetAssemblyTypeName: YandexLeaderboard, Assembly-CSharp
-        m_MethodName: OpenLeaderBoard
+      - m_Target: {fileID: 1267661106}
+        m_TargetAssemblyTypeName: AutorizedCheker, Assembly-CSharp
+        m_MethodName: ShowOfferAutorized
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1467435408}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2628,18 +2625,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 320041478}
-        m_TargetAssemblyTypeName: ResourcesIncreaseAd, Assembly-CSharp
-        m_MethodName: OnClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1482899437}
         m_TargetAssemblyTypeName: AdTimeWorkView, Assembly-CSharp
         m_MethodName: StartShowAdTimeWork
@@ -2656,6 +2641,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 320041478}
+        m_TargetAssemblyTypeName: RewardAdCaller, Assembly-CSharp
+        m_MethodName: OpenRewardAd
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2711,12 +2708,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 320041473}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5f97366cc9dbaf4c873db4c9ffb38e8, type: 3}
+  m_Script: {fileID: 11500000, guid: d59359df2bd72314ea8aece7c05b78fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _closet: {fileID: 2571529876027508052}
-  _slider: {fileID: 1808034679}
-  _adTimeWork: {fileID: 1482899437}
+  _id: 4
 --- !u!1001 &326681035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3357,7 +3352,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Skor tablosunu g\xF6r\xFCnt\xFClemek i\xE7in giri\u015F yapmal\u0131s\u0131n\u0131z."
+  m_text: "\u0427\u0442\u043E\u0431\u044B \u043F\u0440\u043E\u0441\u043C\u0430\u0442\u0440\u0438\u0432\u0430\u0442\u044C
+    \u0442\u0430\u0431\u043B\u0438\u0446\u0443 \u043B\u0438\u0434\u0435\u0440\u043E\u0432
+    \u043D\u0443\u0436\u043D\u043E \u0430\u0432\u0442\u043E\u0440\u0438\u0437\u043E\u0432\u0430\u0442\u044C\u0441\u044F."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -3384,7 +3381,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38.2
+  m_fontSize: 30.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3767,18 +3764,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 474432467}
-        m_TargetAssemblyTypeName: IncreaseCountCatchedFishAd, Assembly-CSharp
-        m_MethodName: OnClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1482899437}
         m_TargetAssemblyTypeName: AdTimeWorkView, Assembly-CSharp
         m_MethodName: StartShowAdTimeWork
@@ -3795,6 +3780,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 474432467}
+        m_TargetAssemblyTypeName: RewardAdCaller, Assembly-CSharp
+        m_MethodName: OpenRewardAd
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3850,12 +3847,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 474432462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81972601737046d408881cb47bcf96e5, type: 3}
+  m_Script: {fileID: 11500000, guid: d59359df2bd72314ea8aece7c05b78fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bag: {fileID: 1454740026988430808}
-  _slider: {fileID: 1846302256}
-  _adTimeWork: {fileID: 1482899437}
+  _id: 2
 --- !u!1001 &475067078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5478,11 +5473,6 @@ MonoBehaviour:
   - Language: Turkish
     Text: "\xC7eki\xE7ba\u015F K\xF6pekbal\u0131\u011F\u0131\r"
     Object: {fileID: 0}
---- !u!1 &629895373 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4790716504961310490, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
-  m_PrefabInstance: {fileID: 4765830072993272562}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &632460375 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1527055450098318974, guid: 971ef8207f535194faf411d40b27fb77, type: 3}
@@ -5676,7 +5666,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Giri\u015F yapmak"
+  m_text: "\u0410\u0432\u0442\u043E\u0440\u0438\u0437\u043E\u0432\u0430\u0442\u044C\u0441\u044F"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5703,7 +5693,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 61.65
+  m_fontSize: 31.6
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5777,7 +5767,6 @@ GameObject:
   m_Component:
   - component: {fileID: 705507995}
   - component: {fileID: 705507994}
-  - component: {fileID: 705507996}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -5862,18 +5851,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &705507996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705507993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e3a99fdaa1fcb44841c8334bf5e2bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &709095627
 GameObject:
   m_ObjectHideFlags: 0
@@ -5978,7 +5955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 806f0696300aeac44a0e17efee222854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLanguage: Turkish
+  currentLanguage: Russian
   detectLanguage: 1
   defaultLanguage: English
   saveLoad: 0
@@ -6178,9 +6155,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1005040032}
-        m_TargetAssemblyTypeName: YandexLeaderboard, Assembly-CSharp
-        m_MethodName: Authorize
+      - m_Target: {fileID: 165299198}
+        m_TargetAssemblyTypeName: YG.YandexGame, Assembly-CSharp
+        m_MethodName: _OpenAuthDialog
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7660,6 +7637,7 @@ GameObject:
   - component: {fileID: 865639208}
   - component: {fileID: 865639207}
   - component: {fileID: 865639206}
+  - component: {fileID: 865639209}
   m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
@@ -7738,6 +7716,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 865639204}
   m_CullTransparentMesh: 1
+--- !u!114 &865639209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865639204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 423e13a42d313f948a13bcedae13febe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameLB: Leaderboard
+  maxQuantityPlayers: 20
+  quantityTop: 3
+  quantityAround: 3
+  updateLBMethod: 1
+  entriesText: {fileID: 0}
+  advanced: 1
+  rootSpawnPlayersData: {fileID: 1881326297}
+  playerDataPrefab: {fileID: 6776317831561564562, guid: 2ad906f0185985e4d84d2351a727124d, type: 3}
+  playerPhoto: 1
+  isHiddenPlayerPhoto: {fileID: 0}
+  timeTypeConvert: 0
+  decimalSize: 2
+  onUpdateData:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &900776400
 GameObject:
   m_ObjectHideFlags: 0
@@ -8073,9 +8079,7 @@ GameObject:
   - component: {fileID: 1005040025}
   - component: {fileID: 1005040024}
   - component: {fileID: 1005040028}
-  - component: {fileID: 1005040029}
   - component: {fileID: 1005040031}
-  - component: {fileID: 1005040032}
   - component: {fileID: 1005040033}
   - component: {fileID: 1005040034}
   m_Layer: 5
@@ -8201,21 +8205,6 @@ MonoBehaviour:
   _tutorial: {fileID: 1005040031}
   _fishCount: {fileID: 267016734}
   _filledBagText: {fileID: 472114814}
---- !u!114 &1005040029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1005040023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81972601737046d408881cb47bcf96e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bag: {fileID: 1454740026988430808}
-  _slider: {fileID: 0}
-  _adTimeWork: {fileID: 1482899437}
 --- !u!114 &1005040031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8244,20 +8233,6 @@ MonoBehaviour:
   _howWalkMobile: {fileID: 714349120}
   _saver: {fileID: 2571529876027508055}
   _buttonChangerController: {fileID: 1005040034}
---- !u!114 &1005040032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1005040023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d18bbccef1f3a6d40b41b915dced7a70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _leaderboardView: {fileID: 1467435412}
-  _offerLogInPanel: {fileID: 1828581516}
 --- !u!114 &1005040033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10555,7 +10530,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\rSes"
+  m_text: "\u0417\u0432\u0443\u043A"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -11555,6 +11530,7 @@ GameObject:
   - component: {fileID: 1267661105}
   - component: {fileID: 1267661104}
   - component: {fileID: 1267661103}
+  - component: {fileID: 1267661106}
   m_Layer: 5
   m_Name: OptionsPanel
   m_TagString: Untagged
@@ -11623,6 +11599,20 @@ RectTransform:
   m_AnchoredPosition: {x: 5.696289, y: 0.631958}
   m_SizeDelta: {x: -9.916992, y: 5.1569824}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1267661106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267661102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c75522f610178f4e99638d7f3b0ebda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _autorizedOfferWindow: {fileID: 1828581516}
+  _leaderboardWindow: {fileID: 1467435408}
 --- !u!1 &1279628547
 GameObject:
   m_ObjectHideFlags: 0
@@ -12826,7 +12816,6 @@ GameObject:
   - component: {fileID: 1467435411}
   - component: {fileID: 1467435410}
   - component: {fileID: 1467435409}
-  - component: {fileID: 1467435412}
   m_Layer: 5
   m_Name: LeaderboardPanel
   m_TagString: Untagged
@@ -12893,20 +12882,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 993.76, y: 981.62}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1467435412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1467435408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fea046524544cdc4d804f3e92242fecf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _container: {fileID: 1881326297}
-  _leaderboardElementPrefab: {fileID: 5492090106510770193, guid: 2ad906f0185985e4d84d2351a727124d, type: 3}
 --- !u!4 &1481887757 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3895632820748657968, guid: bd31527151346db47ad57a91eaf39eb6, type: 3}
@@ -12964,6 +12939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573dc0a2f92fe57478ac1195676351ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buttonChanger: {fileID: 2025150051}
 --- !u!1001 &1484280102
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15260,7 +15236,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\rG\xF6r\xFCn\xFC\u015Fe"
+  m_text: "\u041A\u043E\u0441\u0442\u044E\u043C\u044B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -15470,7 +15446,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\rLiderler"
+  m_text: "\u041B\u0438\u0434\u0435\u0440\u044B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -17223,8 +17199,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2011731972}
-        m_TargetAssemblyTypeName: RodSpeedUpAd, Assembly-CSharp
-        m_MethodName: OnClick
+        m_TargetAssemblyTypeName: RewardAdCaller, Assembly-CSharp
+        m_MethodName: OpenRewardAd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17281,12 +17257,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2011731967}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fe58a4aee79cba49b1d681a6a01b026, type: 3}
+  m_Script: {fileID: 11500000, guid: d59359df2bd72314ea8aece7c05b78fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rod: {fileID: 5676301965097580309}
-  _slider: {fileID: 607839963}
-  _adTimeWork: {fileID: 1482899437}
+  _id: 3
 --- !u!1 &2025150046
 GameObject:
   m_ObjectHideFlags: 0
@@ -17299,6 +17273,7 @@ GameObject:
   - component: {fileID: 2025150049}
   - component: {fileID: 2025150048}
   - component: {fileID: 2025150051}
+  - component: {fileID: 2025150052}
   m_Layer: 5
   m_Name: RewardAdHandler
   m_TagString: Untagged
@@ -17384,6 +17359,27 @@ MonoBehaviour:
   - {fileID: 2011731969}
   - {fileID: 474432464}
   - {fileID: 320041475}
+--- !u!114 &2025150052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2025150046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c76697f16fdd974ab3542320bc4914c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mover: {fileID: 7706325485056836023}
+  _bag: {fileID: 1454740026988430808}
+  _rod: {fileID: 5676301965097580309}
+  _closet: {fileID: 2571529876027508052}
+  _resourcesIncreaseSlider: {fileID: 1808034679}
+  _rodSpeedUpSlider: {fileID: 607839963}
+  _speedUpSlider: {fileID: 195043909}
+  _increaseCountCatchedFishSlider: {fileID: 1846302256}
+  _adTimeWork: {fileID: 1482899437}
 --- !u!1 &2029706796
 GameObject:
   m_ObjectHideFlags: 0
@@ -17928,7 +17924,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7108641043442081105, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
   m_PrefabInstance: {fileID: 4765830072993272562}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629895373}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 376c7c9ab3d78b84dae75aa5b1a41b86, type: 3}
@@ -17939,22 +17935,10 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6129540660012823032, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
   m_PrefabInstance: {fileID: 4765830072993272562}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629895373}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2247f6d54fc8d65469239a74f6660a69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2571529876027508058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629895373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a97a5aa263638ca46b0736241c31f29b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4765830072993272562
@@ -18024,7 +18008,7 @@ PrefabInstance:
     - target: {fileID: 7108641043442081105, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
       propertyPath: _interAd
       value: 
-      objectReference: {fileID: 2571529876027508058}
+      objectReference: {fileID: 7201943209151095659}
     - target: {fileID: 7108641043442081105, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
       propertyPath: _rodView
       value: 
@@ -18048,10 +18032,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4790716504961310490, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2571529876027508058}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
 --- !u!1001 &5676301965097580307
 PrefabInstance:
@@ -18530,9 +18511,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2025150051}
     - target: {fileID: 8820223108125403753, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
+      propertyPath: _leaderboardYG
+      value: 
+      objectReference: {fileID: 865639209}
+    - target: {fileID: 8820223108125403753, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
       propertyPath: _yandexLeaderboard
       value: 
-      objectReference: {fileID: 1005040032}
+      objectReference: {fileID: 0}
     - target: {fileID: 8820223108125403753, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
       propertyPath: _buttonChangerController
       value: 

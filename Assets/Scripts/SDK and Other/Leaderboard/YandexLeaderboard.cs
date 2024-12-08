@@ -1,4 +1,3 @@
-using Agava.YandexGames;
 using System.Collections.Generic;
 using UnityEngine;
 using YG;
@@ -21,11 +20,7 @@ public class YandexLeaderboard : MonoBehaviour
     {
         if (YandexGame.auth)
         {
-            
-        }
-        if (PlayerAccount.IsAuthorized)
-        {
-            PlayerAccount.RequestPersonalProfileDataPermission();
+           //PlayerAccount.RequestPersonalProfileDataPermission();
         }
         else
         {
@@ -41,18 +36,12 @@ public class YandexLeaderboard : MonoBehaviour
 
     public void SetPlayerScore(int score)
     {
-        if (PlayerAccount.IsAuthorized == false)
+        if (!YandexGame.auth)
         {
             return;
         }
 
-        Leaderboard.GetPlayerEntry(LeaderboardName, (result) =>
-        {
-            if (result == null || result.score < score)
-            {
-                Leaderboard.SetScore(LeaderboardName, score);
-            }
-        });
+        YandexGame.NewLeaderboardScores(LeaderboardName, score);
     }
 
     public void Fill()
@@ -64,23 +53,28 @@ public class YandexLeaderboard : MonoBehaviour
 
         _leaderboardPlayers.Clear();
 
-        Leaderboard.GetEntries(LeaderboardName, (result) =>
-        {
-            foreach (var entry in result.entries)
-            {
-                int rank = entry.rank;
-                int score = entry.score;
-                string name = entry.player.publicName;
+        LeaderboardYG leaderboard = new LeaderboardYG();
+        YandexGame.GetLeaderboard(LeaderboardName, 20, 3, 5,"hhh");
+        leaderboard.UpdateLB();
 
-                if (string.IsNullOrEmpty(name))
-                {
-                    name = AnonymousName;
-                }
 
-                _leaderboardPlayers.Add(new LeaderboardPlayer(rank, name, score));
-            }
+        //Leaderboard.GetEntries(LeaderboardName, (result) =>
+        //{
+        //    foreach (var entry in result.entries)
+        //    {
+        //        int rank = entry.rank;
+        //        int score = entry.score;
+        //        string name = entry.player.publicName;
 
-            _leaderboardView.ConstructLeaderboard(_leaderboardPlayers);
-        });
+        //        if (string.IsNullOrEmpty(name))
+        //        {
+        //            name = AnonymousName;
+        //        }
+
+        //        _leaderboardPlayers.Add(new LeaderboardPlayer(rank, name, score));
+        //    }
+
+        //    _leaderboardView.ConstructLeaderboard(_leaderboardPlayers);
+        //});
     }
 }

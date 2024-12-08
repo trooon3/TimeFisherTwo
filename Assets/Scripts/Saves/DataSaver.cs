@@ -105,7 +105,7 @@ public class DataSaver : MonoBehaviour
             return dtoLevelData;
         }
 
-        return new DTOLevel { Level = 0, Count = 10 };
+        return new DTOLevel { Level = 0, Count = 10, Score = 0};
     }
 
     public void SaveLevelData(string key, DTOLevel dtoLevelData)

@@ -1,4 +1,4 @@
-using Agava.YandexGames;
+using YG;
 using Lean.Localization;
 using UnityEngine;
 
@@ -22,7 +22,7 @@ ChangeLanguage();
 
     private void ChangeLanguage()
     {
-        string languageCode = YandexGamesSdk.Environment.i18n.lang;
+        string languageCode = YandexGame.lang;
 
         switch (languageCode)
         {

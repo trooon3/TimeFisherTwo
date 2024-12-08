@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
 using UnityEngine.Events;
 using System.Collections;
 
@@ -10,6 +11,7 @@ public class Bag : MonoBehaviour , IUpgradable
     [SerializeField] private TutorialViewer _tutorial;
     [SerializeField] private DataSaver _saver;
     [SerializeField] private ButtonChangerController _buttonChangerController;
+    [SerializeField] private LeaderboardYG _leaderboardYG;
 
     private int _level;
     private float _increaseTimeSec = 60f;
@@ -75,6 +77,7 @@ public class Bag : MonoBehaviour , IUpgradable
         {
             _level = dtoLevel.Level;
             _countResourseToUpgrade = dtoLevel.Count;
+            _countAllCatchedFishes = dtoLevel.Score;
         }
     }
 
@@ -119,7 +122,10 @@ public class Bag : MonoBehaviour , IUpgradable
 
     public void SetScore()
     {
-        _yandexLeaderboard.SetPlayerScore(_countAllCatchedFishes);
+        if (YandexGame.auth)
+        {
+            YandexGame.NewLeaderboardScores(_leaderboardYG.nameLB, _countAllCatchedFishes);
+        }
     }
 
     public bool TryAddFish(Fish fish)
@@ -131,6 +137,8 @@ public class Bag : MonoBehaviour , IUpgradable
             FishCountChanged?.Invoke();
             _audioSource.PlayOneShot(_catchSound);
             _countAllCatchedFishes++;
+            _leaderboardYG.NewScore(_countAllCatchedFishes);
+           //SetScore();
 
             if (_isTutorialShowed == false)
             {

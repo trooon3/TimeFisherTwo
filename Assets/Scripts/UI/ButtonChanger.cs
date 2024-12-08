@@ -22,7 +22,7 @@ public class ButtonChanger : MonoBehaviour
 
     private IEnumerator ChangeButton()
     {
-        int i = 0;
+        int i = Random.Range(0,_buttons.Count - 1);
 
         while (true)
         {
@@ -36,7 +36,13 @@ public class ButtonChanger : MonoBehaviour
             currentButton.gameObject.SetActive(true);
 
             yield return _showTime;
-            currentButton.gameObject.SetActive(false);
+
+            if (currentButton.gameObject.activeSelf)
+            {
+                currentButton.gameObject.SetActive(false);
+                
+            }
+            
             i++;
         }
     }

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class AdTimeWorkView : MonoBehaviour
 {
+    [SerializeField] private ButtonChanger _buttonChanger;
     private float _changeSpeed;
     private Coroutine _coroutine;
     private Image _slider;
@@ -37,5 +38,8 @@ public class AdTimeWorkView : MonoBehaviour
 
             yield return null;
         }
+        _buttonChanger.gameObject.SetActive(true);
+
+        _buttonChanger.RestartChangingBottonWithDelay();
     }
 }

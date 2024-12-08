@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Score
+  m_text: Gol
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Name
+  m_text: "\u0130sim"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -364,7 +364,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Rank
+  m_text: "R\xFCtbe"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -726,7 +726,7 @@ GameObject:
   - component: {fileID: 7047082582669515542}
   - component: {fileID: 1608992769885227775}
   - component: {fileID: 4342542287826628806}
-  - component: {fileID: 5492090106510770193}
+  - component: {fileID: 1416957651457980763}
   m_Layer: 5
   m_Name: leaderboardElement
   m_TagString: Untagged
@@ -797,7 +797,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5492090106510770193
+--- !u!114 &1416957651457980763
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -806,12 +806,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 6776317831561564562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b7e07c49fcd86e4fb2d2de3fa21a86a, type: 3}
+  m_Script: {fileID: 11500000, guid: a183e821a3e219a4385ee48ec1bfabcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerName: {fileID: 4655515109988009039}
-  _playerRank: {fileID: 6504878085220669004}
-  _playerScore: {fileID: 36601195359749550}
+  imageLoad: {fileID: 7442660658427018933, guid: c66c7bac89f010b47979344bbb77584b, type: 3}
+  topPlayerActivityComponents:
+  - {fileID: 2904751799041350877, guid: c66c7bac89f010b47979344bbb77584b, type: 3}
+  thisPlayerActivityComponents:
+  - {fileID: 6387218513046318434, guid: c66c7bac89f010b47979344bbb77584b, type: 3}
+  - {fileID: 3203869367840414215, guid: c66c7bac89f010b47979344bbb77584b, type: 3}
+  textLegasy:
+    rank: {fileID: 7442660659715647009, guid: c66c7bac89f010b47979344bbb77584b, type: 3}
+    name: {fileID: 7442660659084700632, guid: c66c7bac89f010b47979344bbb77584b, type: 3}
+    score: {fileID: 7442660659206096142, guid: c66c7bac89f010b47979344bbb77584b, type: 3}
+  textMP:
+    rank: {fileID: 6504878085220669004}
+    name: {fileID: 4655515109988009039}
+    score: {fileID: 36601195359749550}
 --- !u!1 &9141299380222551695
 GameObject:
   m_ObjectHideFlags: 0
