@@ -3,312 +3,316 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Closet : MonoBehaviour
+namespace Assets.Scripts
 {
-    [SerializeField] private List<SeaCreature> _allFishes = new List<SeaCreature>();
-    [SerializeField] private FishSpawner _spawner;
-    [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
-    [SerializeField] private ClosetView _view;
-    [SerializeField] private ActiveButtonView _buttonView;
-    [SerializeField] private RodCatchViewer _rodView;
-    [SerializeField] private TutorialViewer _tutorial;
-    [SerializeField] private DataSaver _saver;
-    [SerializeField] private InterAd _interAd;
-    [SerializeField] private ButtonChangerController _buttonChangerController;
-
-    private List<ResourceCounter> _resources;
-    private List<FishTypeCounter> _catchedFishes;
-    
-    private bool _isActiveIncreaseAd;
-    private bool _isTutorialShowed;
-
-    private string _fishesCountSaves = "FishTypeCount";
-    private string _resurcesCountSaves = "ResourcesCount";
-    private string _tutorialShowedKey = "TutorialClosetKey";
-
-    private Coroutine _coroutine;
-    private float _increaseTimeSec = 60f;
-    private WaitForSeconds _increaseTime;
-    private Player _player;
-
-    public List<SeaCreature> AllFishes => _allFishes;
-    public List<FishTypeCounter> CatchedFishes => _catchedFishes;
-    public DataSaver Saver => _saver;
-    public bool IsActiveIncreaseAd => _isActiveIncreaseAd;
-    public float IncreaseTimeSec => _increaseTimeSec;
-
-    public UnityAction FishTransferred;
-    public UnityAction ResourceCountChanged;
-
-    private void Awake()
+    public class Closet : MonoBehaviour
     {
-        _catchedFishes = _saver.LoadFishesCountData(_fishesCountSaves);
-        _resources = _saver.LoadResourcesCountData(_resurcesCountSaves);
-        _increaseTime = new WaitForSeconds(_increaseTimeSec);
-        var dtoTutorial = _saver.LoadTutorialData(_tutorialShowedKey);
-        ApplySaves(dtoTutorial);
+        [SerializeField] private List<SeaCreature> _allFishes = new List<SeaCreature>();
+        [SerializeField] private FishSpawner _spawner;
+        [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
+        [SerializeField] private ClosetView _view;
+        [SerializeField] private ActiveButtonView _buttonView;
+        [SerializeField] private RodCatchViewer _rodView;
+        [SerializeField] private TutorialViewer _tutorial;
+        [SerializeField] private DataSaver _saver;
+        [SerializeField] private InterAd _interAd;
+        [SerializeField] private ButtonChangerController _buttonChangerController;
 
-        if (_catchedFishes == null)
+        private List<ResourceCounter> _resources;
+        private List<FishTypeCounter> _catchedFishes;
+
+        private bool _isActiveIncreaseAd;
+        private bool _isTutorialShowed;
+
+        private string _fishesCountSaves = "FishTypeCount";
+        private string _resurcesCountSaves = "ResourcesCount";
+        private string _tutorialShowedKey = "TutorialClosetKey";
+
+        private Coroutine _coroutine;
+        private float _increaseTimeSec = 60f;
+        private WaitForSeconds _increaseTime;
+        private Player _player;
+
+        public List<SeaCreature> AllFishes => _allFishes;
+        public List<FishTypeCounter> CatchedFishes => _catchedFishes;
+        public DataSaver Saver => _saver;
+        public bool IsActiveIncreaseAd => _isActiveIncreaseAd;
+        public float IncreaseTimeSec => _increaseTimeSec;
+
+        public UnityAction FishTransferred;
+        public UnityAction ResourceCountChanged;
+
+        private void Awake()
         {
-            _catchedFishes = new List<FishTypeCounter>();
+            _catchedFishes = _saver.LoadFishesCountData(_fishesCountSaves);
+            _resources = _saver.LoadResourcesCountData(_resurcesCountSaves);
+            _increaseTime = new WaitForSeconds(_increaseTimeSec);
+            var dtoTutorial = _saver.LoadTutorialData(_tutorialShowedKey);
+            ApplySaves(dtoTutorial);
 
-            foreach (var creature in _allFishes)
+            if (_catchedFishes == null)
             {
-                FishTypeCounter counter = new FishTypeCounter(creature.FishType);
-                _catchedFishes.Add(counter);
+                _catchedFishes = new List<FishTypeCounter>();
+
+                foreach (var creature in _allFishes)
+                {
+                    FishTypeCounter counter = new FishTypeCounter(creature.FishType);
+                    _catchedFishes.Add(counter);
+                }
             }
-        }
 
-        _view.gameObject.SetActive(true);
-        _view.gameObject.SetActive(false);
-    }
-
-    private void ApplySaves(DTOTutorial dtoTutorial)
-    {
-        if (dtoTutorial != null)
-        {
-            _isTutorialShowed = dtoTutorial.IsShowed;
-        }
-    }
-
-    private void Update()
-    {
-        if (_playerNearbyChecker.IsPlayerNearby)
-        {
-            _buttonView.SetActiveEImage(true);
-        }
-        else
-        {
-            _buttonView.SetActiveEImage(false);
-        }
-
-        if (_playerNearbyChecker.IsPlayerNearby == false)
-        {
+            _view.gameObject.SetActive(true);
             _view.gameObject.SetActive(false);
         }
-    }
 
-    public void GetAllFishes()
-    {
-        foreach (var fish in _catchedFishes)
+        private void ApplySaves(DTOTutorial dtoTutorial)
         {
-            for (int i = 0; i < 1000; i++)
+            if (dtoTutorial != null)
             {
-                fish.Increase();
-            }
-        }
-    }
-
-    public void SetActiveIncrease()
-    {
-        _isActiveIncreaseAd = true;
-        _buttonChangerController.SetButtonChangerOff();
-        StartIncreaseTimer();
-    }
-
-    private void StartIncreaseTimer()
-    {
-        if (_coroutine != null)
-        {
-            StopCoroutine(IncreaseTimer());
-        }
-
-        _coroutine = StartCoroutine(IncreaseTimer());
-    }
-
-    private IEnumerator IncreaseTimer()
-    {
-        yield return _increaseTime;
-        _isActiveIncreaseAd = false;
-        _buttonChangerController.SetButtonChangerOn();
-    }
-
-    public void TakeFish(List<Fish> fishes)
-    {
-        for (int i = 0; i < fishes.Count; i++)
-        {
-            AddFish(fishes[i]);
-            AddResources(fishes[i]);
-        }
-    }
-
-    private void AddFish(Fish fish)
-    {
-        foreach (FishTypeCounter catchedFish in _catchedFishes)
-        {
-            if (catchedFish.Type == fish.Type)
-            {
-                catchedFish.Increase();
-                FishTransferred?.Invoke();
-                _spawner.SetOffFish(fish);
-            }
-        }
-    }
-
-    public void AddFishOnRod(FishType type)
-    {
-        foreach (FishTypeCounter catchedFish in _catchedFishes)
-        {
-            if (catchedFish.Type == type)
-            {
-                catchedFish.Increase();
-                FishTransferred?.Invoke();
-            }
-        }
-    }
-
-    public void RemoveFish(FishType fish)
-    {
-        foreach (FishTypeCounter item in _catchedFishes)
-        {
-            if (item.Type == fish)
-            {
-                item.Decrease();
-                FishTransferred?.Invoke();
+                _isTutorialShowed = dtoTutorial.IsShowed;
             }
         }
 
-        _saver.SaveFishesCountData(_fishesCountSaves, _catchedFishes);
-    }
+        private void Update()
+        {
+            if (_playerNearbyChecker.IsPlayerNearby)
+            {
+                _buttonView.SetActiveEImage(true);
+            }
+            else
+            {
+                _buttonView.SetActiveEImage(false);
+            }
 
-    public bool CheckCanPaySkin(SkinView skin)
-    {
-        SkinCost cost = skin.Cost;
+            if (_playerNearbyChecker.IsPlayerNearby == false)
+            {
+                _view.gameObject.SetActive(false);
+            }
+        }
 
-        foreach (var fishPrice in cost.FishCountPrices)
+        public void GetAllFishes()
         {
             foreach (var fish in _catchedFishes)
             {
-                if (fishPrice.Type == fish.Type)
+                for (int i = 0; i < 1000; i++)
                 {
-                    if (fishPrice.Cost > fish.Count)
+                    fish.Increase();
+                }
+            }
+        }
+
+        public void SetActiveIncrease()
+        {
+            _isActiveIncreaseAd = true;
+            _buttonChangerController.SetButtonChangerOff();
+            StartIncreaseTimer();
+        }
+
+        private void StartIncreaseTimer()
+        {
+            if (_coroutine != null)
+            {
+                StopCoroutine(IncreaseTimer());
+            }
+
+            _coroutine = StartCoroutine(IncreaseTimer());
+        }
+
+        private IEnumerator IncreaseTimer()
+        {
+            yield return _increaseTime;
+            _isActiveIncreaseAd = false;
+            _buttonChangerController.SetButtonChangerOn();
+        }
+
+        public void TakeFish(List<Fish> fishes)
+        {
+            for (int i = 0; i < fishes.Count; i++)
+            {
+                AddFish(fishes[i]);
+                AddResources(fishes[i]);
+            }
+        }
+
+        private void AddFish(Fish fish)
+        {
+            foreach (FishTypeCounter catchedFish in _catchedFishes)
+            {
+                if (catchedFish.Type == fish.Type)
+                {
+                    catchedFish.Increase();
+                    FishTransferred?.Invoke();
+                    _spawner.SetOffFish(fish);
+                }
+            }
+        }
+
+        public void AddFishOnRod(FishType type)
+        {
+            foreach (FishTypeCounter catchedFish in _catchedFishes)
+            {
+                if (catchedFish.Type == type)
+                {
+                    catchedFish.Increase();
+                    FishTransferred?.Invoke();
+                }
+            }
+        }
+
+        public void RemoveFish(FishType fish)
+        {
+            foreach (FishTypeCounter item in _catchedFishes)
+            {
+                if (item.Type == fish)
+                {
+                    item.Decrease();
+                    FishTransferred?.Invoke();
+                }
+            }
+
+            _saver.SaveFishesCountData(_fishesCountSaves, _catchedFishes);
+        }
+
+        public bool CheckCanPaySkin(SkinView skin)
+        {
+            SkinCost cost = skin.Cost;
+
+            foreach (var fishPrice in cost.FishCountPrices)
+            {
+                foreach (var fish in _catchedFishes)
+                {
+                    if (fishPrice.Type == fish.Type)
                     {
-                        return false;
+                        if (fishPrice.Cost > fish.Count)
+                        {
+                            return false;
+                        }
                     }
                 }
             }
+
+            PaySkin(skin);
+            return true;
         }
 
-        PaySkin(skin);
-        return true;
-    }
-
-    private void PaySkin(SkinView skin)
-    {
-        SkinCost cost = skin.Cost;
-
-        foreach (var fishPrice in cost.FishCountPrices)
+        private void PaySkin(SkinView skin)
         {
-            for (int i = 0; i < fishPrice.Cost; i++)
+            SkinCost cost = skin.Cost;
+
+            foreach (var fishPrice in cost.FishCountPrices)
             {
-                RemoveFish(fishPrice.Type);
+                for (int i = 0; i < fishPrice.Cost; i++)
+                {
+                    RemoveFish(fishPrice.Type);
+                }
             }
         }
-    }
 
-    private void AddResources(Fish fish)
-    {
-        foreach (var item in _resources)
+        private void AddResources(Fish fish)
         {
-            if (item.Resource.ToString() == fish.Resource.ToString())
+            foreach (var item in _resources)
             {
-                if (_isActiveIncreaseAd)
+                if (item.Resource.ToString() == fish.Resource.ToString())
                 {
+                    if (_isActiveIncreaseAd)
+                    {
+                        item.Increase();
+                    }
+
                     item.Increase();
                 }
-
-                item.Increase();
             }
+
+            _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
+            ResourceCountChanged?.Invoke();
+            _tutorial.ShowWhereUpgrade();
         }
 
-        _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
-        ResourceCountChanged?.Invoke();
-        _tutorial.ShowWhereUpgrade();
-    }
-
-    public void SpendResources(int count, Resource type)
-    {
-        foreach (var resourceType in _resources)
+        public void SpendResources(int count, Resource type)
         {
-            if (resourceType.Resource == type)
+            foreach (var resourceType in _resources)
             {
-                for (int i = 0; i < count; i++)
+                if (resourceType.Resource == type)
                 {
-                    resourceType.Decrease();
+                    for (int i = 0; i < count; i++)
+                    {
+                        resourceType.Decrease();
+                    }
                 }
             }
+
+            _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
+            ResourceCountChanged?.Invoke();
         }
 
-        _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
-        ResourceCountChanged?.Invoke();
-    }
-
-    public bool CheckIsCanPay(Resource resource, int count)
-    {
-        foreach (var resourceType in _resources)
+        public bool CheckIsCanPay(Resource resource, int count)
         {
-            if (resourceType.Resource == resource)
+            foreach (var resourceType in _resources)
             {
-                if (resourceType.Count >= count)
+                if (resourceType.Resource == resource)
                 {
-                    return true;
+                    if (resourceType.Count >= count)
+                    {
+                        return true;
+                    }
                 }
             }
+
+            return false;
         }
 
-        return false;
-    }
-
-    public int GetFishBonesCount()
-    {
-        foreach (var resource in _resources)
+        public int GetFishBonesCount()
         {
-            if (resource.Resource == Resource.FishBones)
+            foreach (var resource in _resources)
             {
-                return resource.Count;
+                if (resource.Resource == Resource.FishBones)
+                {
+                    return resource.Count;
+                }
             }
+
+            return 0;
         }
 
-        return 0;
-    }
-
-    public int GetSeaWeedCount()
-    {
-        foreach (var resource in _resources)
+        public int GetSeaWeedCount()
         {
-            if (resource.Resource == Resource.SeaWeed)
+            foreach (var resource in _resources)
             {
-                return resource.Count;
+                if (resource.Resource == Resource.SeaWeed)
+                {
+                    return resource.Count;
+                }
             }
+
+            return 0;
         }
 
-        return 0;
-    }
-
-    public void OnClosetButtonClick()
-    {
-        _interAd.ShowAd();
-
-        _buttonView.SetActiveEImage(false);
-        _view.gameObject.SetActive(true);
-
-        _rodView.SetOffHappyFace();
-
-        if (_isTutorialShowed == false)
+        public void OnClosetButtonClick()
         {
-            _tutorial.ShowHowCatchFishOnRod();
-            _isTutorialShowed = true;
-            _saver.SaveTutorialData(_tutorialShowedKey, new DTOTutorial { IsShowed = _isTutorialShowed });
+            _interAd.ShowAd();
+
+            _buttonView.SetActiveEImage(false);
+            _view.gameObject.SetActive(true);
+
+            _rodView.SetOffHappyFace();
+
+            if (_isTutorialShowed == false)
+            {
+                _tutorial.ShowHowCatchFishOnRod();
+                _isTutorialShowed = true;
+                _saver.SaveTutorialData(_tutorialShowedKey, new DTOTutorial { IsShowed = _isTutorialShowed });
+            }
+
+            if (_playerNearbyChecker.GetPlayer() != null)
+            {
+                _player = _playerNearbyChecker.GetPlayer();
+
+                TakeFish(_player.GetFish());
+            }
+
+            _saver.SaveFishesCountData(_fishesCountSaves, _catchedFishes);
+            _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
         }
-
-        if (_playerNearbyChecker.GetPlayer() != null)
-        {
-            _player = _playerNearbyChecker.GetPlayer();
-
-            TakeFish(_player.GetFish());
-        }
-
-        _saver.SaveFishesCountData(_fishesCountSaves, _catchedFishes);
-        _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
     }
 }
+

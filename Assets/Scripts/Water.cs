@@ -1,5 +1,9 @@
 using UnityEngine;
 
-public class Water : MonoBehaviour
-{ 
+namespace Assets.Scripts
+{
+    public class Water : MonoBehaviour
+    {
+    }
 }
+

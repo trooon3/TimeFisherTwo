@@ -1,54 +1,58 @@
 using UnityEngine;
 using TMPro;
 
-public class BagCountViewer : MonoBehaviour
+namespace Assets.Scripts.UI
 {
-    [SerializeField] private Bag _bag;
-    [SerializeField] private TutorialViewer _tutorial;
-
-    [SerializeField] private TMP_Text _fishCount;
-    [SerializeField] private TMP_Text _filledBagText;
-
-    private bool _isTutorialShowed;
-
-    private void Start()
+    public class BagCountViewer : MonoBehaviour
     {
-        OnFishAdded();
-        OnBagEmpty();
-    }
+        [SerializeField] private Bag _bag;
+        [SerializeField] private TutorialViewer _tutorial;
 
-    private void OnEnable()
-    {
-        _bag.FishCountChanged += OnFishAdded;
-        _bag.BagFilled += OnBagFilled;
-        _bag.BagDevastated += OnBagEmpty;
-    }
+        [SerializeField] private TMP_Text _fishCount;
+        [SerializeField] private TMP_Text _filledBagText;
 
-    private void OnDisable()
-    {
-        _bag.FishCountChanged -= OnFishAdded;
-        _bag.BagFilled -= OnBagFilled;
-        _bag.BagDevastated -= OnBagEmpty;
-    }
+        private bool _isTutorialShowed;
 
-    private void OnFishAdded()
-    {
-        _fishCount.text = _bag.FishesInsideCount.ToString();
-    }
-
-    private void OnBagFilled()
-    {
-        if (_isTutorialShowed == false)
+        private void Start()
         {
-            _tutorial.ShowWhereFishesCollect();
-            _isTutorialShowed = true;
+            OnFishAdded();
+            OnBagEmpty();
         }
 
-        _filledBagText.gameObject.SetActive(true);
-    }
+        private void OnEnable()
+        {
+            _bag.FishCountChanged += OnFishAdded;
+            _bag.BagFilled += OnBagFilled;
+            _bag.BagDevastated += OnBagEmpty;
+        }
 
-    private void OnBagEmpty()
-    {
-        _filledBagText.gameObject.SetActive(false);
+        private void OnDisable()
+        {
+            _bag.FishCountChanged -= OnFishAdded;
+            _bag.BagFilled -= OnBagFilled;
+            _bag.BagDevastated -= OnBagEmpty;
+        }
+
+        private void OnFishAdded()
+        {
+            _fishCount.text = _bag.FishesInsideCount.ToString();
+        }
+
+        private void OnBagFilled()
+        {
+            if (_isTutorialShowed == false)
+            {
+                _tutorial.ShowWhereFishesCollect();
+                _isTutorialShowed = true;
+            }
+
+            _filledBagText.gameObject.SetActive(true);
+        }
+
+        private void OnBagEmpty()
+        {
+            _filledBagText.gameObject.SetActive(false);
+        }
     }
 }
+

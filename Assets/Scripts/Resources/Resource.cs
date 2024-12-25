@@ -1,5 +1,9 @@
-public enum Resource
+namespace Assets.Scripts.Resources
 {
-    FishBones = 1,
-    SeaWeed
+    public enum Resource
+    {
+        FishBones = 1,
+        SeaWeed
+    }
 }
+

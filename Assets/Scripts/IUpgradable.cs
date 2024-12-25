@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IUpgradable
+namespace Assets.Scripts
 {
-    public void Upgrade();
-    public Resource GetResourceToUpgrade();
-    public int GetResourceCountToUpgrade();
+    public interface IUpgradable
+    {
+        public void Upgrade();
+        public Resource GetResourceToUpgrade();
+        public int GetResourceCountToUpgrade();
+    }
 }
+

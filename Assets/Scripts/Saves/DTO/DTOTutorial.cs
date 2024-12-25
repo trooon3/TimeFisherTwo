@@ -1,7 +1,11 @@
 using System;
 
-[Serializable]
-public class DTOTutorial
+namespace Assets.Scripts.Saves.DTO
 {
-    public bool IsShowed;
+    [Serializable]
+    public class DTOTutorial
+    {
+        public bool IsShowed;
+    }
 }
+

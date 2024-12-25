@@ -1,12 +1,16 @@
 using UnityEngine;
 using TMPro;
 
-public class LoadingTranslator : MonoBehaviour
+namespace Assets.Scripts.UI
 {
-    [SerializeField] private TMP_Text _loadingText;
-
-    private void Start()
+    public class LoadingTranslator : MonoBehaviour
     {
-        _loadingText.text = Lean.Localization.LeanLocalization.GetTranslationText("Loading");
+        [SerializeField] private TMP_Text _loadingText;
+
+        private void Start()
+        {
+            _loadingText.text = Lean.Localization.LeanLocalization.GetTranslationText("Loading");
+        }
     }
 }
+

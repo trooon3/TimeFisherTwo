@@ -2,33 +2,37 @@ using UnityEngine;
 using System;
 using UnityEngine.Events;
 
-[Serializable]
-public class FishTypeCounter
+namespace Assets.Scripts.Fishes
 {
-    [SerializeField] public FishType _type;
-    [SerializeField] [Min(0)] public int _count;
-
-    public FishType Type => _type;
-    public int Count => _count;
-
-    public UnityAction CountChanged;
-
-    public FishTypeCounter(FishType type)
+    [Serializable]
+    public class FishTypeCounter
     {
-        _type = type;
-        _count = 0;
-    }
+        [SerializeField] public FishType _type;
+        [SerializeField] [Min(0)] public int _count;
 
-    public void Increase()
-    {
-        _count++;
-    }
+        public FishType Type => _type;
+        public int Count => _count;
 
-    public void Decrease()
-    {
-        if (_count > 0)
+        public UnityAction CountChanged;
+
+        public FishTypeCounter(FishType type)
         {
-            _count--;
+            _type = type;
+            _count = 0;
+        }
+
+        public void Increase()
+        {
+            _count++;
+        }
+
+        public void Decrease()
+        {
+            if (_count > 0)
+            {
+                _count--;
+            }
         }
     }
 }
+

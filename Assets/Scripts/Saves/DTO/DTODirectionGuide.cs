@@ -1,8 +1,13 @@
 using System;
-[Serializable]
-public class DTODirectionGuide
+
+namespace Assets.Scripts.Saves.DTO
 {
-    public bool IsShowedWalkTutorial;
-    public bool IsShowedCatchTutorial;
-    public bool IsShowedGetFishTutorial;
+    [Serializable]
+    public class DTODirectionGuide
+    {
+        public bool IsShowedWalkTutorial;
+        public bool IsShowedCatchTutorial;
+        public bool IsShowedGetFishTutorial;
+    }
 }
+

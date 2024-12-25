@@ -1,25 +1,29 @@
 using UnityEngine;
 
-public class JoyStickMover : MonoBehaviour
+namespace Assets.Scripts.PlayerScripts
 {
-    [SerializeField] private FloatingJoystick _joystick;
-
-    private PlayerMover _playerMover;
-    private Vector3 _direction;
-    private Vector3 _stopDirection = new Vector3(0, 0, 0);
-
-    void Start()
+    public class JoyStickMover : MonoBehaviour
     {
-        _playerMover = GetComponent<PlayerMover>();
-    }
+        [SerializeField] private FloatingJoystick _joystick;
 
-    void Update()
-    {
-        _direction = new Vector3(_joystick.Horizontal, 0,_joystick.Vertical);
+        private PlayerMover _playerMover;
+        private Vector3 _direction;
+        private Vector3 _stopDirection = new Vector3(0, 0, 0);
 
-        if (_direction != _stopDirection)
+        void Start()
         {
-            _playerMover.JoyStickMove(_direction);
+            _playerMover = GetComponent<PlayerMover>();
+        }
+
+        void Update()
+        {
+            _direction = new Vector3(_joystick.Horizontal, 0, _joystick.Vertical);
+
+            if (_direction != _stopDirection)
+            {
+                _playerMover.JoyStickMove(_direction);
+            }
         }
     }
 }
+

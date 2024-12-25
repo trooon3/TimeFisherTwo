@@ -2,113 +2,117 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(FieldOfView))]
-public class FishCatcher : MonoBehaviour
+namespace Assets.Scripts.PlayerScripts
 {
-    [SerializeField] private PlayerAnimationController _player;
-
-    [Range(0, 360)]
-    [SerializeField] private float _minAngle;
-    [SerializeField] private float _maxAngle;
-    [SerializeField] private float _radius;
-    [SerializeField] private bool _isCanCatchFish;
-    [SerializeField] private FishSpawner _spawner;
-
-    private float _angle = 100;
-    private float _elapsedTime = 0;
-
-    private Bag _bag;
-    private Fish _fishToCatch;
-    private Coroutine _coroutine;
-
-    private FieldOfView _fieldOfView;
-    public FieldOfView FieldOfView => _fieldOfView;
-    public Fish FishToCatch => _fishToCatch;
-    
-    private int FishNumber = 9;
-    private int Fish;
-    public float ElapsedTime => _elapsedTime;
-    
-    public UnityAction Catched;
-
-    private void Start()
+    [RequireComponent(typeof(FieldOfView))]
+    public class FishCatcher : MonoBehaviour
     {
-        _fieldOfView = GetComponent<FieldOfView>();
-        Mathf.Clamp(_angle, _minAngle, _maxAngle);
-        _bag = GetComponent<Bag>();
-        Fish = 1 << FishNumber;
-    }
+        [SerializeField] private PlayerAnimationController _player;
 
-    public void SetCatchFish(Fish fish)
-    {
-        _isCanCatchFish = true;
-        _fishToCatch = fish;
-    }
+        [Range(0, 360)]
+        [SerializeField] private float _minAngle;
+        [SerializeField] private float _maxAngle;
+        [SerializeField] private float _radius;
+        [SerializeField] private bool _isCanCatchFish;
+        [SerializeField] private FishSpawner _spawner;
 
-    public void ResetSettings()
-    {
-        _isCanCatchFish = false;
-        _fishToCatch = null;
-        _elapsedTime = 0;
-    }
+        private float _angle = 100;
+        private float _elapsedTime = 0;
 
-    public void TryFindFish()
-    {
-        if (_fishToCatch != null)
+        private Bag _bag;
+        private Fish _fishToCatch;
+        private Coroutine _coroutine;
+
+        private FieldOfView _fieldOfView;
+        public FieldOfView FieldOfView => _fieldOfView;
+        public Fish FishToCatch => _fishToCatch;
+
+        private int FishNumber = 9;
+        private int Fish;
+        public float ElapsedTime => _elapsedTime;
+
+        public UnityAction Catched;
+
+        private void Start()
         {
-            _fishToCatch.SetCatcher(this);
-            TryCatchFish();
+            _fieldOfView = GetComponent<FieldOfView>();
+            Mathf.Clamp(_angle, _minAngle, _maxAngle);
+            _bag = GetComponent<Bag>();
+            Fish = 1 << FishNumber;
         }
-        else
+
+        public void SetCatchFish(Fish fish)
         {
-            if (_elapsedTime != 0)
+            _isCanCatchFish = true;
+            _fishToCatch = fish;
+        }
+
+        public void ResetSettings()
+        {
+            _isCanCatchFish = false;
+            _fishToCatch = null;
+            _elapsedTime = 0;
+        }
+
+        public void TryFindFish()
+        {
+            if (_fishToCatch != null)
             {
-                _elapsedTime = 0;
+                _fishToCatch.SetCatcher(this);
+                TryCatchFish();
+            }
+            else
+            {
+                if (_elapsedTime != 0)
+                {
+                    _elapsedTime = 0;
+                }
             }
         }
-    }
 
-    private void TryCatchFish()
-    {
-        StartElapseTime();
-    }
-
-    private void TryAddFish(Fish fish)
-    {
-        if (_bag.TryAddFish(fish))
+        private void TryCatchFish()
         {
-            Catched?.Invoke();
-            _spawner.SetOffFish(fish);
-        }
-    }
-
-    private void StartElapseTime()
-    {
-        if (_coroutine != null)
-        {
-            StopCoroutine(_coroutine);
+            StartElapseTime();
         }
 
-        if (_fishToCatch != null)
+        private void TryAddFish(Fish fish)
         {
-            _coroutine = StartCoroutine(ElapseTime());
-        }
-    }
-
-    private IEnumerator ElapseTime()
-    {
-        while (_isCanCatchFish)
-        {
-            if (_elapsedTime >= _fishToCatch.Catchtime)
+            if (_bag.TryAddFish(fish))
             {
-                _isCanCatchFish = false;
-                _elapsedTime = 0;
-                TryAddFish(_fishToCatch);
-                _fishToCatch = null;
+                Catched?.Invoke();
+                _spawner.SetOffFish(fish);
+            }
+        }
+
+        private void StartElapseTime()
+        {
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
             }
 
-            _elapsedTime += Time.deltaTime;
-            yield return null;
+            if (_fishToCatch != null)
+            {
+                _coroutine = StartCoroutine(ElapseTime());
+            }
+        }
+
+        private IEnumerator ElapseTime()
+        {
+            while (_isCanCatchFish)
+            {
+                if (_elapsedTime >= _fishToCatch.Catchtime)
+                {
+                    _isCanCatchFish = false;
+                    _elapsedTime = 0;
+                    TryAddFish(_fishToCatch);
+                    _fishToCatch = null;
+                }
+
+                _elapsedTime += Time.deltaTime;
+                yield return null;
+            }
         }
     }
 }
+

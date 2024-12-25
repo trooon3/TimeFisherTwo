@@ -1,27 +1,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shop : MonoBehaviour
+namespace Assets.Scripts
 {
-    [SerializeField] private SkinView _template;
-    [SerializeField] private Transform _container;
-    [SerializeField] private SkinEditor _skinEditor;
-    [SerializeField] private Closet _closet;
-
-    private List<SkinView> _views;
-
-    private void Start()
+    public class Shop : MonoBehaviour
     {
-        _views = new List<SkinView>();
+        [SerializeField] private SkinView _template;
+        [SerializeField] private Transform _container;
+        [SerializeField] private SkinEditor _skinEditor;
+        [SerializeField] private Closet _closet;
 
-        foreach (var item in _skinEditor.Skins)
+        private List<SkinView> _views;
+
+        private void Start()
         {
-            var skinview = Instantiate(_template, _container);
+            _views = new List<SkinView>();
 
-            skinview.Init(_skinEditor, item, _closet);
-            skinview.gameObject.SetActive(true);
+            foreach (var item in _skinEditor.Skins)
+            {
+                var skinview = Instantiate(_template, _container);
 
-            _views.Add(skinview);
+                skinview.Init(_skinEditor, item, _closet);
+                skinview.gameObject.SetActive(true);
+
+                _views.Add(skinview);
+            }
         }
     }
 }
+

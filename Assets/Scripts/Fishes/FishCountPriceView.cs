@@ -2,14 +2,18 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class FishCountPriceView : MonoBehaviour
+namespace Assets.Scripts.Fishes
 {
-    [SerializeField] private Image _sprite;
-    [SerializeField] private TMP_Text _cost;
-
-    public void Init(Sprite sprite, string cost)
+    public class FishCountPriceView : MonoBehaviour
     {
-        _sprite.sprite = sprite;
-        _cost.text = cost;
+        [SerializeField] private Image _sprite;
+        [SerializeField] private TMP_Text _cost;
+
+        public void Init(Sprite sprite, string cost)
+        {
+            _sprite.sprite = sprite;
+            _cost.text = cost;
+        }
     }
 }
+

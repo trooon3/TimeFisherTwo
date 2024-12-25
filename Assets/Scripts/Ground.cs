@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
-public class Ground : MonoBehaviour
+namespace Assets.Scripts
 {
+    public class Ground : MonoBehaviour
+    {
+    }
 }

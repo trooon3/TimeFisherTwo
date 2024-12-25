@@ -1,36 +1,40 @@
 using UnityEngine;
 
-public class Compas : MonoBehaviour
+namespace Assets.Scripts.UI
 {
-    [SerializeField] private SpriteRenderer _arrow;
-    [SerializeField] private SpriteRenderer _shipIcon;
-    [SerializeField] private Transform _ship;
-    [SerializeField] private float _distance;
-
-    private void Update()
+    public class Compas : MonoBehaviour
     {
-        _arrow.gameObject.SetActive(false);
-        _shipIcon.gameObject.SetActive(false);
+        [SerializeField] private SpriteRenderer _arrow;
+        [SerializeField] private SpriteRenderer _shipIcon;
+        [SerializeField] private Transform _ship;
+        [SerializeField] private float _distance;
 
-        if (Vector3.Distance(_ship.transform.position, transform.position) >= _distance)
+        private void Update()
         {
-            _arrow.gameObject.SetActive(true);
-            _shipIcon.gameObject.SetActive(true);
-            RotateIndicator();
-        }
-    }
+            _arrow.gameObject.SetActive(false);
+            _shipIcon.gameObject.SetActive(false);
 
-    private void RotateIndicator()
-    {
-        Vector3 target = new Vector3(_ship.position.x, transform.position.y, _ship.position.z);
-        Vector3 direction = target - transform.position;
-
-        if (direction == Vector3.zero)
-        {
-            return;
+            if (Vector3.Distance(_ship.transform.position, transform.position) >= _distance)
+            {
+                _arrow.gameObject.SetActive(true);
+                _shipIcon.gameObject.SetActive(true);
+                RotateIndicator();
+            }
         }
 
-        Quaternion targetQuternion = Quaternion.LookRotation(direction, transform.up);
-        transform.rotation = targetQuternion;
+        private void RotateIndicator()
+        {
+            Vector3 target = new Vector3(_ship.position.x, transform.position.y, _ship.position.z);
+            Vector3 direction = target - transform.position;
+
+            if (direction == Vector3.zero)
+            {
+                return;
+            }
+
+            Quaternion targetQuternion = Quaternion.LookRotation(direction, transform.up);
+            transform.rotation = targetQuternion;
+        }
     }
 }
+

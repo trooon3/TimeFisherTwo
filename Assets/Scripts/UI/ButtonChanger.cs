@@ -3,61 +3,65 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class ButtonChanger : MonoBehaviour
+namespace Assets.Scripts.UI
 {
-    [SerializeField] private List<Button> _buttons;
-    private WaitForSeconds _showTime = new WaitForSeconds(14f);
-    private WaitForSeconds _delay = new WaitForSeconds(180f);
-    private Coroutine _coroutine;
-
-    private void OnEnable()
+    public class ButtonChanger : MonoBehaviour
     {
-        foreach (var button in _buttons)
+        [SerializeField] private List<Button> _buttons;
+        private WaitForSeconds _showTime = new WaitForSeconds(14f);
+        private WaitForSeconds _delay = new WaitForSeconds(180f);
+        private Coroutine _coroutine;
+
+        private void OnEnable()
         {
-            button.gameObject.SetActive(false);
-        }
-
-        _coroutine = StartCoroutine(ChangeButton());
-    }
-
-    private IEnumerator ChangeButton()
-    {
-        int i = Random.Range(0,_buttons.Count - 1);
-
-        while (true)
-        {
-            if (i == _buttons.Count)
+            foreach (var button in _buttons)
             {
-                i = 0;
+                button.gameObject.SetActive(false);
             }
 
-            yield return _showTime;
-            Button currentButton = _buttons[i];
-            currentButton.gameObject.SetActive(true);
-
-            yield return _showTime;
-
-            if (currentButton.gameObject.activeSelf)
-            {
-                currentButton.gameObject.SetActive(false);
-                
-            }
-            
-            i++;
+            _coroutine = StartCoroutine(ChangeButton());
         }
-    }
+
+        private IEnumerator ChangeButton()
+        {
+            int i = Random.Range(0, _buttons.Count - 1);
+
+            while (true)
+            {
+                if (i == _buttons.Count)
+                {
+                    i = 0;
+                }
+
+                yield return _showTime;
+                Button currentButton = _buttons[i];
+                currentButton.gameObject.SetActive(true);
+
+                yield return _showTime;
+
+                if (currentButton.gameObject.activeSelf)
+                {
+                    currentButton.gameObject.SetActive(false);
+
+                }
+
+                i++;
+            }
+        }
 
 
-    public void RestartChangingBottonWithDelay()
-    {
-        StopCoroutine(_coroutine);
-       _coroutine = StartCoroutine(RestartChangeBottonWithDelay());
-    }
-    
-    public IEnumerator RestartChangeBottonWithDelay()
-    {
-        yield return _delay;
-        StopCoroutine(_coroutine);
-        _coroutine = StartCoroutine(ChangeButton());
+        public void RestartChangingBottonWithDelay()
+        {
+            StopCoroutine(_coroutine);
+            _coroutine = StartCoroutine(RestartChangeBottonWithDelay());
+        }
+
+        public IEnumerator RestartChangeBottonWithDelay()
+        {
+            yield return _delay;
+            StopCoroutine(_coroutine);
+            _coroutine = StartCoroutine(ChangeButton());
+        }
     }
 }
+

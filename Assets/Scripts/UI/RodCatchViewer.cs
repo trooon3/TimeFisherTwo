@@ -2,65 +2,69 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RodCatchViewer : MonoBehaviour
+namespace Assets.Scripts.UI
 {
-    [SerializeField] private Image _slider;
-    [SerializeField] private Image _fishIcon;
-    [SerializeField] private Image _happyFaceIcon;
-    [SerializeField] private Rod _rod;
-    
-    private Coroutine _coroutine;
-
-    private float _changeSpeed;
-    private float _catchTime = 1;
-
-    private void Start()
+    public class RodCatchViewer : MonoBehaviour
     {
-        _fishIcon.gameObject.SetActive(false);
-        _happyFaceIcon.gameObject.SetActive(false);
-        _slider.fillAmount = 0;
-    }
+        [SerializeField] private Image _slider;
+        [SerializeField] private Image _fishIcon;
+        [SerializeField] private Image _happyFaceIcon;
+        [SerializeField] private Rod _rod;
 
-    public void StartDisplayCatchingTime()
-    {
-        if (_coroutine != null)
+        private Coroutine _coroutine;
+
+        private float _changeSpeed;
+        private float _catchTime = 1;
+
+        private void Start()
         {
-            StopDisplayCatchingTime();
+            _fishIcon.gameObject.SetActive(false);
+            _happyFaceIcon.gameObject.SetActive(false);
+            _slider.fillAmount = 0;
         }
 
-        _coroutine = StartCoroutine(DisplayCatchingTime());
-    }
-
-    public void StopDisplayCatchingTime()
-    {
-        _slider.fillAmount = 0;
-        StopCoroutine(_coroutine);
-    }
-
-    public void SetOffHappyFace()
-    {
-        _happyFaceIcon.gameObject.SetActive(false);
-    }
-
-    private IEnumerator DisplayCatchingTime()
-    {
-        _happyFaceIcon.gameObject.SetActive(false);
-        _fishIcon.gameObject.SetActive(true);
-        _changeSpeed = _rod.CatchingSpeed;
-
-        while (_slider.fillAmount != _catchTime)
+        public void StartDisplayCatchingTime()
         {
-            _slider.fillAmount = Mathf.MoveTowards(_slider.fillAmount, _catchTime, _changeSpeed * Time.deltaTime);
-
-            if (_slider.fillAmount == _catchTime)
+            if (_coroutine != null)
             {
-                _fishIcon.gameObject.SetActive(false);
-                _happyFaceIcon.gameObject.SetActive(true);
-                _rod.GetFishFoodFor();
-                
+                StopDisplayCatchingTime();
             }
 
-            yield return null;
+            _coroutine = StartCoroutine(DisplayCatchingTime());
+        }
+
+        public void StopDisplayCatchingTime()
+        {
+            _slider.fillAmount = 0;
+            StopCoroutine(_coroutine);
+        }
+
+        public void SetOffHappyFace()
+        {
+            _happyFaceIcon.gameObject.SetActive(false);
+        }
+
+        private IEnumerator DisplayCatchingTime()
+        {
+            _happyFaceIcon.gameObject.SetActive(false);
+            _fishIcon.gameObject.SetActive(true);
+            _changeSpeed = _rod.CatchingSpeed;
+
+            while (_slider.fillAmount != _catchTime)
+            {
+                _slider.fillAmount = Mathf.MoveTowards(_slider.fillAmount, _catchTime, _changeSpeed * Time.deltaTime);
+
+                if (_slider.fillAmount == _catchTime)
+                {
+                    _fishIcon.gameObject.SetActive(false);
+                    _happyFaceIcon.gameObject.SetActive(true);
+                    _rod.GetFishFoodFor();
+
+                }
+
+                yield return null;
+            }
         }
     }
 }
+

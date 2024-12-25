@@ -1,52 +1,56 @@
 using UnityEngine;
 
-public class PlayerAnimationController : MonoBehaviour
+namespace Assets.Scripts.PlayerScripts
 {
-    [SerializeField] private Animator _animator;
-
-    private int _slowRun = Animator.StringToHash("Slow Run");
-    private int _jump = Animator.StringToHash("Jump");
-    private int _treadingWater = Animator.StringToHash("Treading Water");
-    private int _happyIdle = Animator.StringToHash("Happy Idle");
-    private int _swimming = Animator.StringToHash("Swimming");
-
-    public void SetAnimator(Animator animator)
+    public class PlayerAnimationController : MonoBehaviour
     {
-        _animator = animator;
-        _animator.Play(_jump);
-    }
+        [SerializeField] private Animator _animator;
 
-    public void DoJumpAnimation(bool isOnGround, bool isInWater)
-    {
-        if (isOnGround || isInWater)
+        private int _slowRun = Animator.StringToHash("Slow Run");
+        private int _jump = Animator.StringToHash("Jump");
+        private int _treadingWater = Animator.StringToHash("Treading Water");
+        private int _happyIdle = Animator.StringToHash("Happy Idle");
+        private int _swimming = Animator.StringToHash("Swimming");
+
+        public void SetAnimator(Animator animator)
         {
-            return;
-        }
-        else 
-        {
+            _animator = animator;
             _animator.Play(_jump);
         }
-    }
 
-    public void DoSwimAnimation()
-    {
-        _animator.Play(_swimming);
-    }
+        public void DoJumpAnimation(bool isOnGround, bool isInWater)
+        {
+            if (isOnGround || isInWater)
+            {
+                return;
+            }
+            else
+            {
+                _animator.Play(_jump);
+            }
+        }
 
-    public void DoRunAnimation()
-    {
-        _animator.Play(_slowRun);
-    }
+        public void DoSwimAnimation()
+        {
+            _animator.Play(_swimming);
+        }
 
-    public void DoMove(float speed)
-    {
-        _animator.SetFloat("Speed", speed);
-    }
+        public void DoRunAnimation()
+        {
+            _animator.Play(_slowRun);
+        }
 
-    public void SetGround(bool IsOnGround, bool InWater)
-    {
-       _animator.SetBool("InWater", InWater);
-       _animator.SetBool("OnEarth", IsOnGround);
+        public void DoMove(float speed)
+        {
+            _animator.SetFloat("Speed", speed);
+        }
+
+        public void SetGround(bool IsOnGround, bool InWater)
+        {
+            _animator.SetBool("InWater", InWater);
+            _animator.SetBool("OnEarth", IsOnGround);
+        }
     }
 }
+
 

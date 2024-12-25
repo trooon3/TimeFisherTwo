@@ -1,8 +1,12 @@
 using System;
 
-[Serializable]
-public class DTOSkin
+namespace Assets.Scripts.Saves.DTO
 {
-    public bool Isbuyed;
-    public string Name;
+    [Serializable]
+    public class DTOSkin
+    {
+        public bool Isbuyed;
+        public string Name;
+    }
 }
+

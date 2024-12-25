@@ -2,32 +2,36 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class KeyboardAnimationScript : MonoBehaviour
+namespace Assets.Scripts.Tutorial
 {
-    [SerializeField] private Image[] _keysBackgrounds;
-    [SerializeField] private float _targetAlpha = 0.75f;
-    [SerializeField] private float _duration = 0.3f;
-
-    private Tween _keysTween;
-
-    private void Start()
+    public class KeyboardAnimationScript : MonoBehaviour
     {
-        Sequence keysSequence = DOTween.Sequence();
+        [SerializeField] private Image[] _keysBackgrounds;
+        [SerializeField] private float _targetAlpha = 0.75f;
+        [SerializeField] private float _duration = 0.3f;
 
-        foreach (var key in _keysBackgrounds)
+        private Tween _keysTween;
+
+        private void Start()
         {
-            keysSequence.Append(key.DOFade(_targetAlpha, _duration).SetLoops(4, LoopType.Yoyo).SetEase(Ease.Linear));
+            Sequence keysSequence = DOTween.Sequence();
+
+            foreach (var key in _keysBackgrounds)
+            {
+                keysSequence.Append(key.DOFade(_targetAlpha, _duration).SetLoops(4, LoopType.Yoyo).SetEase(Ease.Linear));
+            }
+
+            keysSequence.SetLoops(-1);
+            _keysTween = keysSequence;
         }
 
-        keysSequence.SetLoops(-1);
-        _keysTween = keysSequence;
-    }
-
-    private void OnDisable()
-    {
-        if (_keysTween != null)
+        private void OnDisable()
         {
-            _keysTween.Kill();
-        } 
+            if (_keysTween != null)
+            {
+                _keysTween.Kill();
+            }
+        }
     }
 }
+

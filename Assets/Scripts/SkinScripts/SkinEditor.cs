@@ -1,71 +1,75 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkinEditor : MonoBehaviour
+namespace Assets.Scripts.SkinScripts
 {
-    [SerializeField] private Skin _defaultSkin;
-    [SerializeField] private List<Skin> _skins;
-    [SerializeField] private PlayerAnimationController _controller;
-    [SerializeField] private DataSaver _saver;
-
-    public DTOSkin DTOChosenSkin;
-
-    public string _chosenSkinName;
-    public string _chosenSkinKey = "defaultSkinKey";
-
-    public List<Skin> Skins => _skins;
- 
-    private void Awake()
+    public class SkinEditor : MonoBehaviour
     {
-        if (!_skins.Contains(_defaultSkin))
-        {
-            _skins.Add(_defaultSkin);
-        }
-        
-        foreach (var skin in _skins)
-        {
-            skin.gameObject.SetActive(false);
-        }
+        [SerializeField] private Skin _defaultSkin;
+        [SerializeField] private List<Skin> _skins;
+        [SerializeField] private PlayerAnimationController _controller;
+        [SerializeField] private DataSaver _saver;
 
-        string chosenSkinName = _saver.LoadChosenSkin(_chosenSkinKey);
+        public DTOSkin DTOChosenSkin;
 
-        if (chosenSkinName != null)
-        {
-            _chosenSkinName = chosenSkinName;
-        }
-        else
-        {
-            _chosenSkinName = null;
-        }
+        public string _chosenSkinName;
+        public string _chosenSkinKey = "defaultSkinKey";
 
-        foreach (var skin in _skins)
+        public List<Skin> Skins => _skins;
+
+        private void Awake()
         {
-            if (skin.Name == _chosenSkinName)
+            if (!_skins.Contains(_defaultSkin))
             {
-                SetSkin(skin);
+                _skins.Add(_defaultSkin);
+            }
+
+            foreach (var skin in _skins)
+            {
+                skin.gameObject.SetActive(false);
+            }
+
+            string chosenSkinName = _saver.LoadChosenSkin(_chosenSkinKey);
+
+            if (chosenSkinName != null)
+            {
+                _chosenSkinName = chosenSkinName;
+            }
+            else
+            {
+                _chosenSkinName = null;
+            }
+
+            foreach (var skin in _skins)
+            {
+                if (skin.Name == _chosenSkinName)
+                {
+                    SetSkin(skin);
+                }
+            }
+
+            if (_chosenSkinName == null || _chosenSkinName == "")
+            {
+                SetSkin(_defaultSkin);
             }
         }
 
-        if (_chosenSkinName == null || _chosenSkinName == "")
+        public void SetSkin(Skin skinToChoose)
         {
-            SetSkin(_defaultSkin);
-        }
-    }
-
-    public void SetSkin(Skin skinToChoose)
-    {
-        foreach (var skin in _skins)
-        {
-            skin.gameObject.SetActive(false);
-
-            if (skin == skinToChoose)
+            foreach (var skin in _skins)
             {
-                skinToChoose.gameObject.SetActive(true);
-                _chosenSkinName = skin.Name;
-                _controller.SetAnimator(skinToChoose.Animator);
-            }
-        }
+                skin.gameObject.SetActive(false);
 
-        _saver.SaveChosenSkin(_chosenSkinKey, _chosenSkinName);
+                if (skin == skinToChoose)
+                {
+                    skinToChoose.gameObject.SetActive(true);
+                    _chosenSkinName = skin.Name;
+                    _controller.SetAnimator(skinToChoose.Animator);
+                }
+            }
+
+            _saver.SaveChosenSkin(_chosenSkinKey, _chosenSkinName);
+        }
     }
 }
+

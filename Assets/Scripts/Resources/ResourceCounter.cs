@@ -1,31 +1,35 @@
 using UnityEngine;
 using System;
 
-[Serializable]
-public class ResourceCounter
+namespace Assets.Scripts.Resources
 {
-    public Resource _resource;
-    [Min(0)] public int _count;
-
-    public Resource Resource => _resource;
-    public int Count => _count;
-
-    public ResourceCounter(Resource type)
+    [Serializable]
+    public class ResourceCounter
     {
-        _resource = type;
-        _count = 0;
-    }
+        public Resource _resource;
+        [Min(0)] public int _count;
 
-    public void Increase()
-    {
-        _count++;
-    }
+        public Resource Resource => _resource;
+        public int Count => _count;
 
-    public void Decrease()
-    {
-        if (_count > 0)
+        public ResourceCounter(Resource type)
         {
-            _count--;
+            _resource = type;
+            _count = 0;
+        }
+
+        public void Increase()
+        {
+            _count++;
+        }
+
+        public void Decrease()
+        {
+            if (_count > 0)
+            {
+                _count--;
+            }
         }
     }
 }
+

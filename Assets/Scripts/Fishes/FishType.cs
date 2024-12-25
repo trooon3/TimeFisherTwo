@@ -1,26 +1,29 @@
 ﻿using System;
 
-[Serializable]
-public enum FishType
+namespace Assets.Scripts.Fishes
 {
-    ClownFish = 1,
-    Herring,
-    Shrimp,
-    Eel,
-    AnlerFish,
-    Octopus,
-    Catfish,
-    Blobfish,
-    SuckerMouthCatfish,
-    LamprisGuttatus,
-    KoiCarp,
-    KingCrab,
-    Piranha,
-    Squid,
-    Remora,
-    Redarowzna,
-    WhaleShark,
-    SwordFish,
-    MantaRey,
-    HammerheadShark
+    [Serializable]
+    public enum FishType
+    {
+        ClownFish = 1,
+        Herring,
+        Shrimp,
+        Eel,
+        AnlerFish,
+        Octopus,
+        Catfish,
+        Blobfish,
+        SuckerMouthCatfish,
+        LamprisGuttatus,
+        KoiCarp,
+        KingCrab,
+        Piranha,
+        Squid,
+        Remora,
+        Redarowzna,
+        WhaleShark,
+        SwordFish,
+        MantaRey,
+        HammerheadShark
+    }
 }

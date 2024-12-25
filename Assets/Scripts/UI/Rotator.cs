@@ -1,16 +1,20 @@
 using UnityEngine;
 
-public class Rotator : MonoBehaviour
+namespace Assets.Scripts.UI
 {
-    private Camera _camera;
-
-    private void Start()
+    public class Rotator : MonoBehaviour
     {
-        _camera = Camera.main;
-    }
+        private Camera _camera;
 
-    private void LateUpdate()
-    {
-        gameObject.transform.LookAt(_camera.transform.position);
+        private void Start()
+        {
+            _camera = Camera.main;
+        }
+
+        private void LateUpdate()
+        {
+            gameObject.transform.LookAt(_camera.transform.position);
+        }
     }
 }
+

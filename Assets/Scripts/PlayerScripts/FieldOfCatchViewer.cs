@@ -1,20 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FieldOfCatchViewer : MonoBehaviour
+namespace Assets.Scripts.PlayerScripts
 {
-    [SerializeField] private FishCatcher _field;
-    [SerializeField] private Image _image;
-
-    private void Update()
+    public class FieldOfCatchViewer : MonoBehaviour
     {
-        if (_field.FishToCatch != null)
+        [SerializeField] private FishCatcher _field;
+        [SerializeField] private Image _image;
+
+        private void Update()
         {
-            _image.gameObject.SetActive(true);
-        }
-        else
-        {
-            _image.gameObject.SetActive(false);
+            if (_field.FishToCatch != null)
+            {
+                _image.gameObject.SetActive(true);
+            }
+            else
+            {
+                _image.gameObject.SetActive(false);
+            }
         }
     }
 }
+

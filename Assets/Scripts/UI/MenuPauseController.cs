@@ -1,14 +1,18 @@
 using UnityEngine;
 
-public class MenuPauseController : MonoBehaviour
+namespace Assets.Scripts.UI
 {
-    public void PauseTime()
+    public class MenuPauseController : MonoBehaviour
     {
-        Time.timeScale = 0f;
-    }
+        public void PauseTime()
+        {
+            Time.timeScale = 0f;
+        }
 
-    public void PlayTime()
-    {
-        Time.timeScale = 1f;
+        public void PlayTime()
+        {
+            Time.timeScale = 1f;
+        }
     }
 }
+

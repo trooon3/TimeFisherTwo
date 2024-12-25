@@ -1,30 +1,34 @@
 using UnityEngine;
 
-public class PlayerNearbyChecker : MonoBehaviour
+namespace Assets.Scripts.PlayerScripts
 {
-    public bool IsPlayerNearby { get; private set; }
-    private Player _player;
-
-    private void OnTriggerEnter(Collider other)
+    public class PlayerNearbyChecker : MonoBehaviour
     {
-        if (other.TryGetComponent(out Player player))
+        public bool IsPlayerNearby { get; private set; }
+        private Player _player;
+
+        private void OnTriggerEnter(Collider other)
         {
-            IsPlayerNearby = true;
-            _player = player;
+            if (other.TryGetComponent(out Player player))
+            {
+                IsPlayerNearby = true;
+                _player = player;
+            }
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.TryGetComponent(out Player player))
+        private void OnTriggerExit(Collider other)
         {
-            IsPlayerNearby = false;
-            _player = null;
+            if (other.TryGetComponent(out Player player))
+            {
+                IsPlayerNearby = false;
+                _player = null;
+            }
         }
-    }
 
-    public Player GetPlayer()
-    {
-        return _player;
+        public Player GetPlayer()
+        {
+            return _player;
+        }
     }
 }
+

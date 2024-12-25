@@ -1,18 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Bag))]
-public class Player : MonoBehaviour
+namespace Assets.Scripts.PlayerScripts
 {
-    private Bag _bag;
-
-    void Start()
+    [RequireComponent(typeof(Bag))]
+    public class Player : MonoBehaviour
     {
-        _bag = GetComponent<Bag>();
-    }
+        private Bag _bag;
 
-    public List<Fish> GetFish()
-    {
-       return _bag.GetFish();
+        void Start()
+        {
+            _bag = GetComponent<Bag>();
+        }
+
+        public List<Fish> GetFish()
+        {
+            return _bag.GetFish();
+        }
     }
 }
+

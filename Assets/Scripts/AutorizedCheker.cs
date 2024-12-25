@@ -1,20 +1,24 @@
 using UnityEngine;
 using YG;
 
-public class AutorizedCheker : MonoBehaviour
+namespace Assets.Scripts
 {
-    [SerializeField] private GameObject _autorizedOfferWindow;
-    [SerializeField] private GameObject _leaderboardWindow;
-
-    public void ShowOfferAutorized()
+    public class AutorizedCheker : MonoBehaviour
     {
-        if (!YandexGame.auth)
+        [SerializeField] private GameObject _autorizedOfferWindow;
+        [SerializeField] private GameObject _leaderboardWindow;
+
+        public void ShowOfferAutorized()
         {
-            _autorizedOfferWindow.SetActive(true);
-        }
-        else
-        {
-            _leaderboardWindow.SetActive(true);
+            if (!YandexGame.auth)
+            {
+                _autorizedOfferWindow.SetActive(true);
+            }
+            else
+            {
+                _leaderboardWindow.SetActive(true);
+            }
         }
     }
 }
+

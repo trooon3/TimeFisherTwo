@@ -1,150 +1,153 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Agava.WebUtility;
-using System;
 
-public class TutorialViewer : MonoBehaviour
+namespace Assets.Scripts.Tutorial
 {
-    [SerializeField] private Closet _closet;
-    [SerializeField] private Rod _rod;
-    [SerializeField] private Bag _bag;
-
-    [SerializeField] private Image _arrowToCloset;
-    [SerializeField] private Image _arrowToWorkBranch;
-    [SerializeField] private Image _arrowToResouces;
-    [SerializeField] private Image _arrowToFishCount;
-    [SerializeField] private Image _arrowToShop;
-
-    [SerializeField] private GameObject _howGetFishToCloset;
-    [SerializeField] private GameObject _howUpgrade;
-    [SerializeField] private GameObject _howCatchOnRodTutorial;
-    [SerializeField] private GameObject _howCatchFishTuturial;
-    [SerializeField] private GameObject _howWalk;
-    [SerializeField] private GameObject _howWalkMobile;
-    [SerializeField] private DataSaver _saver;
-    [SerializeField] private ButtonChangerController _buttonChangerController;
-
-    private bool _isShowedWalkTutorial;
-    private bool _isShowedCatchTutorial;
-    private bool _isShowedGetFishTutorial;
-    private string _tutorialShowedKey = "DirectonGuideKey";
-
-    private void Awake()
+    public class TutorialViewer : MonoBehaviour
     {
-        var dtoTutorial = _saver.LoadTutorialDirectonGuideData(_tutorialShowedKey);
-        ApplySaves(dtoTutorial);
-    }
+        [SerializeField] private Closet _closet;
+        [SerializeField] private Rod _rod;
+        [SerializeField] private Bag _bag;
 
-    private void ApplySaves(DTODirectionGuide dtoTutorial)
-    {
-        if (dtoTutorial != null)
+        [SerializeField] private Image _arrowToCloset;
+        [SerializeField] private Image _arrowToWorkBranch;
+        [SerializeField] private Image _arrowToResouces;
+        [SerializeField] private Image _arrowToFishCount;
+        [SerializeField] private Image _arrowToShop;
+
+        [SerializeField] private GameObject _howGetFishToCloset;
+        [SerializeField] private GameObject _howUpgrade;
+        [SerializeField] private GameObject _howCatchOnRodTutorial;
+        [SerializeField] private GameObject _howCatchFishTuturial;
+        [SerializeField] private GameObject _howWalk;
+        [SerializeField] private GameObject _howWalkMobile;
+        [SerializeField] private DataSaver _saver;
+        [SerializeField] private ButtonChangerController _buttonChangerController;
+
+        private bool _isShowedWalkTutorial;
+        private bool _isShowedCatchTutorial;
+        private bool _isShowedGetFishTutorial;
+        private string _tutorialShowedKey = "DirectonGuideKey";
+
+        private void Awake()
         {
-            _isShowedWalkTutorial = dtoTutorial.IsShowedWalkTutorial;
-            _isShowedCatchTutorial = dtoTutorial.IsShowedCatchTutorial;
-            _isShowedGetFishTutorial = dtoTutorial.IsShowedGetFishTutorial;
+            var dtoTutorial = _saver.LoadTutorialDirectonGuideData(_tutorialShowedKey);
+            ApplySaves(dtoTutorial);
         }
-    }
 
-    private void Start()
-    {
-        if (_isShowedCatchTutorial == false || _isShowedWalkTutorial == false)
+        private void ApplySaves(DTODirectionGuide dtoTutorial)
         {
-            ShowHowWalk();
-            ShowHowCatchFish();
-            _buttonChangerController.SetButtonChangerOff();
-            _saver.SaveTutorialDirectonGuideData(_tutorialShowedKey, new DTODirectionGuide
+            if (dtoTutorial != null)
             {
-                IsShowedGetFishTutorial = _isShowedGetFishTutorial,
-                IsShowedCatchTutorial = _isShowedCatchTutorial,
-                IsShowedWalkTutorial = _isShowedWalkTutorial
-            });
-        }
-    }
-
-    private void ShowHowWalk()
-    {
-        if (Device.IsMobile)
-        {
-            _howWalkMobile.gameObject.SetActive(true);
-        }
-        else
-        {
-            _howWalk.gameObject.SetActive(true);
+                _isShowedWalkTutorial = dtoTutorial.IsShowedWalkTutorial;
+                _isShowedCatchTutorial = dtoTutorial.IsShowedCatchTutorial;
+                _isShowedGetFishTutorial = dtoTutorial.IsShowedGetFishTutorial;
+            }
         }
 
-        _isShowedWalkTutorial = true;
-    }
-
-    private void ShowHowCatchFish()
-    {
-        _howCatchFishTuturial.gameObject.SetActive(true);
-        _isShowedCatchTutorial = true;
-    }
-
-    public void ShowWhereFishesCollect()
-    {
-        if (_isShowedGetFishTutorial == false)
+        private void Start()
         {
-
-            _arrowToCloset.gameObject.SetActive(true);
-            _arrowToFishCount.gameObject.SetActive(false);
-            _howGetFishToCloset.SetActive(true);
-            _buttonChangerController.SetButtonChangerOff();
-            Time.timeScale = 0;
-
-            _isShowedGetFishTutorial = true;
-            _saver.SaveTutorialDirectonGuideData(_tutorialShowedKey, new DTODirectionGuide
+            if (_isShowedCatchTutorial == false || _isShowedWalkTutorial == false)
             {
-                IsShowedGetFishTutorial = _isShowedGetFishTutorial,
-                IsShowedCatchTutorial = _isShowedCatchTutorial,
-                IsShowedWalkTutorial = _isShowedWalkTutorial
-            });
+                ShowHowWalk();
+                ShowHowCatchFish();
+                _buttonChangerController.SetButtonChangerOff();
+                _saver.SaveTutorialDirectonGuideData(_tutorialShowedKey, new DTODirectionGuide
+                {
+                    IsShowedGetFishTutorial = _isShowedGetFishTutorial,
+                    IsShowedCatchTutorial = _isShowedCatchTutorial,
+                    IsShowedWalkTutorial = _isShowedWalkTutorial
+                });
+            }
         }
-    }
 
-    public void ShowWhereFishesCount()
-    {
-        if (_isShowedGetFishTutorial == false)
+        private void ShowHowWalk()
         {
-            _arrowToFishCount.gameObject.SetActive(true);
+            if (Device.IsMobile)
+            {
+                _howWalkMobile.gameObject.SetActive(true);
+            }
+            else
+            {
+                _howWalk.gameObject.SetActive(true);
+            }
+
+            _isShowedWalkTutorial = true;
         }
-    }
 
-    public void ShowHowCatchFishOnRod()
-    {
-        _howCatchOnRodTutorial.gameObject.SetActive(true);
-        _buttonChangerController.SetButtonChangerOff();
-        _arrowToCloset.gameObject.SetActive(false);
-    }
-
-    public void ShowWhereUpgrade()
-    {
-        if (_bag.CountResourseToUpgrade <= _closet.GetFishBonesCount() || _rod.CountResourseToUpgrade <= _closet.GetFishBonesCount())
+        private void ShowHowCatchFish()
         {
-            _arrowToWorkBranch.gameObject.SetActive(true);
-            ShowWhereResources();
+            _howCatchFishTuturial.gameObject.SetActive(true);
+            _isShowedCatchTutorial = true;
         }
-    }
 
-    public void ShowHowUpgrade()
-    {
-        _howUpgrade.gameObject.SetActive(true);
-        _buttonChangerController.SetButtonChangerOff();
-    }
+        public void ShowWhereFishesCollect()
+        {
+            if (_isShowedGetFishTutorial == false)
+            {
 
-    public void ShowWhereResources()
-    {
-        _arrowToResouces.gameObject.SetActive(true);
-    }
+                _arrowToCloset.gameObject.SetActive(true);
+                _arrowToFishCount.gameObject.SetActive(false);
+                _howGetFishToCloset.SetActive(true);
+                _buttonChangerController.SetButtonChangerOff();
+                Time.timeScale = 0;
 
-    public void ShowWhereShop()
-    {
-        _arrowToShop.gameObject.SetActive(true);
-    }
+                _isShowedGetFishTutorial = true;
+                _saver.SaveTutorialDirectonGuideData(_tutorialShowedKey, new DTODirectionGuide
+                {
+                    IsShowedGetFishTutorial = _isShowedGetFishTutorial,
+                    IsShowedCatchTutorial = _isShowedCatchTutorial,
+                    IsShowedWalkTutorial = _isShowedWalkTutorial
+                });
+            }
+        }
 
-    public void SetOffControlTutorial()
-    {
-        _howWalk.gameObject.SetActive(false);
-        _howWalkMobile.gameObject.SetActive(false);
+        public void ShowWhereFishesCount()
+        {
+            if (_isShowedGetFishTutorial == false)
+            {
+                _arrowToFishCount.gameObject.SetActive(true);
+            }
+        }
+
+        public void ShowHowCatchFishOnRod()
+        {
+            _howCatchOnRodTutorial.gameObject.SetActive(true);
+            _buttonChangerController.SetButtonChangerOff();
+            _arrowToCloset.gameObject.SetActive(false);
+        }
+
+        public void ShowWhereUpgrade()
+        {
+            if (_bag.CountResourseToUpgrade <= _closet.GetFishBonesCount() || _rod.CountResourseToUpgrade <= _closet.GetFishBonesCount())
+            {
+                _arrowToWorkBranch.gameObject.SetActive(true);
+                ShowWhereResources();
+            }
+        }
+
+        public void ShowHowUpgrade()
+        {
+            _howUpgrade.gameObject.SetActive(true);
+            _buttonChangerController.SetButtonChangerOff();
+        }
+
+        public void ShowWhereResources()
+        {
+            _arrowToResouces.gameObject.SetActive(true);
+        }
+
+        public void ShowWhereShop()
+        {
+            _arrowToShop.gameObject.SetActive(true);
+        }
+
+        public void SetOffControlTutorial()
+        {
+            _howWalk.gameObject.SetActive(false);
+            _howWalkMobile.gameObject.SetActive(false);
+        }
     }
 }
+

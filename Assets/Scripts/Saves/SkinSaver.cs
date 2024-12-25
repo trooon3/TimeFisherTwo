@@ -1,12 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SkinSaver : MonoBehaviour
+namespace Assets.Scripts.Saves
 {
-    public string CreateJson(SkinView skin)
+    public class SkinSaver : MonoBehaviour
     {
-        string save = JsonUtility.ToJson(skin);
-        return save;
+        public string CreateJson(SkinView skin)
+        {
+            string save = JsonUtility.ToJson(skin);
+            return save;
+        }
     }
 }
+

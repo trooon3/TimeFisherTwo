@@ -1,45 +1,49 @@
 using UnityEngine;
 
-public class PlaceChecker : MonoBehaviour
+namespace Assets.Scripts.PlayerScripts
 {
-    public bool IsOnGround { get; private set; }
-    public bool InWater { get; private set; }
-    public bool IsInteractbleNearby { get; private set; }
-
-    private void OnTriggerExit(Collider collider)
+    public class PlaceChecker : MonoBehaviour
     {
-        if (collider.TryGetComponent(out Ground ground))
-        {
-            IsOnGround = false;
+        public bool IsOnGround { get; private set; }
+        public bool InWater { get; private set; }
+        public bool IsInteractbleNearby { get; private set; }
 
+        private void OnTriggerExit(Collider collider)
+        {
+            if (collider.TryGetComponent(out Ground ground))
+            {
+                IsOnGround = false;
+
+            }
+
+            if (collider.TryGetComponent(out Water water))
+            {
+                InWater = false;
+            }
+
+            if (collider.TryGetComponent(out PlayerNearbyChecker playerNearbyChecker))
+            {
+                IsInteractbleNearby = true;
+            }
         }
 
-        if (collider.TryGetComponent(out Water water))
+        private void OnTriggerStay(Collider collider)
         {
-            InWater = false;
-        }
+            if (collider.TryGetComponent(out Ground ground))
+            {
+                IsOnGround = true;
+            }
 
-        if (collider.TryGetComponent(out PlayerNearbyChecker playerNearbyChecker))
-        {
-            IsInteractbleNearby = true;
-        }
-    }
+            if (collider.TryGetComponent(out Water water))
+            {
+                InWater = true;
+            }
 
-    private void OnTriggerStay(Collider collider)
-    {
-        if (collider.TryGetComponent(out Ground ground))
-        {
-            IsOnGround = true;
-        }
-
-        if (collider.TryGetComponent(out Water water))
-        {
-            InWater = true;
-        }
-
-        if (collider.TryGetComponent(out PlayerNearbyChecker playerNearbyChecker))
-        {
-            IsInteractbleNearby = true;
+            if (collider.TryGetComponent(out PlayerNearbyChecker playerNearbyChecker))
+            {
+                IsInteractbleNearby = true;
+            }
         }
     }
 }
+

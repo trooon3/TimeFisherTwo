@@ -1,12 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelSaver : MonoBehaviour
+namespace Assets.Scripts.Saves
 {
-    public string CreateJson(int level)
+    public class LevelSaver : MonoBehaviour
     {
-        string save = JsonUtility.ToJson(level);
-        return save;
+        public string CreateJson(int level)
+        {
+            string save = JsonUtility.ToJson(level);
+            return save;
+        }
     }
 }
+

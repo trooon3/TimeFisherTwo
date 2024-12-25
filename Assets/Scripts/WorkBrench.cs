@@ -1,72 +1,76 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WorkBrench : MonoBehaviour
+namespace Assets.Scripts
 {
-    [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
-    [SerializeField] private Closet _closet;
-    [SerializeField] private List<GameObject> _tools;
-    [SerializeField] private WorkBranchViewer _viewer;
-    [SerializeField] private ActiveButtonView _buttonView;
-    [SerializeField] private TutorialViewer _tutorial;
-    [SerializeField] private DataSaver _saver;
-
-    private bool _isTutorialShowed;
-    private string _tutorialShowedKey = "TutorialWorkBrenchKey";
-
-    private void Awake()
+    public class WorkBrench : MonoBehaviour
     {
-        var dtoTutorial = _saver.LoadTutorialData(_tutorialShowedKey);
-        ApplySaves(dtoTutorial);
-    }
+        [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
+        [SerializeField] private Closet _closet;
+        [SerializeField] private List<GameObject> _tools;
+        [SerializeField] private WorkBranchViewer _viewer;
+        [SerializeField] private ActiveButtonView _buttonView;
+        [SerializeField] private TutorialViewer _tutorial;
+        [SerializeField] private DataSaver _saver;
 
-    private void ApplySaves(DTOTutorial dtoTutorial)
-    {
-        if (dtoTutorial != null)
+        private bool _isTutorialShowed;
+        private string _tutorialShowedKey = "TutorialWorkBrenchKey";
+
+        private void Awake()
         {
-            _isTutorialShowed = dtoTutorial.IsShowed;
+            var dtoTutorial = _saver.LoadTutorialData(_tutorialShowedKey);
+            ApplySaves(dtoTutorial);
         }
-    }
 
-    private void Update()
-    {
-        if (_playerNearbyChecker.IsPlayerNearby)
+        private void ApplySaves(DTOTutorial dtoTutorial)
         {
-            _buttonView.SetActiveEImage(true);
+            if (dtoTutorial != null)
+            {
+                _isTutorialShowed = dtoTutorial.IsShowed;
+            }
         }
-        else
+
+        private void Update()
+        {
+            if (_playerNearbyChecker.IsPlayerNearby)
+            {
+                _buttonView.SetActiveEImage(true);
+            }
+            else
+            {
+                _buttonView.SetActiveEImage(false);
+            }
+
+            if (_playerNearbyChecker.IsPlayerNearby == false)
+            {
+                _viewer.gameObject.SetActive(false);
+            }
+        }
+
+        public void OnBrenchButtonClick()
         {
             _buttonView.SetActiveEImage(false);
+            _viewer.gameObject.SetActive(true);
+
+            if (_isTutorialShowed == false)
+            {
+                _tutorial.ShowHowUpgrade();
+                _isTutorialShowed = true;
+                _saver.SaveTutorialData(_tutorialShowedKey, new DTOTutorial { IsShowed = _isTutorialShowed });
+            }
         }
 
-        if(_playerNearbyChecker.IsPlayerNearby == false)
+        public void TryUpgrade(IUpgradable tool)
         {
-            _viewer.gameObject.SetActive(false);
-        }
-    }
+            var needResource = tool.GetResourceToUpgrade();
+            var needCountResource = tool.GetResourceCountToUpgrade();
 
-    public void OnBrenchButtonClick()
-    {
-        _buttonView.SetActiveEImage(false);
-        _viewer.gameObject.SetActive(true);
-
-        if (_isTutorialShowed == false)
-        {
-            _tutorial.ShowHowUpgrade();
-            _isTutorialShowed = true;
-            _saver.SaveTutorialData(_tutorialShowedKey, new DTOTutorial { IsShowed = _isTutorialShowed });
-        }
-    }
-
-    public void TryUpgrade(IUpgradable tool)
-    {
-        var needResource = tool.GetResourceToUpgrade();
-        var needCountResource = tool.GetResourceCountToUpgrade();
-
-        if (_closet.CheckIsCanPay(needResource, needCountResource))
-        {
-            _closet.SpendResources(needCountResource, needResource);
-            tool.Upgrade();
+            if (_closet.CheckIsCanPay(needResource, needCountResource))
+            {
+                _closet.SpendResources(needCountResource, needResource);
+                tool.Upgrade();
+            }
         }
     }
 }
+
