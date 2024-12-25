@@ -1,6 +1,7 @@
 using YG;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Scripts.PlayerScripts;
 
 namespace Assets.Scripts.ScripsForWeb.Ads
 {

@@ -1,3 +1,5 @@
+using Assets.Scripts.Fishes;
+using Assets.Scripts.Tutorial;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;

@@ -1,3 +1,5 @@
+using Assets.Scripts.Fishes;
+using Assets.Scripts.PlayerScripts;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;

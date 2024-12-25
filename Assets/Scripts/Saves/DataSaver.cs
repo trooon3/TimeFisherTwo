@@ -1,3 +1,6 @@
+using Assets.Scripts.Fishes;
+using Assets.Scripts.Resources;
+using Assets.Scripts.Saves.DTO;
 using System.Collections.Generic;
 using UnityEngine;
 

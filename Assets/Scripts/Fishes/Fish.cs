@@ -1,3 +1,6 @@
+using Assets.Scripts.PlayerScripts;
+using Assets.Scripts.Resources;
+using Assets.Scripts.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.Fishes

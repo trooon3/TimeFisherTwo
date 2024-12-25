@@ -1,3 +1,5 @@
+using Assets.Scripts.Fishes;
+using Assets.Scripts.Resources;
 using System;
 using System.Collections.Generic;
 

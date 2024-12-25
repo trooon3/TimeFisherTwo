@@ -3,6 +3,13 @@ using UnityEngine;
 using YG;
 using UnityEngine.Events;
 using System.Collections;
+using Assets.Scripts.Fishes;
+using Assets.Scripts.Resources;
+using Assets.Scripts.Saves.DTO;
+using Assets.Scripts.ScripsForWeb.Leaderboard;
+using Assets.Scripts.Tutorial;
+using Assets.Scripts.Saves;
+using Assets.Scripts.UI;
 
 namespace Assets.Scripts
 {

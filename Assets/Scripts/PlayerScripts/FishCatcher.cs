@@ -1,3 +1,4 @@
+using Assets.Scripts.Fishes;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;

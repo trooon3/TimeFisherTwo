@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using Assets.Scripts.Saves.DTO;
+using Assets.Scripts.Fishes;
+using Assets.Scripts.Saves;
 
 namespace Assets.Scripts.SkinScripts
 {

@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Agava.WebUtility;
+using Assets.Scripts.Saves;
+using Assets.Scripts.UI;
+using Assets.Scripts.Saves.DTO;
 
 namespace Assets.Scripts.Tutorial
 {

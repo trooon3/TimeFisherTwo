@@ -1,3 +1,4 @@
+using Assets.Scripts.Resources;
 using UnityEngine;
 
 namespace Assets.Scripts.Fishes

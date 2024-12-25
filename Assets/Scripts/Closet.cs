@@ -1,3 +1,12 @@
+using Assets.Scripts.Fishes;
+using Assets.Scripts.PlayerScripts;
+using Assets.Scripts.Resources;
+using Assets.Scripts.Saves;
+using Assets.Scripts.Saves.DTO;
+using Assets.Scripts.ScripsForWeb.Ads;
+using Assets.Scripts.SkinScripts;
+using Assets.Scripts.Tutorial;
+using Assets.Scripts.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
