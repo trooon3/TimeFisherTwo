@@ -33,6 +33,11 @@ namespace Assets.Scripts.PlayerScripts
             StartCoroutine(FOVRoutine());
         }
 
+        public void SetFishNull()
+        {
+            _fish = null;
+        }
+
         private IEnumerator FOVRoutine()
         {
             while (true)
@@ -40,11 +45,6 @@ namespace Assets.Scripts.PlayerScripts
                 FieldOfViewCheck();
                 yield return _wait;
             }
-        }
-
-        public void SetFishNull()
-        {
-            _fish = null;
         }
 
         private void FieldOfViewCheck()

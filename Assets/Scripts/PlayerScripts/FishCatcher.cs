@@ -19,6 +19,8 @@ namespace Assets.Scripts.PlayerScripts
 
         private float _angle = 100;
         private float _elapsedTime = 0;
+        private int _fishNumber = 9;
+        private int _fish;
 
         private Bag _bag;
         private Fish _fishToCatch;
@@ -27,9 +29,6 @@ namespace Assets.Scripts.PlayerScripts
         private FieldOfView _fieldOfView;
         public FieldOfView FieldOfView => _fieldOfView;
         public Fish FishToCatch => _fishToCatch;
-
-        private int FishNumber = 9;
-        private int Fish;
         public float ElapsedTime => _elapsedTime;
 
         public UnityAction Catched;
@@ -39,7 +38,7 @@ namespace Assets.Scripts.PlayerScripts
             _fieldOfView = GetComponent<FieldOfView>();
             Mathf.Clamp(_angle, _minAngle, _maxAngle);
             _bag = GetComponent<Bag>();
-            Fish = 1 << FishNumber;
+            _fish = 1 << _fishNumber;
         }
 
         public void SetCatchFish(Fish fish)

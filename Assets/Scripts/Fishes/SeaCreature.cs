@@ -6,13 +6,13 @@ namespace Assets.Scripts.Fishes
     [CreateAssetMenu(fileName = "Fish", menuName = "SeaCreature")]
     public class SeaCreature : ScriptableObject
     {
+        [SerializeField, Range(1, 5)] private int _level;
         [SerializeField] private string _name;
         [SerializeField] private float _catchtime;
-        [SerializeField, Range(1, 5)] private int _level;
         [SerializeField] private FishType _fishType;
         [SerializeField] private SeaCreature _foodFor;
         [SerializeField] private Sprite _icon;
-        [SerializeField] Resource _resource;
+        [SerializeField] private Resource _resource;
 
         public float Catchtime => _catchtime;
         public string Name => Lean.Localization.LeanLocalization.GetTranslationText(_name);

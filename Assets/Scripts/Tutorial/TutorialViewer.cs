@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Agava.WebUtility;
 using Assets.Scripts.Saves;
 using Assets.Scripts.UI;
 using Assets.Scripts.Saves.DTO;
+using YG;
 
 namespace Assets.Scripts.Tutorial
 {
@@ -67,7 +67,7 @@ namespace Assets.Scripts.Tutorial
 
         private void ShowHowWalk()
         {
-            if (Device.IsMobile)
+            if (YandexGame.EnvironmentData.isMobile)
             {
                 _howWalkMobile.gameObject.SetActive(true);
             }

@@ -7,8 +7,8 @@ namespace Assets.Scripts.Fishes
     [Serializable]
     public class FishTypeCounter
     {
-        [SerializeField] public FishType _type;
-        [SerializeField] [Min(0)] public int _count;
+        [SerializeField] private FishType _type;
+        [SerializeField] [Min(0)] private int _count;
 
         public FishType Type => _type;
         public int Count => _count;

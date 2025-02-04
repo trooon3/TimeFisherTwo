@@ -4,8 +4,13 @@ namespace Assets.Scripts.PlayerScripts
 {
     public class PlayerNearbyChecker : MonoBehaviour
     {
-        public bool IsPlayerNearby { get; private set; }
         private Player _player;
+        public bool IsPlayerNearby { get; private set; }
+
+        public Player GetPlayer()
+        {
+            return _player;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -23,11 +28,6 @@ namespace Assets.Scripts.PlayerScripts
                 IsPlayerNearby = false;
                 _player = null;
             }
-        }
-
-        public Player GetPlayer()
-        {
-            return _player;
         }
     }
 }

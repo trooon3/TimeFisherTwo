@@ -34,7 +34,7 @@ namespace Assets.Scripts.PlayerScripts
             _rigidbody = GetComponent<Rigidbody>();
         }
 
-        void Update()
+        private void Update()
         {
             Move();
             JumpUp();
@@ -46,24 +46,6 @@ namespace Assets.Scripts.PlayerScripts
             _isActiveIncreaseAd = true;
             _buttonChangerController.SetButtonChangerOff();
             StartIncreaseTimer();
-        }
-
-        private void StartIncreaseTimer()
-        {
-            if (_coroutine != null)
-            {
-                StopCoroutine(IncreaseTimer());
-            }
-
-            _coroutine = StartCoroutine(IncreaseTimer());
-        }
-
-        private IEnumerator IncreaseTimer()
-        {
-            yield return _increaseTime;
-            _isActiveIncreaseAd = false;
-            _buttonChangerController.SetButtonChangerOn();
-            _moveSpeed = _moveSpeed / 2;
         }
 
         public void Move()
@@ -113,6 +95,24 @@ namespace Assets.Scripts.PlayerScripts
             }
 
             _animator.DoJumpAnimation(_placeChecker.IsOnGround, _placeChecker.InWater);
+        }
+
+        private void StartIncreaseTimer()
+        {
+            if (_coroutine != null)
+            {
+                StopCoroutine(IncreaseTimer());
+            }
+
+            _coroutine = StartCoroutine(IncreaseTimer());
+        }
+
+        private IEnumerator IncreaseTimer()
+        {
+            yield return _increaseTime;
+            _isActiveIncreaseAd = false;
+            _buttonChangerController.SetButtonChangerOn();
+            _moveSpeed = _moveSpeed / 2;
         }
     }
 }
