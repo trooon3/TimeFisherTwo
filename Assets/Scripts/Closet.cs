@@ -74,14 +74,6 @@ namespace Assets.Scripts
             _view.gameObject.SetActive(false);
         }
 
-        private void ApplySaves(DTOTutorial dtoTutorial)
-        {
-            if (dtoTutorial != null)
-            {
-                _isTutorialShowed = dtoTutorial.IsShowed;
-            }
-        }
-
         private void Update()
         {
             if (_playerNearbyChecker.IsPlayerNearby)
@@ -117,42 +109,12 @@ namespace Assets.Scripts
             StartIncreaseTimer();
         }
 
-        private void StartIncreaseTimer()
-        {
-            if (_coroutine != null)
-            {
-                StopCoroutine(IncreaseTimer());
-            }
-
-            _coroutine = StartCoroutine(IncreaseTimer());
-        }
-
-        private IEnumerator IncreaseTimer()
-        {
-            yield return _increaseTime;
-            _isActiveIncreaseAd = false;
-            _buttonChangerController.SetButtonChangerOn();
-        }
-
         public void TakeFish(List<Fish> fishes)
         {
             for (int i = 0; i < fishes.Count; i++)
             {
                 AddFish(fishes[i]);
                 AddResources(fishes[i]);
-            }
-        }
-
-        private void AddFish(Fish fish)
-        {
-            foreach (FishTypeCounter catchedFish in _catchedFishes)
-            {
-                if (catchedFish.Type == fish.Type)
-                {
-                    catchedFish.Increase();
-                    FishTransferred?.Invoke();
-                    _spawner.SetOffFish(fish);
-                }
             }
         }
 
@@ -204,39 +166,6 @@ namespace Assets.Scripts
             return true;
         }
 
-        private void PaySkin(SkinView skin)
-        {
-            SkinCost cost = skin.Cost;
-
-            foreach (var fishPrice in cost.FishCountPrices)
-            {
-                for (int i = 0; i < fishPrice.Cost; i++)
-                {
-                    RemoveFish(fishPrice.Type);
-                }
-            }
-        }
-
-        private void AddResources(Fish fish)
-        {
-            foreach (var item in _resources)
-            {
-                if (item.Resource.ToString() == fish.Resource.ToString())
-                {
-                    if (_isActiveIncreaseAd)
-                    {
-                        item.Increase();
-                    }
-
-                    item.Increase();
-                }
-            }
-
-            _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
-            ResourceCountChanged?.Invoke();
-            _tutorial.ShowWhereUpgrade();
-        }
-
         public void SpendResources(int count, Resource type)
         {
             foreach (var resourceType in _resources)
@@ -272,28 +201,12 @@ namespace Assets.Scripts
 
         public int GetFishBonesCount()
         {
-            foreach (var resource in _resources)
-            {
-                if (resource.Resource == Resource.FishBones)
-                {
-                    return resource.Count;
-                }
-            }
-
-            return 0;
+            return GetResourceCount(Resource.FishBones);
         }
 
         public int GetSeaWeedCount()
         {
-            foreach (var resource in _resources)
-            {
-                if (resource.Resource == Resource.SeaWeed)
-                {
-                    return resource.Count;
-                }
-            }
-
-            return 0;
+            return GetResourceCount(Resource.SeaWeed);
         }
 
         public void OnClosetButtonClick()
@@ -321,6 +234,90 @@ namespace Assets.Scripts
 
             _saver.SaveFishesCountData(_fishesCountSaves, _catchedFishes);
             _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
+        }
+
+        private int GetResourceCount(Resource resourceType)
+        {
+            foreach (var resource in _resources)
+            {
+                if (resource.Resource == resourceType)
+                {
+                    return resource.Count;
+                }
+            }
+
+            return 0;
+        }
+
+        private void StartIncreaseTimer()
+        {
+            if (_coroutine != null)
+            {
+                StopCoroutine(IncreaseTimer());
+            }
+
+            _coroutine = StartCoroutine(IncreaseTimer());
+        }
+
+        private IEnumerator IncreaseTimer()
+        {
+            yield return _increaseTime;
+            _isActiveIncreaseAd = false;
+            _buttonChangerController.SetButtonChangerOn();
+        }
+
+        private void ApplySaves(DTOTutorial dtoTutorial)
+        {
+            if (dtoTutorial != null)
+            {
+                _isTutorialShowed = dtoTutorial.IsShowed;
+            }
+        }
+
+        private void AddFish(Fish fish)
+        {
+            foreach (FishTypeCounter catchedFish in _catchedFishes)
+            {
+                if (catchedFish.Type == fish.Type)
+                {
+                    catchedFish.Increase();
+                    FishTransferred?.Invoke();
+                    _spawner.SetOffFish(fish);
+                }
+            }
+        }
+
+        private void PaySkin(SkinView skin)
+        {
+            SkinCost cost = skin.Cost;
+
+            foreach (var fishPrice in cost.FishCountPrices)
+            {
+                for (int i = 0; i < fishPrice.Cost; i++)
+                {
+                    RemoveFish(fishPrice.Type);
+                }
+            }
+        }
+
+        private void AddResources(Fish fish)
+        {
+            foreach (var item in _resources)
+            {
+                if (item.Resource.ToString() == fish.Resource.ToString())
+                {
+                    if (_isActiveIncreaseAd)
+                    {
+                        item.Increase();
+                    }
+
+                    item.Increase();
+                }
+            }
+
+            _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
+            ResourceCountChanged?.Invoke();
+            _tutorial.ShowWhereUpgrade();
         }
     }
 }

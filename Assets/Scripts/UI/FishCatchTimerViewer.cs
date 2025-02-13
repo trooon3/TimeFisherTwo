@@ -55,6 +55,22 @@ namespace Assets.Scripts.UI
             _sliderCatchTime.value = 0;
         }
 
+        public void ShowFilledBag(bool active)
+        {
+            _filledBag.gameObject.SetActive(active);
+
+            if (_bagCoroutine != null)
+            {
+                StopCoroutine(_bagCoroutine);
+            }
+
+            if (_fish.gameObject.activeSelf)
+            {
+                _bagCoroutine = StartCoroutine(ShowBagFilledDelay());
+            }
+
+        }
+
         private IEnumerator DisplayCatch()
         {
             while (_sliderCatchTime.value != _cathcer.ElapsedTime)
@@ -71,22 +87,6 @@ namespace Assets.Scripts.UI
 
                 yield return null;
             }
-        }
-
-        public void ShowFilledBag(bool active)
-        {
-            _filledBag.gameObject.SetActive(active);
-
-            if (_bagCoroutine != null)
-            {
-                StopCoroutine(_bagCoroutine);
-            }
-
-            if (_fish.gameObject.activeSelf)
-            {
-                _bagCoroutine = StartCoroutine(ShowBagFilledDelay());
-            }
-
         }
 
         private IEnumerator ShowBagFilledDelay()

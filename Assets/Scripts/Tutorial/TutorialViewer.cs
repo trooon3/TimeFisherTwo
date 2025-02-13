@@ -25,6 +25,7 @@ namespace Assets.Scripts.Tutorial
         [SerializeField] private GameObject _howCatchFishTuturial;
         [SerializeField] private GameObject _howWalk;
         [SerializeField] private GameObject _howWalkMobile;
+
         [SerializeField] private DataSaver _saver;
         [SerializeField] private ButtonChangerController _buttonChangerController;
 
@@ -37,16 +38,6 @@ namespace Assets.Scripts.Tutorial
         {
             var dtoTutorial = _saver.LoadTutorialDirectonGuideData(_tutorialShowedKey);
             ApplySaves(dtoTutorial);
-        }
-
-        private void ApplySaves(DTODirectionGuide dtoTutorial)
-        {
-            if (dtoTutorial != null)
-            {
-                _isShowedWalkTutorial = dtoTutorial.IsShowedWalkTutorial;
-                _isShowedCatchTutorial = dtoTutorial.IsShowedCatchTutorial;
-                _isShowedGetFishTutorial = dtoTutorial.IsShowedGetFishTutorial;
-            }
         }
 
         private void Start()
@@ -62,6 +53,16 @@ namespace Assets.Scripts.Tutorial
                     IsShowedCatchTutorial = _isShowedCatchTutorial,
                     IsShowedWalkTutorial = _isShowedWalkTutorial
                 });
+            }
+        }
+
+        private void ApplySaves(DTODirectionGuide dtoTutorial)
+        {
+            if (dtoTutorial != null)
+            {
+                _isShowedWalkTutorial = dtoTutorial.IsShowedWalkTutorial;
+                _isShowedCatchTutorial = dtoTutorial.IsShowedCatchTutorial;
+                _isShowedGetFishTutorial = dtoTutorial.IsShowedGetFishTutorial;
             }
         }
 

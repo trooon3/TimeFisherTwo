@@ -58,39 +58,12 @@ namespace Assets.Scripts
             ApplySaves(dtoLevel);
         }
 
-        private void ApplySaves(DTOLevel dtoLevel)
-        {
-            if (dtoLevel != null)
-            {
-                _level = dtoLevel.Level;
-                _countResourseToUpgrade = dtoLevel.Count;
-            }
-        }
-
         public void SetActiveIncrease()
         {
             _catchingSpeed = _catchingSpeed * 2;
             _isActiveIncreaseAd = true;
             _buttonChangerController.SetButtonChangerOff();
             StartIncreaseTimer();
-        }
-
-        private void StartIncreaseTimer()
-        {
-            if (_coroutine != null)
-            {
-                StopCoroutine(IncreaseTimer());
-            }
-
-            _coroutine = StartCoroutine(IncreaseTimer());
-        }
-
-        private IEnumerator IncreaseTimer()
-        {
-            yield return _increaseTime;
-            _isActiveIncreaseAd = false;
-            _buttonChangerController.SetButtonChangerOn();
-            CheckLevel();
         }
 
         public void Upgrade()
@@ -144,6 +117,33 @@ namespace Assets.Scripts
             _cathchingFish = type;
 
             _catchViewer.StartDisplayCatchingTime();
+        }
+
+        private void ApplySaves(DTOLevel dtoLevel)
+        {
+            if (dtoLevel != null)
+            {
+                _level = dtoLevel.Level;
+                _countResourseToUpgrade = dtoLevel.Count;
+            }
+        }
+
+        private void StartIncreaseTimer()
+        {
+            if (_coroutine != null)
+            {
+                StopCoroutine(IncreaseTimer());
+            }
+
+            _coroutine = StartCoroutine(IncreaseTimer());
+        }
+
+        private IEnumerator IncreaseTimer()
+        {
+            yield return _increaseTime;
+            _isActiveIncreaseAd = false;
+            _buttonChangerController.SetButtonChangerOn();
+            CheckLevel();
         }
 
         private void CheckLevel()

@@ -75,38 +75,6 @@ namespace Assets.Scripts
             StartIncreaseTimer();
         }
 
-        private void ApplySaves(DTOTutorial dtoTutorial, DTOLevel dtoLevel)
-        {
-            if (dtoTutorial != null)
-            {
-                _isTutorialShowed = dtoTutorial.IsShowed;
-            }
-
-            if (dtoLevel != null)
-            {
-                _level = dtoLevel.Level;
-                _countResourseToUpgrade = dtoLevel.Count;
-                _countAllCatchedFishes = dtoLevel.Score;
-            }
-        }
-
-        private void StartIncreaseTimer()
-        {
-            if (_coroutine != null)
-            {
-                StopCoroutine(IncreaseTimer());
-            }
-
-            _coroutine = StartCoroutine(IncreaseTimer());
-        }
-
-        private IEnumerator IncreaseTimer()
-        {
-            yield return _increaseTime;
-            _isActiveIncreaseAd = false;
-            _buttonChangerController.SetButtonChangerOn();
-        }
-
         public List<Fish> GetFish()
         {
             List<Fish> fishes = new List<Fish>();
@@ -200,6 +168,38 @@ namespace Assets.Scripts
         public int GetResourceCountToUpgrade()
         {
             return _countResourseToUpgrade;
+        }
+
+        private void ApplySaves(DTOTutorial dtoTutorial, DTOLevel dtoLevel)
+        {
+            if (dtoTutorial != null)
+            {
+                _isTutorialShowed = dtoTutorial.IsShowed;
+            }
+
+            if (dtoLevel != null)
+            {
+                _level = dtoLevel.Level;
+                _countResourseToUpgrade = dtoLevel.Count;
+                _countAllCatchedFishes = dtoLevel.Score;
+            }
+        }
+
+        private void StartIncreaseTimer()
+        {
+            if (_coroutine != null)
+            {
+                StopCoroutine(IncreaseTimer());
+            }
+
+            _coroutine = StartCoroutine(IncreaseTimer());
+        }
+
+        private IEnumerator IncreaseTimer()
+        {
+            yield return _increaseTime;
+            _isActiveIncreaseAd = false;
+            _buttonChangerController.SetButtonChangerOn();
         }
 
         private void CheckLevel()

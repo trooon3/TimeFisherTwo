@@ -49,7 +49,6 @@ namespace Assets.Scripts.UI
             }
         }
 
-
         public void RestartChangingBottonWithDelay()
         {
             StopCoroutine(_coroutine);

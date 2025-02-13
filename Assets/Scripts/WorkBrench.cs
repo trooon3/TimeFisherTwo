@@ -27,14 +27,6 @@ namespace Assets.Scripts
             ApplySaves(dtoTutorial);
         }
 
-        private void ApplySaves(DTOTutorial dtoTutorial)
-        {
-            if (dtoTutorial != null)
-            {
-                _isTutorialShowed = dtoTutorial.IsShowed;
-            }
-        }
-
         private void Update()
         {
             if (_playerNearbyChecker.IsPlayerNearby)
@@ -74,6 +66,14 @@ namespace Assets.Scripts
             {
                 _closet.SpendResources(needCountResource, needResource);
                 tool.Upgrade();
+            }
+        }
+
+        private void ApplySaves(DTOTutorial dtoTutorial)
+        {
+            if (dtoTutorial != null)
+            {
+                _isTutorialShowed = dtoTutorial.IsShowed;
             }
         }
     }

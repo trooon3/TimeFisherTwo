@@ -27,7 +27,7 @@ namespace Assets.Scripts.ScripsForWeb.Ads
         private void OnEnable() => YandexGame.RewardVideoEvent += Rewarded;
         private void OnDisable() => YandexGame.RewardVideoEvent -= Rewarded;
 
-        void Rewarded(int id)
+        private void Rewarded(int id)
         {
             switch (id)
             {
