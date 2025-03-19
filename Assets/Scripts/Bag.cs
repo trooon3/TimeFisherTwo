@@ -22,11 +22,11 @@ namespace Assets.Scripts
         private const int FourthLevelCommand = 4;
 
         [SerializeField] private YandexLeaderboard _yandexLeaderboard;
+        [SerializeField] private LeaderboardYG _leaderboardYG;
         [SerializeField] private AudioClip _catchSound;
         [SerializeField] private TutorialViewer _tutorial;
         [SerializeField] private DataSaver _saver;
         [SerializeField] private ButtonChangerController _buttonChangerController;
-        [SerializeField] private LeaderboardYG _leaderboardYG;
 
         private readonly float _increaseTimeSec = 60f;
         private readonly int _maxLevel = 5;

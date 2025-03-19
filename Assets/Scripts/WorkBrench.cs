@@ -27,21 +27,16 @@ namespace Assets.Scripts
             ApplySaves(dtoTutorial);
         }
 
-        private void Update()
+        private void OnEnable()
         {
-            if (_playerNearbyChecker.IsPlayerNearby)
-            {
-                _buttonView.SetActiveEImage(true);
-            }
-            else
-            {
-                _buttonView.SetActiveEImage(false);
-            }
+            _playerNearbyChecker.PlayerNearby += OnPlayerApproach;
+            _playerNearbyChecker.PlayerFar += OnPlayerFar;
+        }
 
-            if (_playerNearbyChecker.IsPlayerNearby == false)
-            {
-                _viewer.gameObject.SetActive(false);
-            }
+        private void OnDisable()
+        {
+            _playerNearbyChecker.PlayerNearby -= OnPlayerApproach;
+            _playerNearbyChecker.PlayerFar -= OnPlayerFar;
         }
 
         public void OnBrenchButtonClick()
@@ -77,6 +72,19 @@ namespace Assets.Scripts
             {
                 _isTutorialShowed = dtoTutorial.IsShowed;
             }
+        }
+
+        private void OnPlayerApproach()
+        {
+            _buttonView.SetActiveEImage(true);
+            Debug.Log("ShowImageBranch");
+        }
+        
+        private void OnPlayerFar()
+        {
+            _viewer.gameObject.SetActive(false);
+            _buttonView.SetActiveEImage(false);
+            Debug.Log("HideImageBranch");
         }
     }
 }

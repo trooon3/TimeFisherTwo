@@ -18,10 +18,10 @@ namespace Assets.Scripts.Fishes
         private void Start()
         {
             _pool = new ObjectPool<Fish>(() =>
-            { return Instantiate(_prefabs[Random.Range(0, _prefabs.Count)]); },
-            fish => { fish.gameObject.SetActive(true); },
-            fish => { fish.gameObject.SetActive(false); },
-            fish => { Destroy(fish.gameObject); },
+             Instantiate(_prefabs[Random.Range(0, _prefabs.Count)]),
+            fish => fish.gameObject.SetActive(true),
+            fish => fish.gameObject.SetActive(false),
+            fish => Destroy(fish.gameObject),
             false, _minFishInPool, _maxFishInPool);
 
             for (int i = 0; i < _maxFishCount; i++)
