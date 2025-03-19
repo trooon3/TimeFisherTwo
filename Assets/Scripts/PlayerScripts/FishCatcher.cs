@@ -32,6 +32,7 @@ namespace Assets.Scripts.PlayerScripts
         public float ElapsedTime => _elapsedTime;
 
         public UnityAction Catched;
+        public UnityAction<Fish> FishFinded;
 
         private void Start()
         {
@@ -45,12 +46,14 @@ namespace Assets.Scripts.PlayerScripts
         {
             _isCanCatchFish = true;
             _fishToCatch = fish;
+            FishFinded.Invoke(_fishToCatch);
         }
 
         public void ResetSettings()
         {
             _isCanCatchFish = false;
             _fishToCatch = null;
+            FishFinded.Invoke(_fishToCatch);
             _elapsedTime = 0;
         }
 

@@ -24,19 +24,18 @@ namespace Assets.Scripts
         private void Awake()
         {
             var dtoTutorial = _saver.LoadTutorialData(_tutorialShowedKey);
+            OnPlayerApproach(false);
             ApplySaves(dtoTutorial);
         }
 
         private void OnEnable()
         {
             _playerNearbyChecker.PlayerNearby += OnPlayerApproach;
-            _playerNearbyChecker.PlayerFar += OnPlayerFar;
         }
 
         private void OnDisable()
         {
             _playerNearbyChecker.PlayerNearby -= OnPlayerApproach;
-            _playerNearbyChecker.PlayerFar -= OnPlayerFar;
         }
 
         public void OnBrenchButtonClick()
@@ -74,17 +73,17 @@ namespace Assets.Scripts
             }
         }
 
-        private void OnPlayerApproach()
+        private void OnPlayerApproach(bool isPlayerApproach)
         {
-            _buttonView.SetActiveEImage(true);
-            Debug.Log("ShowImageBranch");
-        }
-        
-        private void OnPlayerFar()
-        {
-            _viewer.gameObject.SetActive(false);
-            _buttonView.SetActiveEImage(false);
-            Debug.Log("HideImageBranch");
+            if (isPlayerApproach)
+            {
+                _buttonView.SetActiveEImage(true);
+            }
+            else
+            {
+                _viewer.gameObject.SetActive(false);
+                _buttonView.SetActiveEImage(false);
+            }
         }
     }
 }

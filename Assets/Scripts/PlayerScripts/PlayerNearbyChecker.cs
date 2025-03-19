@@ -7,7 +7,7 @@ namespace Assets.Scripts.PlayerScripts
     {
         private Player _player;
         public bool IsPlayerNearby { get; private set; }
-        public UnityAction PlayerNearby;
+        public UnityAction<bool> PlayerNearby;
         public UnityAction PlayerFar;
 
         public Player GetPlayer()
@@ -20,7 +20,7 @@ namespace Assets.Scripts.PlayerScripts
             if (other.TryGetComponent(out Player player))
             {
                 IsPlayerNearby = true;
-                PlayerNearby?.Invoke();
+                PlayerNearby?.Invoke(IsPlayerNearby);
                 _player = player;
             }
         }
@@ -30,7 +30,7 @@ namespace Assets.Scripts.PlayerScripts
             if (other.TryGetComponent(out Player player))
             {
                 IsPlayerNearby = false;
-                PlayerFar?.Invoke();
+                PlayerNearby?.Invoke(IsPlayerNearby);
                 _player = null;
             }
         }

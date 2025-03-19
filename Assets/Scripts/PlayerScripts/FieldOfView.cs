@@ -75,6 +75,7 @@ namespace Assets.Scripts.PlayerScripts
             else
             {
                 _fish = null;
+                _fishCatcher.ResetSettings();
             }
         }
     }
