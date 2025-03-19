@@ -17899,6 +17899,22 @@ PrefabInstance:
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5696831836819818300, guid: 6f0ba828a6ba14a4087a776af1d0349b, type: 3}
+      propertyPath: _maxFishInPool
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696831836819818300, guid: 6f0ba828a6ba14a4087a776af1d0349b, type: 3}
+      propertyPath: _minFishInPool
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696831836819818300, guid: 6f0ba828a6ba14a4087a776af1d0349b, type: 3}
+      propertyPath: _maxFishToSpawn
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696831836819818300, guid: 6f0ba828a6ba14a4087a776af1d0349b, type: 3}
+      propertyPath: _minFishToSpawn
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696831836819818300, guid: 6f0ba828a6ba14a4087a776af1d0349b, type: 3}
       propertyPath: _prefabs.Array.data[0]
       value: 
       objectReference: {fileID: 5644564929473178636, guid: 7d36c0fbe02d48c4e8ed939f8f0dc389, type: 3}

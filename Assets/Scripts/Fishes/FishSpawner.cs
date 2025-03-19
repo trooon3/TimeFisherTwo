@@ -9,6 +9,8 @@ namespace Assets.Scripts.Fishes
         [SerializeField] private List<Transform> _transforms;
         [SerializeField] private List<Fish> _prefabs;
         [SerializeField] private int _maxFishCount;
+        [SerializeField] private int _minFishInPool;
+        [SerializeField] private int _maxFishInPool;
         [SerializeField] private Closet _closet;
 
         private ObjectPool<Fish> _pool;
@@ -20,7 +22,7 @@ namespace Assets.Scripts.Fishes
             fish => { fish.gameObject.SetActive(true); },
             fish => { fish.gameObject.SetActive(false); },
             fish => { Destroy(fish.gameObject); },
-            false, 30, 50);
+            false, _minFishInPool, _maxFishInPool);
 
             for (int i = 0; i < _maxFishCount; i++)
             {

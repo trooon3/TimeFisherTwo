@@ -101,7 +101,7 @@ namespace Assets.Scripts.PlayerScripts
         {
             while (_isCanCatchFish)
             {
-                if (_elapsedTime >= _fishToCatch.Catchtime)
+                if (_elapsedTime >= _fishToCatch.CatchTime)
                 {
                     _isCanCatchFish = false;
                     _elapsedTime = 0;

@@ -1,4 +1,4 @@
-using Assets.Scripts.Resources;
+using Assets.Scripts.FishResources;
 using UnityEngine;
 
 namespace Assets.Scripts.Fishes
@@ -8,13 +8,13 @@ namespace Assets.Scripts.Fishes
     {
         [SerializeField, Range(1, 5)] private int _level;
         [SerializeField] private string _name;
-        [SerializeField] private float _catchtime;
+        [SerializeField] private float _catchTime;
         [SerializeField] private FishType _fishType;
         [SerializeField] private SeaCreature _foodFor;
         [SerializeField] private Sprite _icon;
         [SerializeField] private Resource _resource;
 
-        public float Catchtime => _catchtime;
+        public float CatchTime => _catchTime;
         public string Name => Lean.Localization.LeanLocalization.GetTranslationText(_name);
         public int Level => _level;
         public FishType FishType => _fishType;
@@ -23,5 +23,3 @@ namespace Assets.Scripts.Fishes
         public Resource Resource => _resource;
     }
 }
-
-

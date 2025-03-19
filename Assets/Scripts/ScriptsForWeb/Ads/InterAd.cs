@@ -7,8 +7,8 @@ namespace Assets.Scripts.ScripsForWeb.Ads
     public class InterAd : MonoBehaviour
     {
         private Coroutine _coroutine;
-        private WaitForSeconds _threeMinutes = new WaitForSeconds(180f);
         private bool _isAvalibleAdd;
+        private readonly WaitForSeconds _threeMinutes = new WaitForSeconds(180f);
 
         private void Start()
         {

@@ -8,9 +8,9 @@ namespace Assets.Scripts.UI
     public class ButtonChanger : MonoBehaviour
     {
         [SerializeField] private List<Button> _buttons;
-        private WaitForSeconds _showTime = new WaitForSeconds(14f);
-        private WaitForSeconds _delay = new WaitForSeconds(180f);
         private Coroutine _coroutine;
+        private readonly WaitForSeconds _showTime = new WaitForSeconds(14f);
+        private readonly WaitForSeconds _delay = new WaitForSeconds(180f);
 
         private void OnEnable()
         {

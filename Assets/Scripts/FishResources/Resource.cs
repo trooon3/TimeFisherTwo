@@ -1,4 +1,4 @@
-namespace Assets.Scripts.Resources
+namespace Assets.Scripts.FishResources
 {
     public enum Resource
     {

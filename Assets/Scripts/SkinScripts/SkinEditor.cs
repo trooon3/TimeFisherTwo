@@ -1,6 +1,5 @@
 using Assets.Scripts.PlayerScripts;
 using Assets.Scripts.Saves;
-using Assets.Scripts.Saves.DTO;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,10 +12,8 @@ namespace Assets.Scripts.SkinScripts
         [SerializeField] private PlayerAnimationController _controller;
         [SerializeField] private DataSaver _saver;
 
-        public DTOSkin DTOChosenSkin;
-
-        public string _chosenSkinName;
-        public string _chosenSkinKey = "defaultSkinKey";
+        private string _chosenSkinName;
+        private readonly string _chosenSkinKey = "defaultSkinKey";
 
         public List<Skin> Skins => _skins;
 

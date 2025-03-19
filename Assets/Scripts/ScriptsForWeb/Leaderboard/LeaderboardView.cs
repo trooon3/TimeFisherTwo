@@ -32,7 +32,6 @@ namespace Assets.Scripts.ScripsForWeb.Leaderboard
 
             _spawnedElements = new List<LeaderboardElement>();
         }
-
     }
 }
 

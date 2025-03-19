@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94708510e63e88a4bbffaec629ce32ee, type: 3}
   m_Name: Herring
   m_EditorClassIdentifier: 
-  _name: Herring
-  _catchtime: 2
   _level: 0
+  _name: Herring
+  _catchTime: 2
   _fishType: 2
   _foodFor: {fileID: 11400000, guid: 965a4bf7b2044854496bdf6023358cad, type: 2}
   _icon: {fileID: 21300000, guid: 0ad5d1688167baf4485e55be14bab9dd, type: 3}

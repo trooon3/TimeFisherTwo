@@ -6,11 +6,9 @@ namespace Assets.Scripts.PlayerScripts
     {
         [SerializeField] private Animator _animator;
 
-        private int _slowRun = Animator.StringToHash("Slow Run");
-        private int _jump = Animator.StringToHash("Jump");
-        private int _treadingWater = Animator.StringToHash("Treading Water");
-        private int _happyIdle = Animator.StringToHash("Happy Idle");
-        private int _swimming = Animator.StringToHash("Swimming");
+        private readonly int _slowRun = Animator.StringToHash("Slow Run");
+        private readonly int _jump = Animator.StringToHash("Jump");
+        private readonly int _swimming = Animator.StringToHash("Swimming");
 
         public void SetAnimator(Animator animator)
         {
@@ -20,11 +18,7 @@ namespace Assets.Scripts.PlayerScripts
 
         public void DoJumpAnimation(bool isOnGround, bool isInWater)
         {
-            if (isOnGround || isInWater)
-            {
-                return;
-            }
-            else
+            if (!isOnGround && !isInWater)
             {
                 _animator.Play(_jump);
             }
@@ -52,5 +46,3 @@ namespace Assets.Scripts.PlayerScripts
         }
     }
 }
-
-

@@ -32,7 +32,7 @@ namespace Assets.Scripts.Tutorial
         private bool _isShowedWalkTutorial;
         private bool _isShowedCatchTutorial;
         private bool _isShowedGetFishTutorial;
-        private string _tutorialShowedKey = "DirectonGuideKey";
+        private readonly string _tutorialShowedKey = "DirectonGuideKey";
 
         private void Awake()
         {
@@ -47,12 +47,9 @@ namespace Assets.Scripts.Tutorial
                 ShowHowWalk();
                 ShowHowCatchFish();
                 _buttonChangerController.SetButtonChangerOff();
-                _saver.SaveTutorialDirectonGuideData(_tutorialShowedKey, new DTODirectionGuide
-                {
-                    IsShowedGetFishTutorial = _isShowedGetFishTutorial,
-                    IsShowedCatchTutorial = _isShowedCatchTutorial,
-                    IsShowedWalkTutorial = _isShowedWalkTutorial
-                });
+                DTODirectionGuide tutor = new DTODirectionGuide();
+                tutor.Init(_isShowedGetFishTutorial, _isShowedCatchTutorial, _isShowedWalkTutorial);
+                _saver.SaveTutorialDirectonGuideData(_tutorialShowedKey, tutor);
             }
         }
 
@@ -70,11 +67,11 @@ namespace Assets.Scripts.Tutorial
         {
             if (YandexGame.EnvironmentData.isMobile)
             {
-                _howWalkMobile.gameObject.SetActive(true);
+                _howWalkMobile.SetActive(true);
             }
             else
             {
-                _howWalk.gameObject.SetActive(true);
+                _howWalk.SetActive(true);
             }
 
             _isShowedWalkTutorial = true;
@@ -82,7 +79,7 @@ namespace Assets.Scripts.Tutorial
 
         private void ShowHowCatchFish()
         {
-            _howCatchFishTuturial.gameObject.SetActive(true);
+            _howCatchFishTuturial.SetActive(true);
             _isShowedCatchTutorial = true;
         }
 
@@ -98,12 +95,9 @@ namespace Assets.Scripts.Tutorial
                 Time.timeScale = 0;
 
                 _isShowedGetFishTutorial = true;
-                _saver.SaveTutorialDirectonGuideData(_tutorialShowedKey, new DTODirectionGuide
-                {
-                    IsShowedGetFishTutorial = _isShowedGetFishTutorial,
-                    IsShowedCatchTutorial = _isShowedCatchTutorial,
-                    IsShowedWalkTutorial = _isShowedWalkTutorial
-                });
+                DTODirectionGuide tutor = new DTODirectionGuide();
+                tutor.Init(_isShowedGetFishTutorial, _isShowedCatchTutorial, _isShowedWalkTutorial);
+                _saver.SaveTutorialDirectonGuideData(_tutorialShowedKey, tutor);
             }
         }
 
@@ -117,7 +111,7 @@ namespace Assets.Scripts.Tutorial
 
         public void ShowHowCatchFishOnRod()
         {
-            _howCatchOnRodTutorial.gameObject.SetActive(true);
+            _howCatchOnRodTutorial.SetActive(true);
             _buttonChangerController.SetButtonChangerOff();
             _arrowToCloset.gameObject.SetActive(false);
         }
@@ -149,8 +143,8 @@ namespace Assets.Scripts.Tutorial
 
         public void SetOffControlTutorial()
         {
-            _howWalk.gameObject.SetActive(false);
-            _howWalkMobile.gameObject.SetActive(false);
+            _howWalk.SetActive(false);
+            _howWalkMobile.SetActive(false);
         }
     }
 }

@@ -4,7 +4,7 @@ using YG;
 using UnityEngine.Events;
 using System.Collections;
 using Assets.Scripts.Fishes;
-using Assets.Scripts.Resources;
+using Assets.Scripts.FishResources;
 using Assets.Scripts.Saves.DTO;
 using Assets.Scripts.ScripsForWeb.Leaderboard;
 using Assets.Scripts.Tutorial;
@@ -15,6 +15,12 @@ namespace Assets.Scripts
 {
     public class Bag : MonoBehaviour, IUpgradable
     {
+        private const int ZeroLevelCommand = 0;
+        private const int FirstLevelCommand = 1;
+        private const int SecondLevelCommand = 2;
+        private const int ThirdLevelCommand = 3;
+        private const int FourthLevelCommand = 4;
+
         [SerializeField] private YandexLeaderboard _yandexLeaderboard;
         [SerializeField] private AudioClip _catchSound;
         [SerializeField] private TutorialViewer _tutorial;
@@ -22,9 +28,9 @@ namespace Assets.Scripts
         [SerializeField] private ButtonChangerController _buttonChangerController;
         [SerializeField] private LeaderboardYG _leaderboardYG;
 
+        private readonly float _increaseTimeSec = 60f;
+        private readonly int _maxLevel = 5;
         private int _level;
-        private float _increaseTimeSec = 60f;
-        private int _maxLevel = 5;
         private int _maxFishCount;
         private int _countResourseToUpgrade;
         private int _countAllCatchedFishes;
@@ -33,13 +39,13 @@ namespace Assets.Scripts
         private bool _isActiveIncreaseAd;
         private bool _isTutorialShowed;
 
-        private List<Fish> _fishes = new List<Fish>();
+        private readonly List<Fish> _fishes = new List<Fish>();
         private Resource _resourceToUpgrade;
         private AudioSource _audioSource;
         private Coroutine _coroutine;
         private WaitForSeconds _increaseTime;
-        private string _levelDataKey = "BagKey";
-        private string _tutorialShowedKey = "TutorialKey";
+        private readonly string _levelDataKey = "BagKey";
+        private readonly string _tutorialShowedKey = "TutorialKey";
 
         public string NextLevel { get; private set; }
         public Resource ResourceToUpgrade => _resourceToUpgrade;
@@ -49,7 +55,6 @@ namespace Assets.Scripts
         public float IncreaseTimeSec => _increaseTimeSec;
         public bool IsActiveIncreaseAd => _isActiveIncreaseAd;
 
-        public bool IsTutorialShowed;
         public UnityAction FishCountChanged;
         public UnityAction Upgraded;
         public UnityAction BagFilled;
@@ -120,7 +125,9 @@ namespace Assets.Scripts
                 {
                     _tutorial.ShowWhereFishesCount();
                     _isTutorialShowed = true;
-                    _saver.SaveTutorialData(_tutorialShowedKey, new DTOTutorial { IsShowed = _isTutorialShowed });
+                    DTOTutorial dTOTutorial = new DTOTutorial();
+                    dTOTutorial.Init(_isTutorialShowed);
+                    _saver.SaveTutorialData(_tutorialShowedKey, dTOTutorial);
                 }
 
                 if (_fishes.Count == _maxFishCount)
@@ -157,7 +164,9 @@ namespace Assets.Scripts
             }
 
             CheckLevel();
-            _saver.SaveLevelData(_levelDataKey, new DTOLevel { Count = _countResourseToUpgrade, Level = _level });
+            DTOLevel dTOLevel = new DTOLevel();
+            dTOLevel.Init(_countResourseToUpgrade, _level);
+            _saver.SaveLevelData(_levelDataKey, dTOLevel);
         }
 
         public Resource GetResourceToUpgrade()
@@ -206,27 +215,27 @@ namespace Assets.Scripts
         {
             switch (_level)
             {
-                case 0:
+                case ZeroLevelCommand:
                     _maxFishCount = 4;
                     _countResourseToUpgrade = 10;
                     break;
 
-                case 1:
+                case FirstLevelCommand:
                     _maxFishCount = 6;
                     _countResourseToUpgrade = 25;
                     break;
 
-                case 2:
+                case SecondLevelCommand:
                     _maxFishCount = 8;
                     _countResourseToUpgrade = 50;
                     break;
 
-                case 3:
+                case ThirdLevelCommand:
                     _maxFishCount = 10;
                     _countResourseToUpgrade = 75;
                     break;
 
-                case 4:
+                case FourthLevelCommand:
                     _maxFishCount = 12;
                     _countResourseToUpgrade = 100;
                     break;

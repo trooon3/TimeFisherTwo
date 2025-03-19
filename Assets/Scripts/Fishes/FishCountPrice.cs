@@ -10,15 +10,15 @@ namespace Assets.Scripts.Fishes
         private FishType _type;
         private Sprite _icon;
 
+        public Sprite Icon => _icon;
+        public FishType Type => _type;
+        public int Cost => _cost;
+
         private void Awake()
         {
             _type = _creature.FishType;
             _icon = _creature.Icon;
         }
-
-        public Sprite Icon => _icon;
-        public FishType Type => _type;
-        public int Cost => _cost;
     }
 }
 

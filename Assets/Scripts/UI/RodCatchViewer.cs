@@ -14,7 +14,7 @@ namespace Assets.Scripts.UI
         private Coroutine _coroutine;
 
         private float _changeSpeed;
-        private float _catchTime = 1;
+        private readonly float _catchTime = 1;
 
         private void Start()
         {

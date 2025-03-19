@@ -11,7 +11,7 @@ namespace Assets.Scripts.ScripsForWeb.Ads
         private float _changeSpeed;
         private Coroutine _coroutine;
         private Image _slider;
-        private float _catchTime = 1;
+        private readonly float _catchTime = 1;
 
         public void StartShowAdTimeWork(Image image, float increaseTime)
         {
@@ -41,6 +41,7 @@ namespace Assets.Scripts.ScripsForWeb.Ads
 
                 yield return null;
             }
+
             _buttonChanger.gameObject.SetActive(true);
 
             _buttonChanger.RestartChangingBottonWithDelay();

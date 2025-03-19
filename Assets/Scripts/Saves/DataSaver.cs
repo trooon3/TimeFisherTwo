@@ -1,5 +1,5 @@
 using Assets.Scripts.Fishes;
-using Assets.Scripts.Resources;
+using Assets.Scripts.FishResources;
 using Assets.Scripts.Saves.DTO;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +11,7 @@ namespace Assets.Scripts.Saves
         public void SaveFishesCountData(string key, List<FishTypeCounter> counters)
         {
             SaveData saveData = new();
-            saveData.FishCounters = counters;
+            saveData.SetFishCounters(counters);
             var jsonString = JsonUtility.ToJson(saveData);
             PlayerPrefs.SetString(key, jsonString);
             PlayerPrefs.Save();
@@ -35,7 +35,7 @@ namespace Assets.Scripts.Saves
         public void SaveResourcesCountData(string key, List<ResourceCounter> counters)
         {
             SaveData saveData = new();
-            saveData.ResCounters = counters;
+            saveData.SetResCounters(counters);
             var jsonString = JsonUtility.ToJson(saveData);
             PlayerPrefs.SetString(key, jsonString);
             PlayerPrefs.Save();
@@ -76,7 +76,6 @@ namespace Assets.Scripts.Saves
             return new DTOSkin();
         }
 
-
         public void SaveUpgradeCost(string key, int cost)
         {
             PlayerPrefs.SetInt(key, cost);
@@ -108,8 +107,9 @@ namespace Assets.Scripts.Saves
             {
                 return dtoLevelData;
             }
-
-            return new DTOLevel { Level = 0, Count = 10, Score = 0 };
+            DTOLevel levelData = new DTOLevel();
+            levelData.Init(0, 10, 0);
+            return levelData;
         }
 
         public void SaveLevelData(string key, DTOLevel dtoLevelData)
@@ -160,4 +160,3 @@ namespace Assets.Scripts.Saves
         }
     }
 }
-

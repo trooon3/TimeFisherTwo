@@ -13,17 +13,18 @@ namespace Assets.Scripts.UI
         [SerializeField] private float _catchPointChangeSpeed;
         [SerializeField] private Image _filledBag;
 
-        private WaitForSeconds _showTime = new WaitForSeconds(5f);
         private FishCatcher _cathcer;
         private FieldOfView _fieldOfView;
         private Coroutine _coroutine;
         private Coroutine _bagCoroutine;
+        private readonly WaitForSeconds _showTime = new WaitForSeconds(5f);
 
         private void Update()
         {
             if (_cathcer == null)
             {
-                _sliderCatchTime.value = Mathf.MoveTowards(_sliderCatchTime.value, 0, _catchPointChangeSpeed * Time.deltaTime);
+                _sliderCatchTime.value = Mathf.MoveTowards(_sliderCatchTime.value,
+                    0, _catchPointChangeSpeed * Time.deltaTime);
                 ShowFilledBag(false);
             }
         }
@@ -68,7 +69,6 @@ namespace Assets.Scripts.UI
             {
                 _bagCoroutine = StartCoroutine(ShowBagFilledDelay());
             }
-
         }
 
         private IEnumerator DisplayCatch()
@@ -77,7 +77,8 @@ namespace Assets.Scripts.UI
             {
                 if (_cathcer != null)
                 {
-                    _sliderCatchTime.value = Mathf.MoveTowards(_sliderCatchTime.value, _cathcer.ElapsedTime, _catchPointChangeSpeed * Time.deltaTime);
+                    _sliderCatchTime.value = Mathf.MoveTowards(_sliderCatchTime.value,
+                        _cathcer.ElapsedTime, _catchPointChangeSpeed * Time.deltaTime);
                 }
 
                 if (_sliderCatchTime.value == _cathcer.ElapsedTime)
@@ -95,6 +96,7 @@ namespace Assets.Scripts.UI
             {
                 yield return _showTime;
             }
+
             _filledBag.gameObject.SetActive(false);
         }
     }

@@ -1,6 +1,6 @@
 using Assets.Scripts.Fishes;
 using Assets.Scripts.PlayerScripts;
-using Assets.Scripts.Resources;
+using Assets.Scripts.FishResources;
 using Assets.Scripts.Saves;
 using Assets.Scripts.Saves.DTO;
 using Assets.Scripts.UI;
@@ -13,6 +13,12 @@ namespace Assets.Scripts
 {
     public class Rod : MonoBehaviour, IUpgradable
     {
+        private const int ZeroLevelCommand = 0;
+        private const int FirstLevelCommand = 1;
+        private const int SecondLevelCommand = 2;
+        private const int ThirdLevelCommand = 3;
+        private const int FourthLevelCommand = 4;
+
         [SerializeField] private List<SeaCreature> _allFishes = new List<SeaCreature>();
         [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
         [SerializeField] private RodCatchViewer _catchViewer;
@@ -22,10 +28,9 @@ namespace Assets.Scripts
 
         private int _countResourseToUpgrade;
         private int _level;
-        private int _maxLevel = 5;
+        private readonly int _maxLevel = 5;
         private float _catchingSpeed;
-        private string _levelDataKey = "RodKey";
-        private string _tutorialShowedKey = "RodTutorialShowed";
+        private readonly string _levelDataKey = "RodKey";
 
         private FishType _fishFoodFor;
         private FishType _cathchingFish;
@@ -34,7 +39,7 @@ namespace Assets.Scripts
         private Coroutine _coroutine;
         private WaitForSeconds _increaseTime;
         private bool _isActiveIncreaseAd;
-        private float _increaseTimeSec = 60f;
+        private readonly float _increaseTimeSec = 60f;
 
         public bool IsActiveIncreaseAd => _isActiveIncreaseAd;
         public string NextLevel { get; private set; }
@@ -85,7 +90,9 @@ namespace Assets.Scripts
             }
 
             CheckLevel();
-            _saver.SaveLevelData(_levelDataKey, new DTOLevel { Count = _countResourseToUpgrade, Level = _level });
+            DTOLevel dTOLevel = new DTOLevel();
+            dTOLevel.Init(_countResourseToUpgrade, _level);
+            _saver.SaveLevelData(_levelDataKey, dTOLevel);
         }
 
         public void GetFishFoodFor()
@@ -150,27 +157,27 @@ namespace Assets.Scripts
         {
             switch (_level)
             {
-                case 0:
+                case ZeroLevelCommand:
                     _countResourseToUpgrade = 10;
                     _catchingSpeed = 0.01f;
                     break;
 
-                case 1:
+                case FirstLevelCommand:
                     _countResourseToUpgrade = 25;
                     _catchingSpeed = 0.02f;
                     break;
 
-                case 2:
+                case SecondLevelCommand:
                     _countResourseToUpgrade = 50;
                     _catchingSpeed = 0.04f;
                     break;
 
-                case 3:
+                case ThirdLevelCommand:
                     _countResourseToUpgrade = 75;
                     _catchingSpeed = 0.1f;
                     break;
 
-                case 4:
+                case FourthLevelCommand:
                     _countResourseToUpgrade = 100;
                     _catchingSpeed = 0.2f;
                     break;

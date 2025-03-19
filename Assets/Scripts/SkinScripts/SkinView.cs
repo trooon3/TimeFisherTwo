@@ -65,7 +65,7 @@ namespace Assets.Scripts.SkinScripts
         {
             if (dTOSkin != null)
             {
-                _isBuyed = dTOSkin.Isbuyed;
+                _isBuyed = dTOSkin.IsBuyed;
             }
         }
 
@@ -77,8 +77,9 @@ namespace Assets.Scripts.SkinScripts
                 {
                     _isBuyed = true;
                     _tryBuyButtonText.text = Lean.Localization.LeanLocalization.GetTranslationText("Buyed");
-
-                    _saver.SaveSkinData(_nameKey, new DTOSkin { Isbuyed = _isBuyed, Name = _nameKey });
+                    DTOSkin dTOSkin = new DTOSkin();
+                    dTOSkin.Init(_nameKey, _isBuyed);
+                    _saver.SaveSkinData(_nameKey, dTOSkin);
                 }
             }
             else

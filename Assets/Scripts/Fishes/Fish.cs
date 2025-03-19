@@ -1,5 +1,5 @@
 using Assets.Scripts.PlayerScripts;
-using Assets.Scripts.Resources;
+using Assets.Scripts.FishResources;
 using Assets.Scripts.UI;
 using UnityEngine;
 
@@ -21,14 +21,14 @@ namespace Assets.Scripts.Fishes
         private Sprite _icon;
         private string _name;
         private int _level;
-        private float _catchtime;
+        private float _catchTime;
 
         public Resource Resource => _resource;
         public FishType Type => _type;
         public Sprite Icon => _icon;
         public string Name => _name;
         public int Level => _level;
-        public float Catchtime => _catchtime;
+        public float CatchTime => _catchTime;
 
         private void Start()
         {
@@ -38,7 +38,7 @@ namespace Assets.Scripts.Fishes
 
         public void Init(SeaCreature seaCreature)
         {
-            _catchtime = seaCreature.Catchtime;
+            _catchTime = seaCreature.CatchTime;
             _resource = seaCreature.Resource;
             _name = seaCreature.Name;
             _level = seaCreature.Level;

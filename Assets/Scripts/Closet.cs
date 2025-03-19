@@ -1,6 +1,6 @@
 using Assets.Scripts.Fishes;
 using Assets.Scripts.PlayerScripts;
-using Assets.Scripts.Resources;
+using Assets.Scripts.FishResources;
 using Assets.Scripts.Saves;
 using Assets.Scripts.Saves.DTO;
 using Assets.Scripts.ScripsForWeb.Ads;
@@ -222,7 +222,9 @@ namespace Assets.Scripts
             {
                 _tutorial.ShowHowCatchFishOnRod();
                 _isTutorialShowed = true;
-                _saver.SaveTutorialData(_tutorialShowedKey, new DTOTutorial { IsShowed = _isTutorialShowed });
+                DTOTutorial dTOTutorial = new DTOTutorial();
+                dTOTutorial.Init(_isTutorialShowed);
+                _saver.SaveTutorialData(_tutorialShowedKey, dTOTutorial);
             }
 
             if (_playerNearbyChecker.GetPlayer() != null)

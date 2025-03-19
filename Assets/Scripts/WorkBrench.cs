@@ -19,7 +19,7 @@ namespace Assets.Scripts
         [SerializeField] private DataSaver _saver;
 
         private bool _isTutorialShowed;
-        private string _tutorialShowedKey = "TutorialWorkBrenchKey";
+        private readonly string _tutorialShowedKey = "TutorialWorkBrenchKey";
 
         private void Awake()
         {
@@ -52,8 +52,10 @@ namespace Assets.Scripts
             if (_isTutorialShowed == false)
             {
                 _tutorial.ShowHowUpgrade();
-                _isTutorialShowed = true;
-                _saver.SaveTutorialData(_tutorialShowedKey, new DTOTutorial { IsShowed = _isTutorialShowed });
+                _isTutorialShowed = true; 
+                DTOTutorial dTOTutorial = new DTOTutorial();
+                dTOTutorial.Init(_isTutorialShowed);
+                _saver.SaveTutorialData(_tutorialShowedKey, dTOTutorial);
             }
         }
 

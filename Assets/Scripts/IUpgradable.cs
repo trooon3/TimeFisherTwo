@@ -1,4 +1,4 @@
-using Assets.Scripts.Resources;
+using Assets.Scripts.FishResources;
 
 namespace Assets.Scripts
 {

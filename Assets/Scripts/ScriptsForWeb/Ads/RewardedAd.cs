@@ -7,6 +7,11 @@ namespace Assets.Scripts.ScripsForWeb.Ads
 {
     public class RewardedAd : MonoBehaviour
     {
+        private const int SpeedUpCommand = 1;
+        private const int IncreaseCountCatchedFishCommand = 2;
+        private const int RodSpeedUpCommand = 3;
+        private const int ResourcesIncreaseCommand = 4;
+
         [SerializeField] private PlayerMover _mover;
         [SerializeField] private Bag _bag;
         [SerializeField] private Rod _rod;
@@ -31,16 +36,16 @@ namespace Assets.Scripts.ScripsForWeb.Ads
         {
             switch (id)
             {
-                case 1:
+                case SpeedUpCommand:
                     SpeedUp();
                     return;
-                case 2:
+                case IncreaseCountCatchedFishCommand:
                     IncreaseCountCatchedFish();
                     return;
-                case 3:
+                case RodSpeedUpCommand:
                     RodSpeedUp();
                     return;
-                case 4:
+                case ResourcesIncreaseCommand:
                     ResourcesIncrease();
                     return;
                 default:
