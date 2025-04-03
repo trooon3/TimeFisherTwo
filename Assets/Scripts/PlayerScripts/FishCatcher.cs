@@ -17,10 +17,7 @@ namespace Assets.Scripts.PlayerScripts
         [SerializeField] private bool _isCanCatchFish;
         [SerializeField] private FishSpawner _spawner;
 
-        private float _angle = 100;
         private float _elapsedTime = 0;
-        private int _fishNumber = 9;
-        private int _fish;
 
         private Bag _bag;
         private Fish _fishToCatch;
@@ -28,18 +25,15 @@ namespace Assets.Scripts.PlayerScripts
 
         private FieldOfView _fieldOfView;
         public FieldOfView FieldOfView => _fieldOfView;
-        public Fish FishToCatch => _fishToCatch;
         public float ElapsedTime => _elapsedTime;
 
-        public UnityAction Catched;
-        public UnityAction<Fish> FishFinded;
+        public event UnityAction Catched;
+        public event UnityAction<Fish> FishFinded;
 
         private void Start()
         {
             _fieldOfView = GetComponent<FieldOfView>();
-            Mathf.Clamp(_angle, _minAngle, _maxAngle);
             _bag = GetComponent<Bag>();
-            _fish = 1 << _fishNumber;
         }
 
         public void SetCatchFish(Fish fish)

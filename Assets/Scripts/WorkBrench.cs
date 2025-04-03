@@ -53,7 +53,7 @@ namespace Assets.Scripts
             }
         }
 
-        public void TryUpgrade(IUpgradable tool)
+        public void TryUpgrade(Equipment tool)
         {
             var needResource = tool.GetResourceToUpgrade();
             var needCountResource = tool.GetResourceCountToUpgrade();
@@ -61,7 +61,7 @@ namespace Assets.Scripts
             if (_closet.CheckIsCanPay(needResource, needCountResource))
             {
                 _closet.SpendResources(needCountResource, needResource);
-                tool.Upgrade();
+                tool.Upgrade(tool.LevelDataKey);
             }
         }
 

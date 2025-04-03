@@ -25,9 +25,6 @@ namespace Assets.Scripts.Fishes
 
         public Resource Resource => _resource;
         public FishType Type => _type;
-        public Sprite Icon => _icon;
-        public string Name => _name;
-        public int Level => _level;
         public float CatchTime => _catchTime;
 
         private void Start()

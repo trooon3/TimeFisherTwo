@@ -14,10 +14,6 @@ namespace Assets.Scripts.SkinScripts
         [SerializeField] private FishCountPrice _thirdFishTypeCost;
 
         public List<FishCountPrice> FishCountPrices => _fishCountPrices;
-        public FishCountPrice FIshCountPrice => _firstFishTypeCost;
-        public FishCountPrice SecondFishTypeCost => _secondFishTypeCost;
-        public FishCountPrice ThirdFishTypeCost => _thirdFishTypeCost;
-        public FishCountPrice FourthFishTypeCost => _fourthFishTypeCost;
 
         public void SetListPrices()
         {

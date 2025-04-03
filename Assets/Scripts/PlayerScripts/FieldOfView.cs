@@ -21,10 +21,9 @@ namespace Assets.Scripts.PlayerScripts
         public float Radius => _radius;
         public float Angle => _angle;
         public bool CanSeePlayer => _canSeePlayer;
-        public Fish FishToCatch => _fish;
         public Player PlayerRef => _playerRef;
 
-        public UnityAction FishFinded;
+        public event UnityAction FishFinded;
 
         private void Start()
         {

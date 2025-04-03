@@ -13,26 +13,17 @@ using Assets.Scripts.UI;
 
 namespace Assets.Scripts
 {
-    public class Bag : MonoBehaviour, IUpgradable
+    public class Bag : Equipment
     {
-        private const int ZeroLevelCommand = 0;
-        private const int FirstLevelCommand = 1;
-        private const int SecondLevelCommand = 2;
-        private const int ThirdLevelCommand = 3;
-        private const int FourthLevelCommand = 4;
-
         [SerializeField] private YandexLeaderboard _yandexLeaderboard;
         [SerializeField] private LeaderboardYG _leaderboardYG;
         [SerializeField] private AudioClip _catchSound;
         [SerializeField] private TutorialViewer _tutorial;
-        [SerializeField] private DataSaver _saver;
         [SerializeField] private ButtonChangerController _buttonChangerController;
 
         private readonly float _increaseTimeSec = 60f;
-        private readonly int _maxLevel = 5;
-        private int _level;
-        private int _maxFishCount;
-        private int _countResourseToUpgrade;
+       
+        private float _maxFishCount;
         private int _countAllCatchedFishes;
         private int _fishesInsideCount;
 
@@ -40,37 +31,35 @@ namespace Assets.Scripts
         private bool _isTutorialShowed;
 
         private readonly List<Fish> _fishes = new List<Fish>();
-        private Resource _resourceToUpgrade;
+        private readonly string _tutorialShowedKey = "TutorialShowedKey";
+        private readonly string _levelDataKey = "BagKey";
         private AudioSource _audioSource;
         private Coroutine _coroutine;
         private WaitForSeconds _increaseTime;
-        private readonly string _levelDataKey = "BagKey";
-        private readonly string _tutorialShowedKey = "TutorialKey";
 
-        public string NextLevel { get; private set; }
-        public Resource ResourceToUpgrade => _resourceToUpgrade;
-        public int CountResourseToUpgrade => _countResourseToUpgrade;
+        public int CountResourseToUpgrade => _upgradeCost;
+        public string LevelDataKey => _levelDataKey;
         public int FishesInsideCount => _fishesInsideCount;
         public int Level => _level;
         public float IncreaseTimeSec => _increaseTimeSec;
         public bool IsActiveIncreaseAd => _isActiveIncreaseAd;
 
-        public UnityAction FishCountChanged;
-        public UnityAction Upgraded;
-        public UnityAction BagFilled;
-        public UnityAction BagDevastated;
+        public event UnityAction FishCountChanged;
+        public event UnityAction BagFilled;
+        public event UnityAction BagDevastated;
 
         private void Awake()
         {
+           // _saver = new DataSaver();
             NextLevel = (_level + 1).ToString();
             _resourceToUpgrade = Resource.SeaWeed;
             _increaseTime = new WaitForSeconds(_increaseTimeSec);
             _audioSource = GetComponent<AudioSource>();
-            CheckLevel();
+            CheckLevel(ref _upgradeCost,ref _maxFishCount);
 
-            var dtoTutorial = _saver.LoadTutorialData(_tutorialShowedKey);
-            var dtoLevel = _saver.LoadLevelData(_levelDataKey);
-            ApplySaves(dtoTutorial, dtoLevel);
+            //var dtoTutorial = _saver.LoadTutorialData(_tutorialShowedKey);
+            //var dtoLevel = _saver.LoadLevelData(_levelDataKey);
+            //ApplySaves(dtoTutorial, dtoLevel);
         }
 
         public void SetActiveIncrease()
@@ -125,9 +114,9 @@ namespace Assets.Scripts
                 {
                     _tutorial.ShowWhereFishesCount();
                     _isTutorialShowed = true;
-                    DTOTutorial dTOTutorial = new DTOTutorial();
-                    dTOTutorial.Init(_isTutorialShowed);
-                    _saver.SaveTutorialData(_tutorialShowedKey, dTOTutorial);
+                   // DTOTutorial dTOTutorial = new DTOTutorial();
+                   // dTOTutorial.Init(_isTutorialShowed);
+                   //// _saver.SaveTutorialData(_tutorialShowedKey, dTOTutorial);
                 }
 
                 if (_fishes.Count == _maxFishCount)
@@ -145,40 +134,6 @@ namespace Assets.Scripts
             return false;
         }
 
-        public void Upgrade()
-        {
-            if (_level < _maxLevel)
-            {
-                _level++;
-
-                if (_level + 1 > _maxLevel)
-                {
-                    NextLevel = "MAX";
-                }
-                else
-                {
-                    NextLevel = (_level + 1).ToString();
-                }
-
-                Upgraded?.Invoke();
-            }
-
-            CheckLevel();
-            DTOLevel dTOLevel = new DTOLevel();
-            dTOLevel.Init(_countResourseToUpgrade, _level);
-            _saver.SaveLevelData(_levelDataKey, dTOLevel);
-        }
-
-        public Resource GetResourceToUpgrade()
-        {
-            return ResourceToUpgrade;
-        }
-
-        public int GetResourceCountToUpgrade()
-        {
-            return _countResourseToUpgrade;
-        }
-
         private void ApplySaves(DTOTutorial dtoTutorial, DTOLevel dtoLevel)
         {
             if (dtoTutorial != null)
@@ -189,7 +144,7 @@ namespace Assets.Scripts
             if (dtoLevel != null)
             {
                 _level = dtoLevel.Level;
-                _countResourseToUpgrade = dtoLevel.Count;
+                _upgradeCost = dtoLevel.Count;
                 _countAllCatchedFishes = dtoLevel.Score;
             }
         }
@@ -211,33 +166,33 @@ namespace Assets.Scripts
             _buttonChangerController.SetButtonChangerOn();
         }
 
-        private void CheckLevel()
+        private void CheckLevel(ref int upgradeCost, ref float upgradeParametr)
         {
             switch (_level)
             {
                 case ZeroLevelCommand:
-                    _maxFishCount = 4;
-                    _countResourseToUpgrade = 10;
+                    upgradeParametr = 4;
+                    upgradeCost = 10;
                     break;
 
                 case FirstLevelCommand:
-                    _maxFishCount = 6;
-                    _countResourseToUpgrade = 25;
+                    upgradeParametr = 6;
+                    upgradeCost = 25;
                     break;
 
                 case SecondLevelCommand:
-                    _maxFishCount = 8;
-                    _countResourseToUpgrade = 50;
+                    upgradeParametr = 8;
+                    upgradeCost = 50;
                     break;
 
                 case ThirdLevelCommand:
-                    _maxFishCount = 10;
-                    _countResourseToUpgrade = 75;
+                    upgradeParametr = 10;
+                    upgradeCost = 75;
                     break;
 
                 case FourthLevelCommand:
-                    _maxFishCount = 12;
-                    _countResourseToUpgrade = 100;
+                    upgradeParametr = 12;
+                    upgradeCost = 100;
                     break;
 
                 default:
@@ -246,4 +201,3 @@ namespace Assets.Scripts
         }
     }
 }
-

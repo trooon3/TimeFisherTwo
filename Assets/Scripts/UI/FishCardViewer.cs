@@ -1,3 +1,4 @@
+using System;
 using Assets.Scripts.Fishes;
 using TMPro;
 using UnityEngine;
@@ -11,10 +12,10 @@ namespace Assets.Scripts.UI
         [SerializeField] private TMP_Text _count;
         [SerializeField] private Image _icon;
         [SerializeField] private Button _hook;
+        [SerializeField] private FishTypeCounter _counter;
 
         private ClosetView _closet;
         private SeaCreature _seaCreature;
-        private FishTypeCounter _counter;
         public SeaCreature SeaCreature => _seaCreature;
 
         public void Init(SeaCreature fish)
@@ -37,6 +38,15 @@ namespace Assets.Scripts.UI
 
         public void RefreshCount()
         {
+            if (_count != null) 
+            {
+                Debug.Log($"Коунт каунтер ест есть");
+            }
+            if (_counter != null)
+            {
+                Debug.Log($"каунтер есть");
+            }
+
             _count.text = _counter.Count.ToString();
         }
 

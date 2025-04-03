@@ -11,56 +11,43 @@ using UnityEngine.Events;
 
 namespace Assets.Scripts
 {
-    public class Rod : MonoBehaviour, IUpgradable
+    public class Rod : Equipment
     {
-        private const int ZeroLevelCommand = 0;
-        private const int FirstLevelCommand = 1;
-        private const int SecondLevelCommand = 2;
-        private const int ThirdLevelCommand = 3;
-        private const int FourthLevelCommand = 4;
-
         [SerializeField] private List<SeaCreature> _allFishes = new List<SeaCreature>();
         [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
         [SerializeField] private RodCatchViewer _catchViewer;
         [SerializeField] private ClosetView _closetView;
-        [SerializeField] private DataSaver _saver;
         [SerializeField] private ButtonChangerController _buttonChangerController;
 
-        private int _countResourseToUpgrade;
-        private int _level;
-        private readonly int _maxLevel = 5;
         private float _catchingSpeed;
-        private readonly string _levelDataKey = "RodKey";
 
         private FishType _fishFoodFor;
         private FishType _cathchingFish;
-        private Resource _resourceToUpgrade;
 
         private Coroutine _coroutine;
         private WaitForSeconds _increaseTime;
         private bool _isActiveIncreaseAd;
         private readonly float _increaseTimeSec = 60f;
+        private readonly string _levelDataKey = "RodKey";
 
         public bool IsActiveIncreaseAd => _isActiveIncreaseAd;
-        public string NextLevel { get; private set; }
-        public Resource ResourceToUpgrade => _resourceToUpgrade;
-        public int CountResourseToUpgrade => _countResourseToUpgrade;
+        public int CountResourseToUpgrade => _upgradeCost;
+        public string LevelDataKey => _levelDataKey;
         public float CatchingSpeed => _catchingSpeed;
         public FishType FishFoodFor => _fishFoodFor;
         public int Level => _level;
         public float IncreaseTimeSec => _increaseTimeSec;
 
-        public UnityAction Upgraded;
-
         private void Awake()
         {
+           // _saver = new DataSaver();
             _increaseTime = new WaitForSeconds(_increaseTimeSec);
             NextLevel = (_level + 1).ToString();
             _resourceToUpgrade = Resource.FishBones;
-            CheckLevel();
+            CheckLevel(ref _upgradeCost, ref _catchingSpeed);
 
-            var dtoLevel = _saver.LoadLevelData(_levelDataKey);
-            ApplySaves(dtoLevel);
+           // var dtoLevel = _saver.LoadLevelData(_levelDataKey);
+           // ApplySaves(dtoLevel);
         }
 
         public void SetActiveIncrease()
@@ -69,30 +56,6 @@ namespace Assets.Scripts
             _isActiveIncreaseAd = true;
             _buttonChangerController.SetButtonChangerOff();
             StartIncreaseTimer();
-        }
-
-        public void Upgrade()
-        {
-            if (_level < _maxLevel)
-            {
-                _level++;
-
-                if (_level + 1 > _maxLevel)
-                {
-                    NextLevel = "MAX";
-                }
-                else
-                {
-                    NextLevel = (_level + 1).ToString();
-                }
-
-                Upgraded?.Invoke();
-            }
-
-            CheckLevel();
-            DTOLevel dTOLevel = new DTOLevel();
-            dTOLevel.Init(_countResourseToUpgrade, _level);
-            _saver.SaveLevelData(_levelDataKey, dTOLevel);
         }
 
         public void GetFishFoodFor()
@@ -109,16 +72,6 @@ namespace Assets.Scripts
             }
         }
 
-        public Resource GetResourceToUpgrade()
-        {
-            return ResourceToUpgrade;
-        }
-
-        public int GetResourceCountToUpgrade()
-        {
-            return _countResourseToUpgrade;
-        }
-
         public void GetReadyCatch(FishType type)
         {
             _cathchingFish = type;
@@ -131,7 +84,7 @@ namespace Assets.Scripts
             if (dtoLevel != null)
             {
                 _level = dtoLevel.Level;
-                _countResourseToUpgrade = dtoLevel.Count;
+                _upgradeCost = dtoLevel.Count;
             }
         }
 
@@ -150,36 +103,36 @@ namespace Assets.Scripts
             yield return _increaseTime;
             _isActiveIncreaseAd = false;
             _buttonChangerController.SetButtonChangerOn();
-            CheckLevel();
+            CheckLevel(ref _upgradeCost, ref _catchingSpeed);
         }
 
-        private void CheckLevel()
+        private void CheckLevel(ref int upgradeCost, ref float upgradeParametr)
         {
             switch (_level)
             {
                 case ZeroLevelCommand:
-                    _countResourseToUpgrade = 10;
-                    _catchingSpeed = 0.01f;
+                    upgradeCost = 10;
+                    upgradeParametr = 0.01f;
                     break;
 
                 case FirstLevelCommand:
-                    _countResourseToUpgrade = 25;
-                    _catchingSpeed = 0.02f;
+                    upgradeCost = 25;
+                    upgradeParametr = 0.02f;
                     break;
 
                 case SecondLevelCommand:
-                    _countResourseToUpgrade = 50;
-                    _catchingSpeed = 0.04f;
+                    upgradeCost = 50;
+                    upgradeParametr = 0.04f;
                     break;
 
                 case ThirdLevelCommand:
-                    _countResourseToUpgrade = 75;
-                    _catchingSpeed = 0.1f;
+                    upgradeCost = 75;
+                    upgradeParametr = 0.1f;
                     break;
 
                 case FourthLevelCommand:
-                    _countResourseToUpgrade = 100;
-                    _catchingSpeed = 0.2f;
+                    upgradeCost = 100;
+                    upgradeParametr = 0.2f;
                     break;
 
                 default:

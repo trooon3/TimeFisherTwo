@@ -23,7 +23,7 @@ namespace Assets.Scripts
         [SerializeField] private ActiveButtonView _buttonView;
         [SerializeField] private RodCatchViewer _rodView;
         [SerializeField] private TutorialViewer _tutorial;
-        [SerializeField] private DataSaver _saver;
+      //  [SerializeField] private DataSaver _saver;
         [SerializeField] private InterAd _interAd;
         [SerializeField] private ButtonChangerController _buttonChangerController;
 
@@ -44,20 +44,21 @@ namespace Assets.Scripts
 
         public List<SeaCreature> AllFishes => _allFishes;
         public List<FishTypeCounter> CatchedFishes => _catchedFishes;
-        public DataSaver Saver => _saver;
+       // public DataSaver Saver => _saver;
         public bool IsActiveIncreaseAd => _isActiveIncreaseAd;
         public float IncreaseTimeSec => _increaseTimeSec;
 
-        public UnityAction FishTransferred;
-        public UnityAction ResourceCountChanged;
+        public event UnityAction FishTransferred;
+        public event UnityAction ResourceCountChanged;
 
         private void Awake()
         {
-            _catchedFishes = _saver.LoadFishesCountData(_fishesCountSaves);
-            _resources = _saver.LoadResourcesCountData(_resurcesCountSaves);
+            // _catchedFishes = _saver.LoadFishesCountData(_fishesCountSaves);
+            // _resources = _saver.LoadResourcesCountData(_resurcesCountSaves);
+            _resources = new List<ResourceCounter> { new ResourceCounter(Resource.FishBones), new ResourceCounter(Resource.SeaWeed) };
             _increaseTime = new WaitForSeconds(_increaseTimeSec);
-            var dtoTutorial = _saver.LoadTutorialData(_tutorialShowedKey);
-            ApplySaves(dtoTutorial);
+           // var dtoTutorial = _saver.LoadTutorialData(_tutorialShowedKey);
+           // ApplySaves(dtoTutorial);
 
             if (_catchedFishes == null)
             {
@@ -70,8 +71,8 @@ namespace Assets.Scripts
                 }
             }
 
-            _view.gameObject.SetActive(true);
-            _view.gameObject.SetActive(false);
+           _view.gameObject.SetActive(true);
+           _view.gameObject.SetActive(false);
         }
 
         private void Update()
@@ -85,10 +86,10 @@ namespace Assets.Scripts
                 _buttonView.SetActiveEImage(false);
             }
 
-            if (_playerNearbyChecker.IsPlayerNearby == false)
-            {
-                _view.gameObject.SetActive(false);
-            }
+            //if (_playerNearbyChecker.IsPlayerNearby == false)
+            //{
+            //    _view.gameObject.SetActive(false);
+            //}
         }
 
         public void GetAllFishes()
@@ -113,6 +114,7 @@ namespace Assets.Scripts
         {
             for (int i = 0; i < fishes.Count; i++)
             {
+                Debug.Log("отдали рыбов");
                 AddFish(fishes[i]);
                 AddResources(fishes[i]);
             }
@@ -141,7 +143,7 @@ namespace Assets.Scripts
                 }
             }
 
-            _saver.SaveFishesCountData(_fishesCountSaves, _catchedFishes);
+           // _saver.SaveFishesCountData(_fishesCountSaves, _catchedFishes);
         }
 
         public bool CheckCanPaySkin(SkinView skin)
@@ -179,7 +181,7 @@ namespace Assets.Scripts
                 }
             }
 
-            _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
+            //_saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
             ResourceCountChanged?.Invoke();
         }
 
@@ -222,9 +224,9 @@ namespace Assets.Scripts
             {
                 _tutorial.ShowHowCatchFishOnRod();
                 _isTutorialShowed = true;
-                DTOTutorial dTOTutorial = new DTOTutorial();
-                dTOTutorial.Init(_isTutorialShowed);
-                _saver.SaveTutorialData(_tutorialShowedKey, dTOTutorial);
+                //DTOTutorial dTOTutorial = new DTOTutorial();
+                //dTOTutorial.Init(_isTutorialShowed);
+               //_saver.SaveTutorialData(_tutorialShowedKey, dTOTutorial);
             }
 
             if (_playerNearbyChecker.GetPlayer() != null)
@@ -234,8 +236,8 @@ namespace Assets.Scripts
                 TakeFish(_player.GetFish());
             }
 
-            _saver.SaveFishesCountData(_fishesCountSaves, _catchedFishes);
-            _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
+           // _saver.SaveFishesCountData(_fishesCountSaves, _catchedFishes);
+           // _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
         }
 
         private int GetResourceCount(Resource resourceType)
@@ -278,13 +280,16 @@ namespace Assets.Scripts
 
         private void AddFish(Fish fish)
         {
+                    Debug.Log("Заходиим в эдд фиш");
             foreach (FishTypeCounter catchedFish in _catchedFishes)
             {
+                    Debug.Log("перебираем фиштайпкаунтеры");
                 if (catchedFish.Type == fish.Type)
                 {
                     catchedFish.Increase();
                     FishTransferred?.Invoke();
                     _spawner.SetOffFish(fish);
+                    Debug.Log("Взяли рыбов");
                 }
             }
         }
@@ -317,7 +322,7 @@ namespace Assets.Scripts
                 }
             }
 
-            _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
+           // _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
             ResourceCountChanged?.Invoke();
             _tutorial.ShowWhereUpgrade();
         }

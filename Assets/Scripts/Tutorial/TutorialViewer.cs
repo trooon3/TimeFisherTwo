@@ -136,11 +136,6 @@ namespace Assets.Scripts.Tutorial
             _arrowToResouces.gameObject.SetActive(true);
         }
 
-        public void ShowWhereShop()
-        {
-            _arrowToShop.gameObject.SetActive(true);
-        }
-
         public void SetOffControlTutorial()
         {
             _howWalk.SetActive(false);

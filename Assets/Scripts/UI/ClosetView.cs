@@ -81,10 +81,13 @@ namespace Assets.Scripts.UI
         {
             foreach (var card in _fishCardViewers)
             {
+                        Debug.Log("перебираем карточки UI 0");
                 foreach (var counter in _closet.CatchedFishes)
                 {
+                        Debug.Log("перебираем каунтеры в карточках");
                     if (counter.Type == card.SeaCreature.FishType)
                     {
+                        Debug.Log("здесь выставляется каунтер для карточки2");
                         card.SetCounter(counter);
                     }
                 }

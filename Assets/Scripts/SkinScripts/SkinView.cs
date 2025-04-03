@@ -25,7 +25,6 @@ namespace Assets.Scripts.SkinScripts
         private bool _isBuyed;
 
         public SkinCost Cost => _cost;
-        public Skin Skin => _skin;
 
         public void Init(SkinEditor editor, Skin forSkin, Closet closet)
         {
