@@ -20,6 +20,7 @@ namespace Assets.Scripts
         [SerializeField] private AudioClip _catchSound;
         [SerializeField] private TutorialViewer _tutorial;
         [SerializeField] private ButtonChangerController _buttonChangerController;
+        [SerializeField] private UpgradeCriterion[] upgradeCriteria;
 
         private readonly float _increaseTimeSec = 60f;
        
@@ -55,11 +56,16 @@ namespace Assets.Scripts
             _resourceToUpgrade = Resource.SeaWeed;
             _increaseTime = new WaitForSeconds(_increaseTimeSec);
             _audioSource = GetComponent<AudioSource>();
-            CheckLevel(ref _upgradeCost,ref _maxFishCount);
-
+            //CheckLevel(ref _upgradeCost,ref _maxFishCount);
+            CheckLevel();
             //var dtoTutorial = _saver.LoadTutorialData(_tutorialShowedKey);
             //var dtoLevel = _saver.LoadLevelData(_levelDataKey);
             //ApplySaves(dtoTutorial, dtoLevel);
+        }
+
+        public override void CheckLevel()
+        {
+            SmartCheckLevel(_level, upgradeCriteria, ref _upgradeCost, ref _maxFishCount);
         }
 
         public void SetActiveIncrease()
@@ -164,40 +170,6 @@ namespace Assets.Scripts
             yield return _increaseTime;
             _isActiveIncreaseAd = false;
             _buttonChangerController.SetButtonChangerOn();
-        }
-
-        private void CheckLevel(ref int upgradeCost, ref float upgradeParametr)
-        {
-            switch (_level)
-            {
-                case ZeroLevelCommand:
-                    upgradeParametr = 4;
-                    upgradeCost = 10;
-                    break;
-
-                case FirstLevelCommand:
-                    upgradeParametr = 6;
-                    upgradeCost = 25;
-                    break;
-
-                case SecondLevelCommand:
-                    upgradeParametr = 8;
-                    upgradeCost = 50;
-                    break;
-
-                case ThirdLevelCommand:
-                    upgradeParametr = 10;
-                    upgradeCost = 75;
-                    break;
-
-                case FourthLevelCommand:
-                    upgradeParametr = 12;
-                    upgradeCost = 100;
-                    break;
-
-                default:
-                    break;
-            }
         }
     }
 }

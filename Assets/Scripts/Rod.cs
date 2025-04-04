@@ -18,6 +18,7 @@ namespace Assets.Scripts
         [SerializeField] private RodCatchViewer _catchViewer;
         [SerializeField] private ClosetView _closetView;
         [SerializeField] private ButtonChangerController _buttonChangerController;
+        [SerializeField] private UpgradeCriterion[] upgradeCriteria;
 
         private float _catchingSpeed;
 
@@ -44,10 +45,15 @@ namespace Assets.Scripts
             _increaseTime = new WaitForSeconds(_increaseTimeSec);
             NextLevel = (_level + 1).ToString();
             _resourceToUpgrade = Resource.FishBones;
-            CheckLevel(ref _upgradeCost, ref _catchingSpeed);
+            // CheckLevel(ref _upgradeCost, ref _catchingSpeed);
+            CheckLevel();
+            // var dtoLevel = _saver.LoadLevelData(_levelDataKey);
+            // ApplySaves(dtoLevel);
+        }
 
-           // var dtoLevel = _saver.LoadLevelData(_levelDataKey);
-           // ApplySaves(dtoLevel);
+        public override void CheckLevel()
+        {
+            SmartCheckLevel(_level, upgradeCriteria, ref _upgradeCost, ref _catchingSpeed);
         }
 
         public void SetActiveIncrease()
@@ -102,42 +108,8 @@ namespace Assets.Scripts
         {
             yield return _increaseTime;
             _isActiveIncreaseAd = false;
-            _buttonChangerController.SetButtonChangerOn();
-            CheckLevel(ref _upgradeCost, ref _catchingSpeed);
-        }
-
-        private void CheckLevel(ref int upgradeCost, ref float upgradeParametr)
-        {
-            switch (_level)
-            {
-                case ZeroLevelCommand:
-                    upgradeCost = 10;
-                    upgradeParametr = 0.01f;
-                    break;
-
-                case FirstLevelCommand:
-                    upgradeCost = 25;
-                    upgradeParametr = 0.02f;
-                    break;
-
-                case SecondLevelCommand:
-                    upgradeCost = 50;
-                    upgradeParametr = 0.04f;
-                    break;
-
-                case ThirdLevelCommand:
-                    upgradeCost = 75;
-                    upgradeParametr = 0.1f;
-                    break;
-
-                case FourthLevelCommand:
-                    upgradeCost = 100;
-                    upgradeParametr = 0.2f;
-                    break;
-
-                default:
-                    break;
-            }
+            _buttonChangerController.SetButtonChangerOn(); 
+            SmartCheckLevel(_level, upgradeCriteria, ref _upgradeCost, ref _catchingSpeed);
         }
     }
 }

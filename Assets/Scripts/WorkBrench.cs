@@ -62,6 +62,7 @@ namespace Assets.Scripts
             {
                 _closet.SpendResources(needCountResource, needResource);
                 tool.Upgrade(tool.LevelDataKey);
+                tool.CheckLevel();
             }
         }
 

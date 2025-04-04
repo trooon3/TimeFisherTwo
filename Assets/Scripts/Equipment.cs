@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts;
+using Assets.Scripts.Fishes;
 using Assets.Scripts.FishResources;
 using Assets.Scripts.Saves;
 using Assets.Scripts.Saves.DTO;
@@ -14,6 +15,12 @@ public abstract class Equipment : MonoBehaviour
     protected const int SecondLevelCommand = 2;
     protected const int ThirdLevelCommand = 3;
     protected const int FourthLevelCommand = 4;
+
+    protected const int ZeroLevelCost = 10;
+    protected const int FirstLevelCost = 25;
+    protected const int SecondLevelCost = 50;
+    protected const int ThirdLevelCost = 75;
+    protected const int FourthLevelCost = 100;
 
    // protected DataSaver _saver;
     protected readonly int _maxLevel = 5;
@@ -47,44 +54,23 @@ public abstract class Equipment : MonoBehaviour
             Upgraded?.Invoke();
         }
 
-       // CheckLevel(ref _upgradeCost, ref _upgradeParametr);
-       // DTOLevel dTOLevel = new DTOLevel();
-       // dTOLevel.Init(_upgradeCost, _level);
-       //// _saver.SaveLevelData(levelDataKey, dTOLevel);
+       SaveAfterUpdate();
     }
 
-    protected void CheckLevel(ref int upgradeCost, ref float upgradeParametr) 
+    private void SaveAfterUpdate()
     {
-        switch (_level)
-        {
-            case ZeroLevelCommand:
-                upgradeCost = 10;
-                upgradeParametr = 0.01f;
-                break;
+        // CheckLevel();
+        // DTOLevel dTOLevel = new DTOLevel();
+        // dTOLevel.Init(_upgradeCost, _level);
+        // _saver.SaveLevelData(levelDataKey, dTOLevel);
+    }
 
-            case FirstLevelCommand:
-                upgradeCost = 25;
-                upgradeParametr = 0.02f;
-                break;
+    public abstract void CheckLevel();
 
-            case SecondLevelCommand:
-                upgradeCost = 50;
-                upgradeParametr = 0.04f;
-                break;
-
-            case ThirdLevelCommand:
-                upgradeCost = 75;
-                upgradeParametr = 0.1f;
-                break;
-
-            case FourthLevelCommand:
-                upgradeCost = 100;
-                upgradeParametr = 0.2f;
-                break;
-
-            default:
-                break;
-        }
+    protected void SmartCheckLevel(int level, UpgradeCriterion[] criteria, ref int upgradeCost, ref float upgradeParametr)
+    {
+        upgradeCost = criteria[level].Cost;
+        upgradeParametr = criteria[level].Parametr;
     }
 
     public Resource GetResourceToUpgrade()
