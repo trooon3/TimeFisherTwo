@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: FourthLevelBag
   m_EditorClassIdentifier: 
   _cost: 100
-  _parametr: 0
+  _parametr: 12

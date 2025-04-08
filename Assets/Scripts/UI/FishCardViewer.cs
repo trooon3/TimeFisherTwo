@@ -38,15 +38,6 @@ namespace Assets.Scripts.UI
 
         public void RefreshCount()
         {
-            if (_count != null) 
-            {
-                Debug.Log($"Коунт каунтер ест есть");
-            }
-            if (_counter != null)
-            {
-                Debug.Log($"каунтер есть");
-            }
-
             _count.text = _counter.Count.ToString();
         }
 

@@ -2,7 +2,6 @@ using Assets.Scripts.Fishes;
 using Assets.Scripts.PlayerScripts;
 using Assets.Scripts.FishResources;
 using Assets.Scripts.Saves;
-using Assets.Scripts.Saves.DTO;
 using Assets.Scripts.ScripsForWeb.Ads;
 using Assets.Scripts.SkinScripts;
 using Assets.Scripts.Tutorial;
@@ -11,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using YG;
 
 namespace Assets.Scripts
 {
@@ -23,7 +23,7 @@ namespace Assets.Scripts
         [SerializeField] private ActiveButtonView _buttonView;
         [SerializeField] private RodCatchViewer _rodView;
         [SerializeField] private TutorialViewer _tutorial;
-      //  [SerializeField] private DataSaver _saver;
+        [SerializeField] private SavesYG _savesYG;
         [SerializeField] private InterAd _interAd;
         [SerializeField] private ButtonChangerController _buttonChangerController;
 
@@ -33,10 +33,6 @@ namespace Assets.Scripts
         private bool _isActiveIncreaseAd;
         private bool _isTutorialShowed;
 
-        private string _fishesCountSaves = "FishTypeCount";
-        private string _resurcesCountSaves = "ResourcesCount";
-        private string _tutorialShowedKey = "TutorialClosetKey";
-
         private Coroutine _coroutine;
         private float _increaseTimeSec = 60f;
         private WaitForSeconds _increaseTime;
@@ -44,7 +40,6 @@ namespace Assets.Scripts
 
         public List<SeaCreature> AllFishes => _allFishes;
         public List<FishTypeCounter> CatchedFishes => _catchedFishes;
-       // public DataSaver Saver => _saver;
         public bool IsActiveIncreaseAd => _isActiveIncreaseAd;
         public float IncreaseTimeSec => _increaseTimeSec;
 
@@ -53,12 +48,10 @@ namespace Assets.Scripts
 
         private void Awake()
         {
-            // _catchedFishes = _saver.LoadFishesCountData(_fishesCountSaves);
-            // _resources = _saver.LoadResourcesCountData(_resurcesCountSaves);
-            _resources = new List<ResourceCounter> { new ResourceCounter(Resource.FishBones), new ResourceCounter(Resource.SeaWeed) };
+            _catchedFishes = _savesYG.LoadFishesCountData();
+            _resources = _savesYG.LoadResourcesCountData();
+            _savesYG.LoadTutorial(TutorialsKeys.IsShowTutorialRod);
             _increaseTime = new WaitForSeconds(_increaseTimeSec);
-           // var dtoTutorial = _saver.LoadTutorialData(_tutorialShowedKey);
-           // ApplySaves(dtoTutorial);
 
             if (_catchedFishes == null)
             {
@@ -86,10 +79,10 @@ namespace Assets.Scripts
                 _buttonView.SetActiveEImage(false);
             }
 
-            //if (_playerNearbyChecker.IsPlayerNearby == false)
-            //{
-            //    _view.gameObject.SetActive(false);
-            //}
+            if (_playerNearbyChecker.IsPlayerNearby == false)
+            {
+                _view.gameObject.SetActive(false);
+            }
         }
 
         public void GetAllFishes()
@@ -143,7 +136,7 @@ namespace Assets.Scripts
                 }
             }
 
-           // _saver.SaveFishesCountData(_fishesCountSaves, _catchedFishes);
+           _savesYG.SaveFishesCountData(_catchedFishes);
         }
 
         public bool CheckCanPaySkin(SkinView skin)
@@ -181,7 +174,7 @@ namespace Assets.Scripts
                 }
             }
 
-            //_saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
+            _savesYG.SaveResourcesCountData(_resources);
             ResourceCountChanged?.Invoke();
         }
 
@@ -224,9 +217,6 @@ namespace Assets.Scripts
             {
                 _tutorial.ShowHowCatchFishOnRod();
                 _isTutorialShowed = true;
-                //DTOTutorial dTOTutorial = new DTOTutorial();
-                //dTOTutorial.Init(_isTutorialShowed);
-               //_saver.SaveTutorialData(_tutorialShowedKey, dTOTutorial);
             }
 
             if (_playerNearbyChecker.GetPlayer() != null)
@@ -236,8 +226,8 @@ namespace Assets.Scripts
                 TakeFish(_player.GetFish());
             }
 
-           // _saver.SaveFishesCountData(_fishesCountSaves, _catchedFishes);
-           // _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
+            _savesYG.SaveFishesCountData(_catchedFishes);
+            _savesYG.SaveResourcesCountData(_resources);
         }
 
         private int GetResourceCount(Resource resourceType)
@@ -268,14 +258,6 @@ namespace Assets.Scripts
             yield return _increaseTime;
             _isActiveIncreaseAd = false;
             _buttonChangerController.SetButtonChangerOn();
-        }
-
-        private void ApplySaves(DTOTutorial dtoTutorial)
-        {
-            if (dtoTutorial != null)
-            {
-                _isTutorialShowed = dtoTutorial.IsShowed;
-            }
         }
 
         private void AddFish(Fish fish)
@@ -322,7 +304,7 @@ namespace Assets.Scripts
                 }
             }
 
-           // _saver.SaveResourcesCountData(_resurcesCountSaves, _resources);
+            _savesYG.SaveResourcesCountData(_resources);
             ResourceCountChanged?.Invoke();
             _tutorial.ShowWhereUpgrade();
         }

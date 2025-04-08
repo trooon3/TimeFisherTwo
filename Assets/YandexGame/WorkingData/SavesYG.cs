@@ -1,4 +1,9 @@
-﻿
+﻿using Assets.Scripts.Fishes;
+using Assets.Scripts.FishResources;
+using Assets.Scripts.Saves;
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace YG
 {
     [System.Serializable]
@@ -17,11 +22,16 @@ namespace YG
         public bool[] openLevels = new bool[3];
 
         // Ваши сохранения
+        [SerializeField] private Dictionary<TutorialsKeys, bool> _tutorialSaves = new();
+        [SerializeField] private Dictionary<SkinNames, bool> _skinKeys = new();
+        [SerializeField] private SkinNames _chosenSkin;
+        [SerializeField] private int _level = 0;
+        private List<FishTypeCounter> _fishCounters;
+        private List<ResourceCounter> _resCounters;
 
-        // ...
-
-        // Поля (сохранения) можно удалять и создавать новые. При обновлении игры сохранения ломаться не должны
-
+        public List<FishTypeCounter> FishCounters => _fishCounters;
+        public List<ResourceCounter> ResCounters => _resCounters;
+        public int Level => _level;
 
         // Вы можете выполнить какие то действия при загрузке сохранений
         public SavesYG()
@@ -29,6 +39,118 @@ namespace YG
             // Допустим, задать значения по умолчанию для отдельных элементов массива
 
             openLevels[1] = true;
+        }
+
+        public void SaveTutorial(TutorialsKeys key ,bool value)
+        {
+            if (_tutorialSaves.ContainsKey(key))
+            {
+                _tutorialSaves[key] = value;
+                YandexGame.SaveProgress();
+            }
+            else
+            {
+                _tutorialSaves.Add(key, value);
+                YandexGame.SaveProgress();
+            }
+        }
+
+        public bool LoadTutorial(TutorialsKeys key)
+        {
+            if (_tutorialSaves.ContainsKey(key))
+            {
+                return _tutorialSaves[key];
+            }
+            else
+            {
+                _tutorialSaves.Add(key, false);
+                return false;
+            }
+        }
+
+        public void SaveSkins(SkinNames name, bool value)
+        {
+            if (_skinKeys.ContainsKey(name))
+            {
+                _skinKeys[name] = value;
+                YandexGame.SaveProgress();
+            }
+            else
+            {
+                _skinKeys.Add(name, value); 
+                YandexGame.SaveProgress();
+            }
+        }
+
+        public bool LoadSkinsSaves(SkinNames key)
+        {
+            if (_skinKeys.ContainsKey(key))
+            {
+                return _skinKeys[key];
+            }
+            else
+            {
+                _skinKeys.Add(key, false);
+                return false;
+            }
+        }
+
+        public void SaveChosenSkin(SkinNames skin)
+        {
+            _chosenSkin = skin;
+            YandexGame.SaveProgress();
+        }
+
+        public SkinNames LoadChosenSkin()
+        {
+            return _chosenSkin;
+        }
+
+        public void SaveLevel(int level)
+        {
+            _level = level;
+            YandexGame.SaveProgress();
+        }
+
+        public int LoadLevel()
+        {
+            return Level;
+        }
+
+        public void SaveFishesCountData(List<FishTypeCounter> counters)
+        {
+            _fishCounters = counters;
+            YandexGame.SaveProgress();
+        }
+
+        public List<FishTypeCounter> LoadFishesCountData()
+        {
+            if (_fishCounters != null)
+            {
+                return FishCounters;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public void SaveResourcesCountData(List<ResourceCounter> counters)
+        {
+            _resCounters = counters;
+            YandexGame.SaveProgress();
+        }
+
+        public List<ResourceCounter> LoadResourcesCountData()
+        {
+            if (_resCounters != null)
+            {
+                return ResCounters;
+            }
+            else
+            {
+                return new List<ResourceCounter> { new ResourceCounter(Resource.FishBones), new ResourceCounter(Resource.SeaWeed) };
+            }
         }
     }
 }

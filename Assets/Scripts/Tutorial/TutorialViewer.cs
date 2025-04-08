@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Assets.Scripts.Saves;
 using Assets.Scripts.UI;
-using Assets.Scripts.Saves.DTO;
 using YG;
 
 namespace Assets.Scripts.Tutorial
@@ -26,40 +25,16 @@ namespace Assets.Scripts.Tutorial
         [SerializeField] private GameObject _howWalk;
         [SerializeField] private GameObject _howWalkMobile;
 
-        [SerializeField] private DataSaver _saver;
+        [SerializeField] private SavesYG _savesYG;
         [SerializeField] private ButtonChangerController _buttonChangerController;
-
-        private bool _isShowedWalkTutorial;
-        private bool _isShowedCatchTutorial;
-        private bool _isShowedGetFishTutorial;
-        private readonly string _tutorialShowedKey = "DirectonGuideKey";
-
-        private void Awake()
-        {
-            var dtoTutorial = _saver.LoadTutorialDirectonGuideData(_tutorialShowedKey);
-            ApplySaves(dtoTutorial);
-        }
 
         private void Start()
         {
-            if (_isShowedCatchTutorial == false || _isShowedWalkTutorial == false)
+            if (!_savesYG.LoadTutorial(TutorialsKeys.IsShowTutorialWalk) || !_savesYG.LoadTutorial(TutorialsKeys.IsShowedCatchTutorial))
             {
                 ShowHowWalk();
                 ShowHowCatchFish();
                 _buttonChangerController.SetButtonChangerOff();
-                DTODirectionGuide tutor = new DTODirectionGuide();
-                tutor.Init(_isShowedGetFishTutorial, _isShowedCatchTutorial, _isShowedWalkTutorial);
-                _saver.SaveTutorialDirectonGuideData(_tutorialShowedKey, tutor);
-            }
-        }
-
-        private void ApplySaves(DTODirectionGuide dtoTutorial)
-        {
-            if (dtoTutorial != null)
-            {
-                _isShowedWalkTutorial = dtoTutorial.IsShowedWalkTutorial;
-                _isShowedCatchTutorial = dtoTutorial.IsShowedCatchTutorial;
-                _isShowedGetFishTutorial = dtoTutorial.IsShowedGetFishTutorial;
             }
         }
 
@@ -74,18 +49,18 @@ namespace Assets.Scripts.Tutorial
                 _howWalk.SetActive(true);
             }
 
-            _isShowedWalkTutorial = true;
+            _savesYG.SaveTutorial(TutorialsKeys.IsShowTutorialWalk, true);
         }
 
         private void ShowHowCatchFish()
         {
             _howCatchFishTuturial.SetActive(true);
-            _isShowedCatchTutorial = true;
+            _savesYG.SaveTutorial(TutorialsKeys.IsShowedCatchTutorial, true);
         }
 
         public void ShowWhereFishesCollect()
         {
-            if (_isShowedGetFishTutorial == false)
+            if (!_savesYG.LoadTutorial(TutorialsKeys.IsShowedGetFishTutorial))
             {
 
                 _arrowToCloset.gameObject.SetActive(true);
@@ -94,16 +69,13 @@ namespace Assets.Scripts.Tutorial
                 _buttonChangerController.SetButtonChangerOff();
                 Time.timeScale = 0;
 
-                _isShowedGetFishTutorial = true;
-                DTODirectionGuide tutor = new DTODirectionGuide();
-                tutor.Init(_isShowedGetFishTutorial, _isShowedCatchTutorial, _isShowedWalkTutorial);
-                _saver.SaveTutorialDirectonGuideData(_tutorialShowedKey, tutor);
+                _savesYG.SaveTutorial(TutorialsKeys.IsShowedGetFishTutorial, true);
             }
         }
 
         public void ShowWhereFishesCount()
         {
-            if (_isShowedGetFishTutorial == false)
+            if (!_savesYG.LoadTutorial(TutorialsKeys.IsShowedGetFishTutorial))
             {
                 _arrowToFishCount.gameObject.SetActive(true);
             }
@@ -113,7 +85,8 @@ namespace Assets.Scripts.Tutorial
         {
             _howCatchOnRodTutorial.SetActive(true);
             _buttonChangerController.SetButtonChangerOff();
-            _arrowToCloset.gameObject.SetActive(false);
+            _arrowToCloset.gameObject.SetActive(false); 
+            _savesYG.SaveTutorial(TutorialsKeys.IsShowTutorialRod, true);
         }
 
         public void ShowWhereUpgrade()

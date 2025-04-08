@@ -2,6 +2,7 @@ using Assets.Scripts.PlayerScripts;
 using Assets.Scripts.Saves;
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
 
 namespace Assets.Scripts.SkinScripts
 {
@@ -10,15 +11,16 @@ namespace Assets.Scripts.SkinScripts
         [SerializeField] private Skin _defaultSkin;
         [SerializeField] private List<Skin> _skins;
         [SerializeField] private PlayerAnimationController _controller;
-        [SerializeField] private DataSaver _saver;
+        [SerializeField] private SavesYG _savesYG;
 
-        private string _chosenSkinName;
-        private readonly string _chosenSkinKey = "defaultSkinKey";
+        private SkinNames _chosenSkinName;
 
         public List<Skin> Skins => _skins;
 
         private void Awake()
         {
+            _chosenSkinName = SkinNames.Default;
+
             if (!_skins.Contains(_defaultSkin))
             {
                 _skins.Add(_defaultSkin);
@@ -29,15 +31,15 @@ namespace Assets.Scripts.SkinScripts
                 skin.gameObject.SetActive(false);
             }
 
-            string chosenSkinName = _saver.LoadChosenSkin(_chosenSkinKey);
+            SkinNames chosenSkinName = _savesYG.LoadChosenSkin();
 
-            if (chosenSkinName != null)
+            if (chosenSkinName != _chosenSkinName)
             {
                 _chosenSkinName = chosenSkinName;
             }
             else
             {
-                _chosenSkinName = null;
+                _chosenSkinName = SkinNames.Default;
             }
 
             foreach (var skin in _skins)
@@ -46,11 +48,6 @@ namespace Assets.Scripts.SkinScripts
                 {
                     SetSkin(skin);
                 }
-            }
-
-            if (_chosenSkinName == null || _chosenSkinName == "")
-            {
-                SetSkin(_defaultSkin);
             }
         }
 
@@ -68,7 +65,7 @@ namespace Assets.Scripts.SkinScripts
                 }
             }
 
-            _saver.SaveChosenSkin(_chosenSkinKey, _chosenSkinName);
+            _savesYG.SaveChosenSkin(_chosenSkinName);
         }
     }
 }

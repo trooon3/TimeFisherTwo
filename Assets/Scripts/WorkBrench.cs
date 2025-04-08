@@ -1,10 +1,10 @@
 using Assets.Scripts.PlayerScripts;
 using Assets.Scripts.Saves;
-using Assets.Scripts.Saves.DTO;
 using Assets.Scripts.Tutorial;
 using Assets.Scripts.UI;
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
 
 namespace Assets.Scripts
 {
@@ -16,16 +16,12 @@ namespace Assets.Scripts
         [SerializeField] private WorkBranchViewer _viewer;
         [SerializeField] private ActiveButtonView _buttonView;
         [SerializeField] private TutorialViewer _tutorial;
-        [SerializeField] private DataSaver _saver;
-
-        private bool _isTutorialShowed;
-        private readonly string _tutorialShowedKey = "TutorialWorkBrenchKey";
+        [SerializeField] private SavesYG _savesYG;
 
         private void Awake()
         {
-            var dtoTutorial = _saver.LoadTutorialData(_tutorialShowedKey);
+            _savesYG.LoadTutorial(TutorialsKeys.IsShowTutorialWorkBranch);
             OnPlayerApproach(false);
-            ApplySaves(dtoTutorial);
         }
 
         private void OnEnable()
@@ -43,13 +39,10 @@ namespace Assets.Scripts
             _buttonView.SetActiveEImage(false);
             _viewer.gameObject.SetActive(true);
 
-            if (_isTutorialShowed == false)
+            if (_savesYG.LoadTutorial(TutorialsKeys.IsShowTutorialWorkBranch))
             {
                 _tutorial.ShowHowUpgrade();
-                _isTutorialShowed = true; 
-                DTOTutorial dTOTutorial = new DTOTutorial();
-                dTOTutorial.Init(_isTutorialShowed);
-                _saver.SaveTutorialData(_tutorialShowedKey, dTOTutorial);
+                _savesYG.SaveTutorial(TutorialsKeys.IsShowTutorialWorkBranch, true);
             }
         }
 
@@ -61,16 +54,8 @@ namespace Assets.Scripts
             if (_closet.CheckIsCanPay(needResource, needCountResource))
             {
                 _closet.SpendResources(needCountResource, needResource);
-                tool.Upgrade(tool.LevelDataKey);
+                tool.Upgrade();
                 tool.CheckLevel();
-            }
-        }
-
-        private void ApplySaves(DTOTutorial dtoTutorial)
-        {
-            if (dtoTutorial != null)
-            {
-                _isTutorialShowed = dtoTutorial.IsShowed;
             }
         }
 

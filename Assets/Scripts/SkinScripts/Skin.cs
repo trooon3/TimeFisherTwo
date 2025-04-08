@@ -1,3 +1,4 @@
+using Assets.Scripts.Saves;
 using UnityEngine;
 
 namespace Assets.Scripts.SkinScripts
@@ -6,18 +7,18 @@ namespace Assets.Scripts.SkinScripts
     {
         [SerializeField] private Sprite _icon;
         [SerializeField] private SkinCost _cost;
-        [SerializeField] private string _name;
+        [SerializeField] private SkinNames _name;
 
         private Animator _animator;
 
         public SkinCost Cost => _cost;
-        public string Name => _name;
+        public SkinNames Name => _name;
         public Sprite Icon => _icon;
         public Animator Animator => _animator;
 
         private void Awake()
         {
-            _animator = GetComponent<Animator>();
+            _animator = gameObject.GetComponentElseThrow<Animator>();
         }
     }
 }

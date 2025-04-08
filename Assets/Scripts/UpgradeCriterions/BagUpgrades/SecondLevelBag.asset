@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SecondLevelBag
   m_EditorClassIdentifier: 
   _cost: 50
-  _parametr: 0
+  _parametr: 8

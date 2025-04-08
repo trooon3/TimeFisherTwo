@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ZeroLevelBag
   m_EditorClassIdentifier: 
   _cost: 10
-  _parametr: 0
+  _parametr: 4

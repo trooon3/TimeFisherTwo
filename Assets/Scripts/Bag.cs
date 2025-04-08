@@ -5,7 +5,6 @@ using UnityEngine.Events;
 using System.Collections;
 using Assets.Scripts.Fishes;
 using Assets.Scripts.FishResources;
-using Assets.Scripts.Saves.DTO;
 using Assets.Scripts.ScripsForWeb.Leaderboard;
 using Assets.Scripts.Tutorial;
 using Assets.Scripts.Saves;
@@ -29,17 +28,13 @@ namespace Assets.Scripts
         private int _fishesInsideCount;
 
         private bool _isActiveIncreaseAd;
-        private bool _isTutorialShowed;
 
         private readonly List<Fish> _fishes = new List<Fish>();
-        private readonly string _tutorialShowedKey = "TutorialShowedKey";
-        private readonly string _levelDataKey = "BagKey";
         private AudioSource _audioSource;
         private Coroutine _coroutine;
         private WaitForSeconds _increaseTime;
 
         public int CountResourseToUpgrade => _upgradeCost;
-        public string LevelDataKey => _levelDataKey;
         public int FishesInsideCount => _fishesInsideCount;
         public int Level => _level;
         public float IncreaseTimeSec => _increaseTimeSec;
@@ -51,16 +46,12 @@ namespace Assets.Scripts
 
         private void Awake()
         {
-           // _saver = new DataSaver();
+            _level = _saveYG.LoadLevel();
             NextLevel = (_level + 1).ToString();
             _resourceToUpgrade = Resource.SeaWeed;
             _increaseTime = new WaitForSeconds(_increaseTimeSec);
             _audioSource = GetComponent<AudioSource>();
-            //CheckLevel(ref _upgradeCost,ref _maxFishCount);
             CheckLevel();
-            //var dtoTutorial = _saver.LoadTutorialData(_tutorialShowedKey);
-            //var dtoLevel = _saver.LoadLevelData(_levelDataKey);
-            //ApplySaves(dtoTutorial, dtoLevel);
         }
 
         public override void CheckLevel()
@@ -116,13 +107,9 @@ namespace Assets.Scripts
                 _countAllCatchedFishes++;
                 _leaderboardYG.NewScore(_countAllCatchedFishes);
 
-                if (_isTutorialShowed == false)
+                if (!_saveYG.LoadTutorial(TutorialsKeys.IsShowedGetFishTutorial))
                 {
                     _tutorial.ShowWhereFishesCount();
-                    _isTutorialShowed = true;
-                   // DTOTutorial dTOTutorial = new DTOTutorial();
-                   // dTOTutorial.Init(_isTutorialShowed);
-                   //// _saver.SaveTutorialData(_tutorialShowedKey, dTOTutorial);
                 }
 
                 if (_fishes.Count == _maxFishCount)
@@ -138,21 +125,6 @@ namespace Assets.Scripts
             fish.ShowFillBag(true);
 
             return false;
-        }
-
-        private void ApplySaves(DTOTutorial dtoTutorial, DTOLevel dtoLevel)
-        {
-            if (dtoTutorial != null)
-            {
-                _isTutorialShowed = dtoTutorial.IsShowed;
-            }
-
-            if (dtoLevel != null)
-            {
-                _level = dtoLevel.Level;
-                _upgradeCost = dtoLevel.Count;
-                _countAllCatchedFishes = dtoLevel.Score;
-            }
         }
 
         private void StartIncreaseTimer()

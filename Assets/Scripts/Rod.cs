@@ -1,13 +1,12 @@
 using Assets.Scripts.Fishes;
 using Assets.Scripts.PlayerScripts;
 using Assets.Scripts.FishResources;
-using Assets.Scripts.Saves;
-using Assets.Scripts.Saves.DTO;
 using Assets.Scripts.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using YG;
 
 namespace Assets.Scripts
 {
@@ -29,11 +28,9 @@ namespace Assets.Scripts
         private WaitForSeconds _increaseTime;
         private bool _isActiveIncreaseAd;
         private readonly float _increaseTimeSec = 60f;
-        private readonly string _levelDataKey = "RodKey";
 
         public bool IsActiveIncreaseAd => _isActiveIncreaseAd;
         public int CountResourseToUpgrade => _upgradeCost;
-        public string LevelDataKey => _levelDataKey;
         public float CatchingSpeed => _catchingSpeed;
         public FishType FishFoodFor => _fishFoodFor;
         public int Level => _level;
@@ -41,14 +38,11 @@ namespace Assets.Scripts
 
         private void Awake()
         {
-           // _saver = new DataSaver();
+            _level = _saveYG.LoadLevel();
             _increaseTime = new WaitForSeconds(_increaseTimeSec);
             NextLevel = (_level + 1).ToString();
             _resourceToUpgrade = Resource.FishBones;
-            // CheckLevel(ref _upgradeCost, ref _catchingSpeed);
             CheckLevel();
-            // var dtoLevel = _saver.LoadLevelData(_levelDataKey);
-            // ApplySaves(dtoLevel);
         }
 
         public override void CheckLevel()
@@ -83,15 +77,6 @@ namespace Assets.Scripts
             _cathchingFish = type;
 
             _catchViewer.StartDisplayCatchingTime();
-        }
-
-        private void ApplySaves(DTOLevel dtoLevel)
-        {
-            if (dtoLevel != null)
-            {
-                _level = dtoLevel.Level;
-                _upgradeCost = dtoLevel.Count;
-            }
         }
 
         private void StartIncreaseTimer()

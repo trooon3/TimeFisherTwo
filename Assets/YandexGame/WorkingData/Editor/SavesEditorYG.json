@@ -1,5 +1,5 @@
 {
-    "idSave": 4,
+    "idSave": 1521,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -9,5 +9,7 @@
         false,
         true,
         false
-    ]
+    ],
+    "_chosenSkin": 0,
+    "_level": 0
 }

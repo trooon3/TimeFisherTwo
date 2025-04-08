@@ -8231,7 +8231,18 @@ MonoBehaviour:
   _howCatchFishTuturial: {fileID: 567634528}
   _howWalk: {fileID: 1526947909}
   _howWalkMobile: {fileID: 714349120}
-  _saver: {fileID: 2571529876027508055}
+  _savesYG:
+    idSave: 0
+    isFirstSession: 1
+    language: ru
+    promptDone: 0
+    money: 1
+    newPlayerName: Hello!
+    openLevels: 000100
+    _fishCounters: []
+    _resCounters: []
+    _chosenSkin: 0
+    _level: 0
   _buttonChangerController: {fileID: 1005040034}
 --- !u!114 &1005040033
 MonoBehaviour:
@@ -18074,6 +18085,30 @@ PrefabInstance:
       propertyPath: _buttonChangerController
       value: 
       objectReference: {fileID: 1005040034}
+    - target: {fileID: 9292857687501548, guid: 7855936d7efd1b444844ddcfb736bd76, type: 3}
+      propertyPath: upgradeCriteria.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9292857687501548, guid: 7855936d7efd1b444844ddcfb736bd76, type: 3}
+      propertyPath: upgradeCriteria.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5e79dce1fc2acae4e81eb1a7f0bec84c, type: 2}
+    - target: {fileID: 9292857687501548, guid: 7855936d7efd1b444844ddcfb736bd76, type: 3}
+      propertyPath: upgradeCriteria.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: fa3d9a336f6874244a757c66a2c222b9, type: 2}
+    - target: {fileID: 9292857687501548, guid: 7855936d7efd1b444844ddcfb736bd76, type: 3}
+      propertyPath: upgradeCriteria.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3c24235c85374834fb01810bfbad60b4, type: 2}
+    - target: {fileID: 9292857687501548, guid: 7855936d7efd1b444844ddcfb736bd76, type: 3}
+      propertyPath: upgradeCriteria.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: cff84e8079e0e0343845996c19417d87, type: 2}
+    - target: {fileID: 9292857687501548, guid: 7855936d7efd1b444844ddcfb736bd76, type: 3}
+      propertyPath: upgradeCriteria.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 764ce1fb0f9626d4ba78ceb924615365, type: 2}
     - target: {fileID: 1689681824108913208, guid: 7855936d7efd1b444844ddcfb736bd76, type: 3}
       propertyPath: _fishIcon
       value: 
@@ -18220,7 +18255,6 @@ GameObject:
   - component: {fileID: 7201943209151095657}
   - component: {fileID: 7201943209151095658}
   - component: {fileID: 7201943209151095659}
-  - component: {fileID: 7201943209151095660}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -18401,18 +18435,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97a5aa263638ca46b0736241c31f29b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7201943209151095660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6293965398411854120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5406a554d77cb14baa7fb09cc4c2bfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7706325485056836023 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6144058457673027302, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
@@ -18436,6 +18458,18 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 7201943209151095656}
+    - target: {fileID: 2409113680762182613, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
+      propertyPath: _name
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864408136193094626, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
+      propertyPath: _name
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930944235626561716, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
+      propertyPath: _name
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3119850158968225849, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
       propertyPath: m_LocalPosition.x
       value: 146.28975
@@ -18480,6 +18514,10 @@ PrefabInstance:
       propertyPath: _joystick
       value: 
       objectReference: {fileID: 1052845890}
+    - target: {fileID: 4190324003851157885, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
+      propertyPath: _name
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4586760950380971447, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
       propertyPath: _saver
       value: 
@@ -18504,6 +18542,14 @@ PrefabInstance:
       propertyPath: _buttonChangerController
       value: 
       objectReference: {fileID: 1005040034}
+    - target: {fileID: 6704812299960871197, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
+      propertyPath: _name
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6785332485394974656, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
+      propertyPath: _name
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7268279674063727914, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
       propertyPath: m_Name
       value: PlayerHandler
@@ -18536,6 +18582,30 @@ PrefabInstance:
       propertyPath: _buttonChangerController
       value: 
       objectReference: {fileID: 1005040034}
+    - target: {fileID: 8820223108125403753, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
+      propertyPath: upgradeCriteria.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820223108125403753, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
+      propertyPath: upgradeCriteria.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 202391e026ee7094d93126a901299b57, type: 2}
+    - target: {fileID: 8820223108125403753, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
+      propertyPath: upgradeCriteria.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: c146013b27fa84545babd10d57099368, type: 2}
+    - target: {fileID: 8820223108125403753, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
+      propertyPath: upgradeCriteria.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 05ccde9ee7401af40b1cfd4beabbc2cf, type: 2}
+    - target: {fileID: 8820223108125403753, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
+      propertyPath: upgradeCriteria.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3e459256812c0f4448d578663c827584, type: 2}
+    - target: {fileID: 8820223108125403753, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
+      propertyPath: upgradeCriteria.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: e2da5602fbff8bc4b89475da99955b6c, type: 2}
     - target: {fileID: 8878869165437879133, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
       propertyPath: m_Camera
       value: 

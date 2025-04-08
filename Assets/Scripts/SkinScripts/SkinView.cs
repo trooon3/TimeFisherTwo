@@ -2,8 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
-using Assets.Scripts.Saves.DTO;
 using Assets.Scripts.Fishes;
+using YG;
 using Assets.Scripts.Saves;
 
 namespace Assets.Scripts.SkinScripts
@@ -14,15 +14,13 @@ namespace Assets.Scripts.SkinScripts
         [SerializeField] private TMP_Text _tryBuyButtonText;
         [SerializeField] private Image _skinIcon;
         [SerializeField] private List<FishCountPriceView> _fishCosts;
-        [SerializeField] private DataSaver _saver;
+        [SerializeField] private SavesYG _savesYG;
 
-        private string _nameKey;
+        private SkinNames _nameKey;
         private Closet _closet;
         private SkinEditor _skinEditor;
         private Skin _skin;
         private SkinCost _cost;
-
-        private bool _isBuyed;
 
         public SkinCost Cost => _cost;
 
@@ -36,11 +34,9 @@ namespace Assets.Scripts.SkinScripts
             _cost.SetListPrices();
             _nameKey = forSkin.Name;
 
-            var dtoSkin = _saver.LoadSkinData(_nameKey);
+            _savesYG.LoadSkinsSaves(_nameKey);
 
-            ApplySaves(dtoSkin);
-
-            if (_isBuyed)
+            if (_savesYG.LoadSkinsSaves(_nameKey))
             {
                 _tryBuyButtonText.text = Lean.Localization.LeanLocalization.GetTranslationText("Buyed");
             }
@@ -55,30 +51,19 @@ namespace Assets.Scripts.SkinScripts
             }
         }
 
-        public void SetName(string name)
+        public void SetName(SkinNames name)
         {
             _nameKey = name;
         }
 
-        private void ApplySaves(DTOSkin dTOSkin)
-        {
-            if (dTOSkin != null)
-            {
-                _isBuyed = dTOSkin.IsBuyed;
-            }
-        }
-
         public void TrySetSkin()
         {
-            if (!_isBuyed)
+            if (!_savesYG.LoadSkinsSaves(_nameKey))
             {
                 if (_closet.CheckCanPaySkin(this))
                 {
-                    _isBuyed = true;
                     _tryBuyButtonText.text = Lean.Localization.LeanLocalization.GetTranslationText("Buyed");
-                    DTOSkin dTOSkin = new DTOSkin();
-                    dTOSkin.Init(_nameKey, _isBuyed);
-                    _saver.SaveSkinData(_nameKey, dTOSkin);
+                    _savesYG.SaveSkins(_nameKey, true);
                 }
             }
             else
