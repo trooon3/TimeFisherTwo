@@ -25,12 +25,11 @@ namespace Assets.Scripts.Tutorial
         [SerializeField] private GameObject _howWalk;
         [SerializeField] private GameObject _howWalkMobile;
 
-        [SerializeField] private SavesYG _savesYG;
         [SerializeField] private ButtonChangerController _buttonChangerController;
 
         private void Start()
         {
-            if (!_savesYG.LoadTutorial(TutorialsKeys.IsShowTutorialWalk) || !_savesYG.LoadTutorial(TutorialsKeys.IsShowedCatchTutorial))
+            if (!YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowTutorialWalk) || !YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowedCatchTutorial))
             {
                 ShowHowWalk();
                 ShowHowCatchFish();
@@ -49,18 +48,18 @@ namespace Assets.Scripts.Tutorial
                 _howWalk.SetActive(true);
             }
 
-            _savesYG.SaveTutorial(TutorialsKeys.IsShowTutorialWalk, true);
+            YandexGame.savesData.SaveTutorial(TutorialsKeys.IsShowTutorialWalk, true);
         }
 
         private void ShowHowCatchFish()
         {
             _howCatchFishTuturial.SetActive(true);
-            _savesYG.SaveTutorial(TutorialsKeys.IsShowedCatchTutorial, true);
+            YandexGame.savesData.SaveTutorial(TutorialsKeys.IsShowedCatchTutorial, true);
         }
 
         public void ShowWhereFishesCollect()
         {
-            if (!_savesYG.LoadTutorial(TutorialsKeys.IsShowedGetFishTutorial))
+            if (!YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowedGetFishTutorial))
             {
 
                 _arrowToCloset.gameObject.SetActive(true);
@@ -69,13 +68,13 @@ namespace Assets.Scripts.Tutorial
                 _buttonChangerController.SetButtonChangerOff();
                 Time.timeScale = 0;
 
-                _savesYG.SaveTutorial(TutorialsKeys.IsShowedGetFishTutorial, true);
+                YandexGame.savesData.SaveTutorial(TutorialsKeys.IsShowedGetFishTutorial, true);
             }
         }
 
         public void ShowWhereFishesCount()
         {
-            if (!_savesYG.LoadTutorial(TutorialsKeys.IsShowedGetFishTutorial))
+            if (!YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowedGetFishTutorial))
             {
                 _arrowToFishCount.gameObject.SetActive(true);
             }
@@ -86,7 +85,7 @@ namespace Assets.Scripts.Tutorial
             _howCatchOnRodTutorial.SetActive(true);
             _buttonChangerController.SetButtonChangerOff();
             _arrowToCloset.gameObject.SetActive(false); 
-            _savesYG.SaveTutorial(TutorialsKeys.IsShowTutorialRod, true);
+            YandexGame.savesData.SaveTutorial(TutorialsKeys.IsShowTutorialRod, true);
         }
 
         public void ShowWhereUpgrade()

@@ -46,7 +46,7 @@ namespace Assets.Scripts
 
         private void Awake()
         {
-            _level = _saveYG.LoadLevel();
+            _level = YandexGame.savesData.LoadLevel();
             NextLevel = (_level + 1).ToString();
             _resourceToUpgrade = Resource.SeaWeed;
             _increaseTime = new WaitForSeconds(_increaseTimeSec);
@@ -107,7 +107,7 @@ namespace Assets.Scripts
                 _countAllCatchedFishes++;
                 _leaderboardYG.NewScore(_countAllCatchedFishes);
 
-                if (!_saveYG.LoadTutorial(TutorialsKeys.IsShowedGetFishTutorial))
+                if (!YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowedGetFishTutorial))
                 {
                     _tutorial.ShowWhereFishesCount();
                 }

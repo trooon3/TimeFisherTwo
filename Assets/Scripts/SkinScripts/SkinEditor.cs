@@ -11,7 +11,6 @@ namespace Assets.Scripts.SkinScripts
         [SerializeField] private Skin _defaultSkin;
         [SerializeField] private List<Skin> _skins;
         [SerializeField] private PlayerAnimationController _controller;
-        [SerializeField] private SavesYG _savesYG;
 
         private SkinNames _chosenSkinName;
 
@@ -31,7 +30,7 @@ namespace Assets.Scripts.SkinScripts
                 skin.gameObject.SetActive(false);
             }
 
-            SkinNames chosenSkinName = _savesYG.LoadChosenSkin();
+            SkinNames chosenSkinName = YandexGame.savesData.LoadChosenSkin();
 
             if (chosenSkinName != _chosenSkinName)
             {
@@ -65,7 +64,7 @@ namespace Assets.Scripts.SkinScripts
                 }
             }
 
-            _savesYG.SaveChosenSkin(_chosenSkinName);
+            YandexGame.savesData.SaveChosenSkin(_chosenSkinName);
         }
     }
 }

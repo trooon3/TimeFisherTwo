@@ -38,7 +38,7 @@ namespace Assets.Scripts
 
         private void Awake()
         {
-            _level = _saveYG.LoadLevel();
+            _level = YandexGame.savesData.LoadLevel();
             _increaseTime = new WaitForSeconds(_increaseTimeSec);
             NextLevel = (_level + 1).ToString();
             _resourceToUpgrade = Resource.FishBones;

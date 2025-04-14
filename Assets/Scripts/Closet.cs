@@ -23,7 +23,6 @@ namespace Assets.Scripts
         [SerializeField] private ActiveButtonView _buttonView;
         [SerializeField] private RodCatchViewer _rodView;
         [SerializeField] private TutorialViewer _tutorial;
-        [SerializeField] private SavesYG _savesYG;
         [SerializeField] private InterAd _interAd;
         [SerializeField] private ButtonChangerController _buttonChangerController;
 
@@ -31,7 +30,6 @@ namespace Assets.Scripts
         private List<FishTypeCounter> _catchedFishes;
 
         private bool _isActiveIncreaseAd;
-        private bool _isTutorialShowed;
 
         private Coroutine _coroutine;
         private float _increaseTimeSec = 60f;
@@ -48,9 +46,9 @@ namespace Assets.Scripts
 
         private void Awake()
         {
-            _catchedFishes = _savesYG.LoadFishesCountData();
-            _resources = _savesYG.LoadResourcesCountData();
-            _savesYG.LoadTutorial(TutorialsKeys.IsShowTutorialRod);
+            _catchedFishes = YandexGame.savesData.LoadFishesCountData();
+            _resources = YandexGame.savesData.LoadResourcesCountData();
+            YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowTutorialRod);
             _increaseTime = new WaitForSeconds(_increaseTimeSec);
 
             if (_catchedFishes == null)
@@ -66,6 +64,22 @@ namespace Assets.Scripts
 
            _view.gameObject.SetActive(true);
            _view.gameObject.SetActive(false);
+        }
+
+        //private void OnEnable()
+        //{
+        //    YandexGame.GetDataEvent += LoadSaves;
+        //}
+
+        //private void OnDisable()
+        //{
+        //    YandexGame.GetDataEvent -= LoadSaves;
+        //}
+
+        public void LoadResAndFishCounts()
+        {
+            _catchedFishes = YandexGame.savesData.LoadFishesCountData();
+            _resources = YandexGame.savesData.LoadResourcesCountData();
         }
 
         private void Update()
@@ -107,7 +121,6 @@ namespace Assets.Scripts
         {
             for (int i = 0; i < fishes.Count; i++)
             {
-                Debug.Log("отдали рыбов");
                 AddFish(fishes[i]);
                 AddResources(fishes[i]);
             }
@@ -136,7 +149,7 @@ namespace Assets.Scripts
                 }
             }
 
-           _savesYG.SaveFishesCountData(_catchedFishes);
+            YandexGame.savesData.SaveFishesCountData(_catchedFishes);
         }
 
         public bool CheckCanPaySkin(SkinView skin)
@@ -174,7 +187,7 @@ namespace Assets.Scripts
                 }
             }
 
-            _savesYG.SaveResourcesCountData(_resources);
+            YandexGame.savesData.SaveResourcesCountData(_resources);
             ResourceCountChanged?.Invoke();
         }
 
@@ -213,10 +226,9 @@ namespace Assets.Scripts
 
             _rodView.SetOffHappyFace();
 
-            if (_isTutorialShowed == false)
+            if (!YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowTutorialRod))
             {
                 _tutorial.ShowHowCatchFishOnRod();
-                _isTutorialShowed = true;
             }
 
             if (_playerNearbyChecker.GetPlayer() != null)
@@ -226,8 +238,8 @@ namespace Assets.Scripts
                 TakeFish(_player.GetFish());
             }
 
-            _savesYG.SaveFishesCountData(_catchedFishes);
-            _savesYG.SaveResourcesCountData(_resources);
+            YandexGame.savesData.SaveFishesCountData(_catchedFishes);
+            YandexGame.savesData.SaveResourcesCountData(_resources);
         }
 
         private int GetResourceCount(Resource resourceType)
@@ -262,16 +274,13 @@ namespace Assets.Scripts
 
         private void AddFish(Fish fish)
         {
-                    Debug.Log("Заходиим в эдд фиш");
             foreach (FishTypeCounter catchedFish in _catchedFishes)
             {
-                    Debug.Log("перебираем фиштайпкаунтеры");
                 if (catchedFish.Type == fish.Type)
                 {
                     catchedFish.Increase();
                     FishTransferred?.Invoke();
                     _spawner.SetOffFish(fish);
-                    Debug.Log("Взяли рыбов");
                 }
             }
         }
@@ -285,6 +294,17 @@ namespace Assets.Scripts
                 for (int i = 0; i < fishPrice.Cost; i++)
                 {
                     RemoveFish(fishPrice.Type);
+                }
+            }
+        }
+
+        public void AddAllFish()
+        {
+            foreach (var item in _catchedFishes)
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    item.Increase();
                 }
             }
         }
@@ -304,9 +324,15 @@ namespace Assets.Scripts
                 }
             }
 
-            _savesYG.SaveResourcesCountData(_resources);
+            YandexGame.savesData.SaveResourcesCountData(_resources);
             ResourceCountChanged?.Invoke();
             _tutorial.ShowWhereUpgrade();
+        }
+
+        private void LoadSaves()
+        {
+            _catchedFishes = YandexGame.savesData.LoadFishesCountData();
+            _resources = YandexGame.savesData.LoadResourcesCountData();
         }
     }
 }

@@ -8,8 +8,6 @@ namespace Assets.Scripts
 {
     public abstract class Equipment : MonoBehaviour
     {
-        [SerializeField] protected SavesYG _saveYG;
-
         protected const int ZeroLevelCommand = 0;
         protected const int FirstLevelCommand = 1;
         protected const int SecondLevelCommand = 2;
@@ -56,11 +54,12 @@ namespace Assets.Scripts
 
         public abstract void CheckLevel();
 
-        protected void SmartCheckLevel(int level, UpgradeCriterion[] criteria, ref int upgradeCost, ref float upgradeParametr)
+        protected void SmartCheckLevel(int level, UpgradeCriterion[] criteria, 
+                                       ref int upgradeCost, ref float upgradeParametr)
         {
             upgradeCost = criteria[level].Cost;
             upgradeParametr = criteria[level].Parametr;
-            _saveYG.SaveLevel(level);
+            YandexGame.savesData.SaveLevel(level);
         }
 
         public Resource GetResourceToUpgrade()

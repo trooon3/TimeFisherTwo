@@ -1,8 +1,10 @@
 ﻿using Assets.Scripts.Fishes;
 using Assets.Scripts.FishResources;
 using Assets.Scripts.Saves;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace YG
 {
@@ -22,22 +24,24 @@ namespace YG
         public bool[] openLevels = new bool[3];
 
         // Ваши сохранения
-        [SerializeField] private Dictionary<TutorialsKeys, bool> _tutorialSaves = new();
-        [SerializeField] private Dictionary<SkinNames, bool> _skinKeys = new();
         [SerializeField] private SkinNames _chosenSkin;
         [SerializeField] private int _level = 0;
-        private List<FishTypeCounter> _fishCounters;
-        private List<ResourceCounter> _resCounters;
+
+        public Dictionary<TutorialsKeys, bool> _tutorialSaves = new();
+        public Dictionary<SkinNames, bool> _skinKeys = new();
+
+        [SerializeField] private List<FishTypeCounter> _fishCounters;
+        [SerializeField] private List<ResourceCounter> _resCounters;
 
         public List<FishTypeCounter> FishCounters => _fishCounters;
         public List<ResourceCounter> ResCounters => _resCounters;
         public int Level => _level;
-
         // Вы можете выполнить какие то действия при загрузке сохранений
+
         public SavesYG()
         {
             // Допустим, задать значения по умолчанию для отдельных элементов массива
-
+            
             openLevels[1] = true;
         }
 

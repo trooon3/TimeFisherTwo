@@ -16,11 +16,10 @@ namespace Assets.Scripts
         [SerializeField] private WorkBranchViewer _viewer;
         [SerializeField] private ActiveButtonView _buttonView;
         [SerializeField] private TutorialViewer _tutorial;
-        [SerializeField] private SavesYG _savesYG;
 
         private void Awake()
         {
-            _savesYG.LoadTutorial(TutorialsKeys.IsShowTutorialWorkBranch);
+            YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowTutorialWorkBranch);
             OnPlayerApproach(false);
         }
 
@@ -39,10 +38,10 @@ namespace Assets.Scripts
             _buttonView.SetActiveEImage(false);
             _viewer.gameObject.SetActive(true);
 
-            if (_savesYG.LoadTutorial(TutorialsKeys.IsShowTutorialWorkBranch))
+            if (!YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowTutorialWorkBranch))
             {
                 _tutorial.ShowHowUpgrade();
-                _savesYG.SaveTutorial(TutorialsKeys.IsShowTutorialWorkBranch, true);
+                YandexGame.savesData.SaveTutorial(TutorialsKeys.IsShowTutorialWorkBranch, true);
             }
         }
 

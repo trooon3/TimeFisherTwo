@@ -14,7 +14,6 @@ namespace Assets.Scripts.SkinScripts
         [SerializeField] private TMP_Text _tryBuyButtonText;
         [SerializeField] private Image _skinIcon;
         [SerializeField] private List<FishCountPriceView> _fishCosts;
-        [SerializeField] private SavesYG _savesYG;
 
         private SkinNames _nameKey;
         private Closet _closet;
@@ -34,9 +33,9 @@ namespace Assets.Scripts.SkinScripts
             _cost.SetListPrices();
             _nameKey = forSkin.Name;
 
-            _savesYG.LoadSkinsSaves(_nameKey);
+            YandexGame.savesData.LoadSkinsSaves(_nameKey);
 
-            if (_savesYG.LoadSkinsSaves(_nameKey))
+            if (YandexGame.savesData.LoadSkinsSaves(_nameKey))
             {
                 _tryBuyButtonText.text = Lean.Localization.LeanLocalization.GetTranslationText("Buyed");
             }
@@ -58,12 +57,12 @@ namespace Assets.Scripts.SkinScripts
 
         public void TrySetSkin()
         {
-            if (!_savesYG.LoadSkinsSaves(_nameKey))
+            if (!YandexGame.savesData.LoadSkinsSaves(_nameKey))
             {
                 if (_closet.CheckCanPaySkin(this))
                 {
                     _tryBuyButtonText.text = Lean.Localization.LeanLocalization.GetTranslationText("Buyed");
-                    _savesYG.SaveSkins(_nameKey, true);
+                    YandexGame.savesData.SaveSkins(_nameKey, true);
                 }
             }
             else

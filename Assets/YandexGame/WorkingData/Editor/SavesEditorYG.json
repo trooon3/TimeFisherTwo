@@ -1,15 +1,32 @@
 {
-    "idSave": 1521,
-    "isFirstSession": false,
-    "language": "ru",
-    "promptDone": false,
-    "money": 1,
-    "newPlayerName": "Hello!",
-    "openLevels": [
-        false,
-        true,
-        false
-    ],
-    "_chosenSkin": 0,
-    "_level": 0
+  "idSave": 2389,
+  "isFirstSession": false,
+  "language": "ru",
+  "promptDone": false,
+  "money": 555,
+  "newPlayerName": ".........",
+  "openLevels": [
+    false,
+    true,
+    false
+  ],
+  "_tutorialSaves": {
+    "IsShowTutorialWalk": true,
+    "IsShowedCatchTutorial": true,
+    "IsShowedGetFishTutorial": true,
+    "IsShowTutorialRod": true,
+    "IsShowTutorialWorkBranch": false
+  },
+  "_skinKeys": {
+    "Default": false,
+    "Worker": true,
+    "Boxer": false,
+    "Thief": false,
+    "Police": true,
+    "Prisoner": false,
+    "BuisnessMan": false
+  },
+  "FishCounters": null,
+  "ResCounters": null,
+  "Level": 0
 }
