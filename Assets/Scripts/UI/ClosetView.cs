@@ -1,6 +1,8 @@
 using Assets.Scripts.Fishes;
+using Assets.Scripts.FishResources;
 using Assets.Scripts.Tutorial;
 using System.Collections.Generic;
+using System.Resources;
 using TMPro;
 using UnityEngine;
 
@@ -8,7 +10,9 @@ namespace Assets.Scripts.UI
 {
     public class ClosetView : MonoBehaviour
     {
-        [SerializeField] private Closet _closet;
+        [SerializeField] private Chest _closet;
+        [SerializeField] private ResourcesManager _resourcesManager;
+        [SerializeField] private FishesManager _fishesManager;
         [SerializeField] private Rod _rod;
         [SerializeField] private FishCardViewer _template;
         [SerializeField] private Transform _container;
@@ -23,7 +27,7 @@ namespace Assets.Scripts.UI
         {
             _fishCardViewers = new List<FishCardViewer>();
 
-            foreach (var creature in _closet.AllFishes)
+            foreach (var creature in _fishesManager.AllFishes)
             {
                 FishCardViewer fishCardViewer = Instantiate(_template, _container);
                 fishCardViewer.Init(creature);
@@ -47,32 +51,32 @@ namespace Assets.Scripts.UI
 
         private void OnEnable()
         {
-            _closet.FishTransferred += RefreshFishCounts;
-            _closet.ResourceCountChanged += OnResourceCountChanged;
+            _fishesManager.FishTransferred += RefreshFishCounts;
+            _resourcesManager.ResourceCountChanged += OnResourceCountChanged;
         }
 
         private void OnDisable()
         {
-            _closet.FishTransferred -= RefreshFishCounts;
-            _closet.ResourceCountChanged -= OnResourceCountChanged;
+            _fishesManager.FishTransferred -= RefreshFishCounts;
+            _resourcesManager.ResourceCountChanged -= OnResourceCountChanged;
         }
 
         public void OnResourceCountChanged()
         {
-            _weedCount.text = _closet.GetSeaWeedCount().ToString();
-            _boneCount.text = _closet.GetFishBonesCount().ToString();
+            _weedCount.text = _resourcesManager.GetSeaWeedCount().ToString();
+            _boneCount.text = _resourcesManager.GetFishBonesCount().ToString();
         }
 
         public void OnHookButtonClick(FishType type)
         {
-            _closet.RemoveFish(type);
+            _fishesManager.RemoveFish(type);
             _rod.GetReadyCatch(type);
             SetButtonsActive(false);
         }
 
         public void AddFishAndRefresh()
         {
-            _closet.AddFishOnRod(_rod.FishFoodFor);
+            _fishesManager.AddFishOnRod(_rod.FishFoodFor);
             SetButtonsActive(true);
             RefreshFishCounts();
         }
@@ -81,7 +85,7 @@ namespace Assets.Scripts.UI
         {
             foreach (var card in _fishCardViewers)
             {
-                foreach (var counter in _closet.CatchedFishes)
+                foreach (var counter in _fishesManager.CatchedFishes)
                 {
                     if (counter.Type == card.SeaCreature.FishType)
                     {

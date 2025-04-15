@@ -11,7 +11,7 @@ namespace Assets.Scripts.Fishes
         [SerializeField] private int _maxFishCount;
         [SerializeField] private int _minFishInPool;
         [SerializeField] private int _maxFishInPool;
-        [SerializeField] private Closet _closet;
+        [SerializeField] private Chest _closet;
 
         private ObjectPool<Fish> _pool;
 

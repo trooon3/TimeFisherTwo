@@ -1,3 +1,4 @@
+using Assets.Scripts.FishResources;
 using Assets.Scripts.PlayerScripts;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace Assets.Scripts.UI
     public class ButtonChangerController : MonoBehaviour
     {
         [SerializeField] private Bag _bag;
-        [SerializeField] private Closet _closet;
+        [SerializeField] private ResourcesManager _resourcesManager;
         [SerializeField] private PlayerMover _mover;
         [SerializeField] private Rod _rod;
         [SerializeField] private ButtonChanger _buttonChanger;
@@ -18,7 +19,7 @@ namespace Assets.Scripts.UI
 
         public void SetButtonChangerOn()
         {
-            if (!_closet.IsActiveIncreaseAd && !_mover.IsActiveIncreaseAd && !_bag.IsActiveIncreaseAd && !_rod.IsActiveIncreaseAd)
+            if (!_resourcesManager.IsActiveIncreaseAd && !_mover.IsActiveIncreaseAd && !_bag.IsActiveIncreaseAd && !_rod.IsActiveIncreaseAd)
             {
                 _buttonChanger.gameObject.SetActive(true);
             }

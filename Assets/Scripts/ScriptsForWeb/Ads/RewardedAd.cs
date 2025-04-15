@@ -2,6 +2,7 @@ using YG;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Scripts.PlayerScripts;
+using Assets.Scripts.FishResources;
 
 namespace Assets.Scripts.ScripsForWeb.Ads
 {
@@ -15,7 +16,7 @@ namespace Assets.Scripts.ScripsForWeb.Ads
         [SerializeField] private PlayerMover _mover;
         [SerializeField] private Bag _bag;
         [SerializeField] private Rod _rod;
-        [SerializeField] private Closet _closet;
+        [SerializeField] private ResourcesManager _resourcesManager;
 
         [SerializeField] private Image _resourcesIncreaseSlider;
         [SerializeField] private Image _rodSpeedUpSlider;
@@ -73,8 +74,8 @@ namespace Assets.Scripts.ScripsForWeb.Ads
 
         private void ResourcesIncrease()
         {
-            _adTimeWork.StartShowAdTimeWork(_resourcesIncreaseSlider, _closet.IncreaseTimeSec);
-            _closet.SetActiveIncrease();
+            _adTimeWork.StartShowAdTimeWork(_resourcesIncreaseSlider, _resourcesManager.IncreaseTimeSec);
+            _resourcesManager.SetActiveIncrease();
         }
     }
 }

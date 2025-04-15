@@ -147,14 +147,16 @@ namespace YG
 
         public List<ResourceCounter> LoadResourcesCountData()
         {
-            if (_resCounters != null)
+            if (_resCounters == null || _resCounters.Count == 0)
             {
-                return ResCounters;
+                SaveResourcesCountData(new List<ResourceCounter>
+                {
+                    new ResourceCounter(Resource.FishBones),
+                    new ResourceCounter(Resource.SeaWeed)
+                });
             }
-            else
-            {
-                return new List<ResourceCounter> { new ResourceCounter(Resource.FishBones), new ResourceCounter(Resource.SeaWeed) };
-            }
+
+            return _resCounters;
         }
     }
 }

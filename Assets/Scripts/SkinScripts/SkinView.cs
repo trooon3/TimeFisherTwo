@@ -15,17 +15,17 @@ namespace Assets.Scripts.SkinScripts
         [SerializeField] private Image _skinIcon;
         [SerializeField] private List<FishCountPriceView> _fishCosts;
 
+        private SkinShop _skinShop;
         private SkinNames _nameKey;
-        private Closet _closet;
         private SkinEditor _skinEditor;
         private Skin _skin;
         private SkinCost _cost;
 
         public SkinCost Cost => _cost;
 
-        public void Init(SkinEditor editor, Skin forSkin, Closet closet)
+        public void Init(SkinEditor editor, Skin forSkin, SkinShop skinShop)
         {
-            _closet = closet;
+            _skinShop = skinShop;
             _skinEditor = editor;
             _skin = forSkin;
             _skinIcon.sprite = forSkin.Icon;
@@ -59,7 +59,7 @@ namespace Assets.Scripts.SkinScripts
         {
             if (!YandexGame.savesData.LoadSkinsSaves(_nameKey))
             {
-                if (_closet.CheckCanPaySkin(this))
+                if (_skinShop.CheckCanPaySkin(this))
                 {
                     _tryBuyButtonText.text = Lean.Localization.LeanLocalization.GetTranslationText("Buyed");
                     YandexGame.savesData.SaveSkins(_nameKey, true);

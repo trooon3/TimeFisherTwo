@@ -2378,6 +2378,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _closet: {fileID: 2571529876027508052}
+  _resourcesManager: {fileID: 2571529876027508059}
+  _fishesManager: {fileID: 2571529876027508058}
   _rod: {fileID: 5676301965097580309}
   _template: {fileID: 639684273822437186, guid: 7d878218701c6d245acce818b3145946, type: 3}
   _container: {fileID: 492408775}
@@ -2826,6 +2828,7 @@ MonoBehaviour:
   _container: {fileID: 230759560}
   _skinEditor: {fileID: 8858942692551423145}
   _closet: {fileID: 2571529876027508052}
+  _views: []
 --- !u!114 &334788841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3878,7 +3881,7 @@ PrefabInstance:
     - target: {fileID: 5093606604513783065, guid: 192a79fde5afd7640b6884a45bdc28f3, type: 3}
       propertyPath: _saver
       value: 
-      objectReference: {fileID: 2571529876027508055}
+      objectReference: {fileID: 0}
     - target: {fileID: 5093606604513783065, guid: 192a79fde5afd7640b6884a45bdc28f3, type: 3}
       propertyPath: _closet
       value: 
@@ -3895,6 +3898,10 @@ PrefabInstance:
       propertyPath: _buttonView
       value: 
       objectReference: {fileID: 764021218}
+    - target: {fileID: 5093606604513783065, guid: 192a79fde5afd7640b6884a45bdc28f3, type: 3}
+      propertyPath: _resourcesManager
+      value: 
+      objectReference: {fileID: 2571529876027508059}
     - target: {fileID: 5093606604513783065, guid: 192a79fde5afd7640b6884a45bdc28f3, type: 3}
       propertyPath: _tools.Array.data[0]
       value: 
@@ -4729,6 +4736,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd31527151346db47ad57a91eaf39eb6, type: 3}
+--- !u!1 &546083208 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4790716504961310490, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
+  m_PrefabInstance: {fileID: 4765830072993272562}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &547864186
 GameObject:
   m_ObjectHideFlags: 0
@@ -8082,6 +8094,7 @@ GameObject:
   - component: {fileID: 1005040031}
   - component: {fileID: 1005040033}
   - component: {fileID: 1005040034}
+  - component: {fileID: 1005040035}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -8219,6 +8232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _closet: {fileID: 2571529876027508052}
+  _resourcesManager: {fileID: 2571529876027508059}
   _rod: {fileID: 5676301965097580309}
   _bag: {fileID: 1454740026988430808}
   _arrowToCloset: {fileID: 467923802}
@@ -8259,10 +8273,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bag: {fileID: 1454740026988430808}
-  _closet: {fileID: 2571529876027508052}
+  _resourcesManager: {fileID: 2571529876027508059}
   _mover: {fileID: 7706325485056836023}
   _rod: {fileID: 5676301965097580309}
   _buttonChanger: {fileID: 2025150051}
+--- !u!114 &1005040035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005040023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3685a4349765ad46bdd080664dfa3fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _template: {fileID: 8657177535633696086, guid: 1c5b8312672ece94bbae3591bdb6c4dd, type: 3}
+  _container: {fileID: 230759560}
+  _skinEditor: {fileID: 8858942692551423145}
+  _fishesManager: {fileID: 2571529876027508058}
 --- !u!1 &1011041198
 GameObject:
   m_ObjectHideFlags: 0
@@ -14790,9 +14820,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2571529876027508052}
-        m_TargetAssemblyTypeName: Assets.Scripts.Closet, Assembly-CSharp
-        m_MethodName: GetAllFishes
+      - m_Target: {fileID: 2571529876027508058}
+        m_TargetAssemblyTypeName: Assets.Scripts.Fishes.FishesManager, Assembly-CSharp
+        m_MethodName: GetAllFishesCHEAT
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17641,7 +17671,7 @@ MonoBehaviour:
   _mover: {fileID: 7706325485056836023}
   _bag: {fileID: 1454740026988430808}
   _rod: {fileID: 5676301965097580309}
-  _closet: {fileID: 2571529876027508052}
+  _resourcesManager: {fileID: 0}
   _resourcesIncreaseSlider: {fileID: 1808034679}
   _rodSpeedUpSlider: {fileID: 607839963}
   _speedUpSlider: {fileID: 195043909}
@@ -18207,21 +18237,55 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7108641043442081105, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
   m_PrefabInstance: {fileID: 4765830072993272562}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 546083208}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 376c7c9ab3d78b84dae75aa5b1a41b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2571529876027508055 stripped
+--- !u!114 &2571529876027508058
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6129540660012823032, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
-  m_PrefabInstance: {fileID: 4765830072993272562}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 546083208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2247f6d54fc8d65469239a74f6660a69, type: 3}
+  m_Script: {fileID: 11500000, guid: 86a2b8ee267411b4cb6e95285059961f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _allFishes:
+  - {fileID: 11400000, guid: eaea348b4b4946b4e9c7aa6e6ec58983, type: 2}
+  - {fileID: 11400000, guid: b5ff9c8685c4e704399dae8e037f6788, type: 2}
+  - {fileID: 11400000, guid: 93325fb48a807cb499224d0d5cd89636, type: 2}
+  - {fileID: 11400000, guid: b7b77bb1c5aeb204bbf2222f0613fe42, type: 2}
+  - {fileID: 11400000, guid: 5b2fd05e1aa84ec419dc8a4b752c8ada, type: 2}
+  - {fileID: 11400000, guid: 0562b220385956c49a0e61c21a96b0a8, type: 2}
+  - {fileID: 11400000, guid: 965a4bf7b2044854496bdf6023358cad, type: 2}
+  - {fileID: 11400000, guid: 13555335ebc1a8f4a86268f52c3ad207, type: 2}
+  - {fileID: 11400000, guid: aaa0d606bcc201a4ab3624cc5f352838, type: 2}
+  - {fileID: 11400000, guid: 51269c0622d151d4a8aa05ad323db0e8, type: 2}
+  - {fileID: 11400000, guid: 1c7fe7e904c3ff64a876f0663c05bc7d, type: 2}
+  - {fileID: 11400000, guid: 4bab9bda280e38941b877841d7daf972, type: 2}
+  - {fileID: 11400000, guid: f1466d6dffd1d48428e6ab796d48fe21, type: 2}
+  - {fileID: 11400000, guid: 8c0e2c54af375804fa57f0ddeea69b65, type: 2}
+  - {fileID: 11400000, guid: 87e584d1ff190df4b832c5ca95ec82bc, type: 2}
+  - {fileID: 11400000, guid: 0c12257cef4ef5247aa4d3a55c878086, type: 2}
+  - {fileID: 11400000, guid: 0f8b76a61ea5ecf46aba15e42b75e035, type: 2}
+  - {fileID: 11400000, guid: c7b0c559264fc7444b42cd1b8fcae39f, type: 2}
+  - {fileID: 11400000, guid: 1028f86cc20edd34ba5c6b4879be52b2, type: 2}
+  - {fileID: 11400000, guid: 5b99e94ff8dfd2e4987b8e3d66cc5a95, type: 2}
+--- !u!114 &2571529876027508059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546083208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d144165233aa114fad301db4fd9c046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4765830072993272562
@@ -18309,13 +18373,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2025150051}
     - target: {fileID: 7108641043442081105, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
+      propertyPath: _fishesManager
+      value: 
+      objectReference: {fileID: 2571529876027508058}
+    - target: {fileID: 7108641043442081105, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
+      propertyPath: _resourcesManager
+      value: 
+      objectReference: {fileID: 2571529876027508059}
+    - target: {fileID: 7108641043442081105, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
       propertyPath: _buttonChangerController
       value: 
       objectReference: {fileID: 1005040034}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6129540660012823032, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4790716504961310490, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2571529876027508058}
+    - targetCorrespondingSourceObject: {fileID: 4790716504961310490, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2571529876027508059}
   m_SourcePrefab: {fileID: 100100000, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
 --- !u!1001 &5676301965097580307
 PrefabInstance:
@@ -18328,7 +18407,7 @@ PrefabInstance:
     - target: {fileID: 9292857687501548, guid: 7855936d7efd1b444844ddcfb736bd76, type: 3}
       propertyPath: _saver
       value: 
-      objectReference: {fileID: 2571529876027508055}
+      objectReference: {fileID: 0}
     - target: {fileID: 9292857687501548, guid: 7855936d7efd1b444844ddcfb736bd76, type: 3}
       propertyPath: _closetView
       value: 
@@ -18777,7 +18856,7 @@ PrefabInstance:
     - target: {fileID: 4586760950380971447, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
       propertyPath: _saver
       value: 
-      objectReference: {fileID: 2571529876027508055}
+      objectReference: {fileID: 0}
     - target: {fileID: 5368672264715580095, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
       propertyPath: m_Camera
       value: 
@@ -18817,7 +18896,7 @@ PrefabInstance:
     - target: {fileID: 8820223108125403753, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
       propertyPath: _saver
       value: 
-      objectReference: {fileID: 2571529876027508055}
+      objectReference: {fileID: 0}
     - target: {fileID: 8820223108125403753, guid: a07eb1b0ec88b6f4e821460a6c1904ef, type: 3}
       propertyPath: _tutorial
       value: 

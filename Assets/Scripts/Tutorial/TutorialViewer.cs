@@ -3,12 +3,14 @@ using UnityEngine.UI;
 using Assets.Scripts.Saves;
 using Assets.Scripts.UI;
 using YG;
+using Assets.Scripts.FishResources;
 
 namespace Assets.Scripts.Tutorial
 {
     public class TutorialViewer : MonoBehaviour
     {
-        [SerializeField] private Closet _closet;
+        [SerializeField] private Chest _closet;
+        [SerializeField] private ResourcesManager _resourcesManager;
         [SerializeField] private Rod _rod;
         [SerializeField] private Bag _bag;
 
@@ -90,7 +92,7 @@ namespace Assets.Scripts.Tutorial
 
         public void ShowWhereUpgrade()
         {
-            if (_bag.CountResourseToUpgrade <= _closet.GetFishBonesCount() || _rod.CountResourseToUpgrade <= _closet.GetFishBonesCount())
+            if (_bag.CountResourseToUpgrade <= _resourcesManager.GetFishBonesCount() || _rod.CountResourseToUpgrade <= _resourcesManager.GetFishBonesCount())
             {
                 _arrowToWorkBranch.gameObject.SetActive(true);
                 ShowWhereResources();
