@@ -1,5 +1,5 @@
 {
-  "idSave": 551,
+  "idSave": 127,
   "isFirstSession": false,
   "language": "ru",
   "promptDone": false,
@@ -11,7 +11,7 @@
     false
   ],
   "_tutorialSaves": {
-    "IsShowTutorialWorkBranch": true,
+    "IsShowTutorialWorkBranch": false,
     "IsShowTutorialRod": true,
     "IsShowTutorialWalk": true,
     "IsShowedCatchTutorial": true,
@@ -19,115 +19,14 @@
   },
   "_skinKeys": {
     "Default": false,
-    "Worker": true,
-    "Boxer": true,
+    "Worker": false,
+    "Boxer": false,
     "Thief": false,
     "Police": false,
     "Prisoner": false,
     "BuisnessMan": false
   },
-  "FishCounters": [
-    {
-      "CountChanged": null,
-      "Type": 1,
-      "Count": 5
-    },
-    {
-      "CountChanged": null,
-      "Type": 4,
-      "Count": 4
-    },
-    {
-      "CountChanged": null,
-      "Type": 2,
-      "Count": 5
-    },
-    {
-      "CountChanged": null,
-      "Type": 3,
-      "Count": 6
-    },
-    {
-      "CountChanged": null,
-      "Type": 5,
-      "Count": 0
-    },
-    {
-      "CountChanged": null,
-      "Type": 8,
-      "Count": 0
-    },
-    {
-      "CountChanged": null,
-      "Type": 7,
-      "Count": 0
-    },
-    {
-      "CountChanged": null,
-      "Type": 6,
-      "Count": 0
-    },
-    {
-      "CountChanged": null,
-      "Type": 12,
-      "Count": 0
-    },
-    {
-      "CountChanged": null,
-      "Type": 11,
-      "Count": 0
-    },
-    {
-      "CountChanged": null,
-      "Type": 10,
-      "Count": 0
-    },
-    {
-      "CountChanged": null,
-      "Type": 9,
-      "Count": 0
-    },
-    {
-      "CountChanged": null,
-      "Type": 13,
-      "Count": 0
-    },
-    {
-      "CountChanged": null,
-      "Type": 16,
-      "Count": 0
-    },
-    {
-      "CountChanged": null,
-      "Type": 15,
-      "Count": 0
-    },
-    {
-      "CountChanged": null,
-      "Type": 14,
-      "Count": 0
-    },
-    {
-      "CountChanged": null,
-      "Type": 20,
-      "Count": 0
-    },
-    {
-      "CountChanged": null,
-      "Type": 19,
-      "Count": 0
-    },
-    {
-      "CountChanged": null,
-      "Type": 18,
-      "Count": 0
-    },
-    {
-      "CountChanged": null,
-      "Type": 17,
-      "Count": 0
-    }
-  ],
+  "FishCounters": null,
   "ResCounters": [
     {
       "Resource": 1,
@@ -138,5 +37,5 @@
       "Count": 0
     }
   ],
-  "Level": 1
+  "Level": 0
 }

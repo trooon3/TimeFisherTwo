@@ -24,10 +24,25 @@ namespace Assets.Scripts.FishResources
 
         public event UnityAction ResourceCountChanged;
 
-        private void Awake()
+        private void Start()
         {
             _resources = YandexGame.savesData.LoadResourcesCountData();
             _increaseTime = new WaitForSeconds(_increaseTimeSec);
+        }
+
+        private void OnEnable()
+        {
+            YandexGame.GetDataEvent += LoadCounter;
+        }
+
+        private void OnDisable()
+        {
+            YandexGame.GetDataEvent -= LoadCounter;
+        }
+
+        private void LoadCounter()
+        {
+            _resources = YandexGame.savesData.LoadResourcesCountData();
         }
 
         private int GetResourceCount(Resource resourceType)
@@ -114,5 +129,3 @@ namespace Assets.Scripts.FishResources
         }
     }
 }
-
-

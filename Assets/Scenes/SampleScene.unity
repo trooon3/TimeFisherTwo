@@ -2377,7 +2377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ce3816f5bc0ac943b746506ab6edd8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _closet: {fileID: 2571529876027508052}
+  _closet: {fileID: 2571529876027508062}
   _resourcesManager: {fileID: 2571529876027508059}
   _fishesManager: {fileID: 2571529876027508058}
   _rod: {fileID: 5676301965097580309}
@@ -2824,11 +2824,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f56bfb805cdb84984ff9ea23577d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _template: {fileID: 8657177535633696086, guid: 1c5b8312672ece94bbae3591bdb6c4dd, type: 3}
-  _container: {fileID: 230759560}
-  _skinEditor: {fileID: 8858942692551423145}
-  _closet: {fileID: 2571529876027508052}
-  _views: []
 --- !u!114 &334788841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3885,11 +3880,15 @@ PrefabInstance:
     - target: {fileID: 5093606604513783065, guid: 192a79fde5afd7640b6884a45bdc28f3, type: 3}
       propertyPath: _closet
       value: 
-      objectReference: {fileID: 2571529876027508052}
+      objectReference: {fileID: 2571529876027508062}
     - target: {fileID: 5093606604513783065, guid: 192a79fde5afd7640b6884a45bdc28f3, type: 3}
       propertyPath: _viewer
       value: 
       objectReference: {fileID: 1647291278}
+    - target: {fileID: 5093606604513783065, guid: 192a79fde5afd7640b6884a45bdc28f3, type: 3}
+      propertyPath: _interAd
+      value: 
+      objectReference: {fileID: 7201943209151095659}
     - target: {fileID: 5093606604513783065, guid: 192a79fde5afd7640b6884a45bdc28f3, type: 3}
       propertyPath: _tutorial
       value: 
@@ -4955,9 +4954,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2571529876027508052}
-        m_TargetAssemblyTypeName: Closet, Assembly-CSharp
-        m_MethodName: OnClosetButtonClick
+      - m_Target: {fileID: 2571529876027508062}
+        m_TargetAssemblyTypeName: Assets.Scripts.Chest, Assembly-CSharp
+        m_MethodName: OnChestButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13794,6 +13793,17 @@ MonoBehaviour:
   - Language: Turkish
     Text: "Balina K\xF6pekbal\u0131\u011F\u0131"
     Object: {fileID: 0}
+--- !u!114 &1581503972 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2271524754738645848, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
+  m_PrefabInstance: {fileID: 4765830072993272562}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604be8564ff504148be2fdd03ad0b378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1585938931 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3895632820748657968, guid: bd31527151346db47ad57a91eaf39eb6, type: 3}
@@ -15909,6 +15919,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1817786702}
   m_CullTransparentMesh: 1
+--- !u!114 &1821799945 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6440000910612223775, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
+  m_PrefabInstance: {fileID: 4765830072993272562}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47211771f7e349641b16bdbe95ed2a2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1828581516
 GameObject:
   m_ObjectHideFlags: 0
@@ -18288,6 +18309,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d144165233aa114fad301db4fd9c046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2571529876027508062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546083208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e158718f1bd40144584fa47c2cf3334c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawner: {fileID: 1652411990}
+  _playerNearbyChecker: {fileID: 1581503972}
+  _view: {fileID: 294290973}
+  _buttonView: {fileID: 1821799945}
+  _rodView: {fileID: 1730360855}
+  _tutorial: {fileID: 1005040031}
+  _interAd: {fileID: 7201943209151095659}
+  _resourcesManager: {fileID: 2571529876027508059}
+  _fishesManager: {fileID: 2571529876027508058}
 --- !u!1001 &4765830072993272562
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18395,6 +18437,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4790716504961310490, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2571529876027508059}
+    - targetCorrespondingSourceObject: {fileID: 4790716504961310490, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2571529876027508062}
   m_SourcePrefab: {fileID: 100100000, guid: 3ab07afeaff2b044b9de26e5014175a9, type: 3}
 --- !u!1001 &5676301965097580307
 PrefabInstance:

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.PlayerScripts;
 using Assets.Scripts.Saves;
 using UnityEngine;
 using UnityEngine.Events;
@@ -19,8 +20,8 @@ namespace Assets.Scripts.Fishes
 
         private void Awake()
         {
-            _catchedFishes = YandexGame.savesData.LoadFishesCountData();
             YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowTutorialRod);
+            LoadCounter();
 
             if (_catchedFishes == null)
             {
@@ -29,9 +30,28 @@ namespace Assets.Scripts.Fishes
                 foreach (var creature in _allFishes)
                 {
                     FishTypeCounter counter = new FishTypeCounter(creature.FishType);
-                    _catchedFishes.Add(counter);
+
+                    if (!_catchedFishes.Contains(counter))
+                    {
+                        _catchedFishes.Add(counter);
+                    }
                 }
             }
+        }
+
+        private void OnEnable()
+        {
+            YandexGame.GetDataEvent += LoadCounter;
+        }
+
+        private void OnDisable()
+        {
+            YandexGame.GetDataEvent -= LoadCounter;
+        }
+
+        private void LoadCounter()
+        {
+           _catchedFishes = YandexGame.savesData.LoadFishesCountData();
         }
 
         public void RemoveFish(FishType fish)

@@ -23,23 +23,26 @@ namespace Assets.Scripts
         [SerializeField] private ResourcesManager _resourcesManager;
         [SerializeField] private FishesManager _fishesManager;
 
-        private void Awake()
+        private void Start()
         {
             YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowTutorialRod);
 
            _view.gameObject.SetActive(true);
            _view.gameObject.SetActive(false);
+            OnPlayerApproach(false);
         }
 
         private void OnEnable()
         {
-            //YandexGame.GetDataEvent += LoadSaves;
+            _fishesManager.FishTransferred += SaveCounters;
+            _resourcesManager.ResourceCountChanged += SaveCounters;
             _playerNearbyChecker.PlayerNearby += OnPlayerApproach;
         }
 
         private void OnDisable()
         {
-            //YandexGame.GetDataEvent -= LoadSaves;
+            _fishesManager.FishTransferred -= SaveCounters;
+            _resourcesManager.ResourceCountChanged -= SaveCounters;
             _playerNearbyChecker.PlayerNearby -= OnPlayerApproach;
         }
 
@@ -67,7 +70,13 @@ namespace Assets.Scripts
             }
         }
 
-        public void OnClosetButtonClick()
+        private void SaveCounters()
+        {
+            YandexGame.savesData.SaveFishesCountData(_fishesManager.CatchedFishes);
+            YandexGame.savesData.SaveResourcesCountData(_resourcesManager.ResCounters);
+        }
+
+        public void OnChestButtonClick()
         {
             _interAd.ShowAd();
             _buttonView.SetActiveEImage(false);
@@ -84,8 +93,7 @@ namespace Assets.Scripts
                TakeFish(_playerNearbyChecker.GetPlayer().GetFish());
             }
 
-            YandexGame.savesData.SaveFishesCountData(_fishesManager.CatchedFishes);
-            YandexGame.savesData.SaveResourcesCountData(_resourcesManager.ResCounters);
+            SaveCounters();
         }
     }
 }

@@ -1,10 +1,8 @@
 ﻿using Assets.Scripts.Fishes;
 using Assets.Scripts.FishResources;
 using Assets.Scripts.Saves;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace YG
 {
@@ -129,14 +127,7 @@ namespace YG
 
         public List<FishTypeCounter> LoadFishesCountData()
         {
-            if (_fishCounters != null)
-            {
-                return FishCounters;
-            }
-            else
-            {
-                return null;
-            }
+            return _fishCounters;
         }
 
         public void SaveResourcesCountData(List<ResourceCounter> counters)
