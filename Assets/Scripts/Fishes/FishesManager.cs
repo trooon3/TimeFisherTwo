@@ -1,17 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.PlayerScripts;
 using Assets.Scripts.Saves;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Events;
 using YG;
 
 namespace Assets.Scripts.Fishes
 {
+    [JsonObject(MemberSerialization.Fields)]
     public class FishesManager : MonoBehaviour
     {
         [SerializeField] private List<SeaCreature> _allFishes = new List<SeaCreature>();
-        private List<FishTypeCounter> _catchedFishes;
+        [SerializeField] private List<FishTypeCounter> _catchedFishes;
 
         public List<FishTypeCounter> CatchedFishes => _catchedFishes;
         public List<SeaCreature> AllFishes => _allFishes;

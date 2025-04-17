@@ -1,10 +1,12 @@
 using UnityEngine;
 using System;
 using UnityEngine.Events;
+using Newtonsoft.Json;
 
 namespace Assets.Scripts.Fishes
 {
     [Serializable]
+    [JsonObject(MemberSerialization.Fields)]
     public class FishTypeCounter
     {
         [SerializeField] private FishType _type;

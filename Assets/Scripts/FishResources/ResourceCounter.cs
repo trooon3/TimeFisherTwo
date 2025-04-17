@@ -1,33 +1,35 @@
 using UnityEngine;
 using System;
+using Newtonsoft.Json;
 
 namespace Assets.Scripts.FishResources
 {
     [Serializable]
+    [JsonObject(MemberSerialization.Fields)]
     public class ResourceCounter
     {
-        [SerializeField] private Resource ThisResource;
-        [Min(0)] [SerializeField] private int ResourceCount;
+        [SerializeField] private Resource _thisResource;
+        [Min(0)] [SerializeField] private int _resourceCount;
 
-        public Resource Resource => ThisResource;
-        public int Count => ResourceCount;
+        public Resource Resource => _thisResource;
+        public int Count => _resourceCount;
 
         public ResourceCounter(Resource type)
         {
-            ThisResource = type;
-            ResourceCount = 0;
+            _thisResource = type;
+            _resourceCount = 0;
         }
 
         public void Increase()
         {
-            ResourceCount++;
+            _resourceCount++;
         }
 
         public void Decrease()
         {
-            if (ResourceCount > 0)
+            if (_resourceCount > 0)
             {
-                ResourceCount--;
+                _resourceCount--;
             }
         }
     }

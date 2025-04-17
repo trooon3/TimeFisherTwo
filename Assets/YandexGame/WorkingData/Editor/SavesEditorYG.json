@@ -1,5 +1,5 @@
 {
-  "idSave": 127,
+  "idSave": 109,
   "isFirstSession": false,
   "language": "ru",
   "promptDone": false,
@@ -10,6 +10,8 @@
     true,
     false
   ],
+  "_chosenSkin": 0,
+  "_level": 0,
   "_tutorialSaves": {
     "IsShowTutorialWorkBranch": false,
     "IsShowTutorialRod": true,
@@ -26,16 +28,116 @@
     "Prisoner": false,
     "BuisnessMan": false
   },
-  "FishCounters": null,
-  "ResCounters": [
+  "_fishCounters": [
     {
-      "Resource": 1,
-      "Count": 0
+      "_type": 1,
+      "_count": 1,
+      "CountChanged": null
     },
     {
-      "Resource": 2,
-      "Count": 0
+      "_type": 4,
+      "_count": 2,
+      "CountChanged": null
+    },
+    {
+      "_type": 2,
+      "_count": 1,
+      "CountChanged": null
+    },
+    {
+      "_type": 3,
+      "_count": 0,
+      "CountChanged": null
+    },
+    {
+      "_type": 5,
+      "_count": 0,
+      "CountChanged": null
+    },
+    {
+      "_type": 8,
+      "_count": 0,
+      "CountChanged": null
+    },
+    {
+      "_type": 7,
+      "_count": 0,
+      "CountChanged": null
+    },
+    {
+      "_type": 6,
+      "_count": 0,
+      "CountChanged": null
+    },
+    {
+      "_type": 12,
+      "_count": 0,
+      "CountChanged": null
+    },
+    {
+      "_type": 11,
+      "_count": 0,
+      "CountChanged": null
+    },
+    {
+      "_type": 10,
+      "_count": 0,
+      "CountChanged": null
+    },
+    {
+      "_type": 9,
+      "_count": 0,
+      "CountChanged": null
+    },
+    {
+      "_type": 13,
+      "_count": 0,
+      "CountChanged": null
+    },
+    {
+      "_type": 16,
+      "_count": 0,
+      "CountChanged": null
+    },
+    {
+      "_type": 15,
+      "_count": 0,
+      "CountChanged": null
+    },
+    {
+      "_type": 14,
+      "_count": 0,
+      "CountChanged": null
+    },
+    {
+      "_type": 20,
+      "_count": 0,
+      "CountChanged": null
+    },
+    {
+      "_type": 19,
+      "_count": 0,
+      "CountChanged": null
+    },
+    {
+      "_type": 18,
+      "_count": 0,
+      "CountChanged": null
+    },
+    {
+      "_type": 17,
+      "_count": 0,
+      "CountChanged": null
     }
   ],
-  "Level": 0
+  "_resCounters": [
+    {
+      "_thisResource": 1,
+      "_resourceCount": 2
+    },
+    {
+      "_thisResource": 2,
+      "_resourceCount": 2
+    }
+  ]
 }

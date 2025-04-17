@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Fishes;
 using Assets.Scripts.UI;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Events;
 using YG;
 
 namespace Assets.Scripts.FishResources
 {
+    [JsonObject(MemberSerialization.Fields)]
     public class ResourcesManager : MonoBehaviour
     {
-        private List<ResourceCounter> _resources;
+        [SerializeField] private List<ResourceCounter> _resources;
         private ButtonChangerController _buttonChangerController;
 
         private Coroutine _coroutine;

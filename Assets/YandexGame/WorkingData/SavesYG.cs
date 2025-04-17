@@ -1,12 +1,14 @@
 ﻿using Assets.Scripts.Fishes;
 using Assets.Scripts.FishResources;
 using Assets.Scripts.Saves;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace YG
 {
     [System.Serializable]
+    [JsonObject(MemberSerialization.Fields)]
     public class SavesYG
     {
         // "Технические сохранения" для работы плагина (Не удалять)
