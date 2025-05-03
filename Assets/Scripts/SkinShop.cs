@@ -29,6 +29,19 @@ namespace Assets.Scripts
             }
         }
 
+        private void PaySkin(SkinView skin)
+        {
+            SkinCost cost = skin.Cost;
+
+            foreach (var fishPrice in cost.FishCountPrices)
+            {
+                for (int i = 0; i < fishPrice.Cost; i++)
+                {
+                    _fishesManager.RemoveFish(fishPrice.Type);
+                }
+            }
+        }
+
         public bool CheckCanPaySkin(SkinView skin)
         {
             SkinCost cost = skin.Cost;
@@ -49,19 +62,6 @@ namespace Assets.Scripts
 
             PaySkin(skin);
             return true;
-        }
-
-        private void PaySkin(SkinView skin)
-        {
-            SkinCost cost = skin.Cost;
-
-            foreach (var fishPrice in cost.FishCountPrices)
-            {
-                for (int i = 0; i < fishPrice.Cost; i++)
-                {
-                    _fishesManager.RemoveFish(fishPrice.Type);
-                }
-            }
         }
     }
 }

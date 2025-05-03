@@ -77,6 +77,13 @@ namespace Assets.Scripts.FishResources
             ResourceCountChanged?.Invoke();
         }
 
+        private IEnumerator IncreaseTimer()
+        {
+            yield return _increaseTime;
+            _isActiveIncreaseAd = false;
+            _buttonChangerController.SetButtonChangerOn();
+        }
+
         public int GetFishBonesCount()
         {
             return GetResourceCount(Resource.FishBones);
@@ -121,13 +128,6 @@ namespace Assets.Scripts.FishResources
             }
 
             _coroutine = StartCoroutine(IncreaseTimer());
-        }
-
-        private IEnumerator IncreaseTimer()
-        {
-            yield return _increaseTime;
-            _isActiveIncreaseAd = false;
-            _buttonChangerController.SetButtonChangerOn();
         }
     }
 }

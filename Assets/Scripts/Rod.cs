@@ -5,7 +5,6 @@ using Assets.Scripts.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using YG;
 
 namespace Assets.Scripts
@@ -43,6 +42,13 @@ namespace Assets.Scripts
             NextLevel = (_level + 1).ToString();
             _resourceToUpgrade = Resource.FishBones;
             CheckLevel();
+        }
+        private IEnumerator IncreaseTimer()
+        {
+            yield return _increaseTime;
+            _isActiveIncreaseAd = false;
+            _buttonChangerController.SetButtonChangerOn(); 
+            SmartCheckLevel(_level, upgradeCriteria, ref _upgradeCost, ref _catchingSpeed);
         }
 
         public override void CheckLevel()
@@ -87,14 +93,6 @@ namespace Assets.Scripts
             }
 
             _coroutine = StartCoroutine(IncreaseTimer());
-        }
-
-        private IEnumerator IncreaseTimer()
-        {
-            yield return _increaseTime;
-            _isActiveIncreaseAd = false;
-            _buttonChangerController.SetButtonChangerOn(); 
-            SmartCheckLevel(_level, upgradeCriteria, ref _upgradeCost, ref _catchingSpeed);
         }
     }
 }

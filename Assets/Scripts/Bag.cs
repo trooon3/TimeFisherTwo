@@ -54,6 +54,23 @@ namespace Assets.Scripts
             CheckLevel();
         }
 
+        private void StartIncreaseTimer()
+        {
+            if (_coroutine != null)
+            {
+                StopCoroutine(IncreaseTimer());
+            }
+
+            _coroutine = StartCoroutine(IncreaseTimer());
+        }
+
+        private IEnumerator IncreaseTimer()
+        {
+            yield return _increaseTime;
+            _isActiveIncreaseAd = false;
+            _buttonChangerController.SetButtonChangerOn();
+        }
+
         public override void CheckLevel()
         {
             SmartCheckLevel(_level, upgradeCriteria, ref _upgradeCost, ref _maxFishCount);
@@ -125,23 +142,6 @@ namespace Assets.Scripts
             fish.ShowFillBag(true);
 
             return false;
-        }
-
-        private void StartIncreaseTimer()
-        {
-            if (_coroutine != null)
-            {
-                StopCoroutine(IncreaseTimer());
-            }
-
-            _coroutine = StartCoroutine(IncreaseTimer());
-        }
-
-        private IEnumerator IncreaseTimer()
-        {
-            yield return _increaseTime;
-            _isActiveIncreaseAd = false;
-            _buttonChangerController.SetButtonChangerOn();
         }
     }
 }

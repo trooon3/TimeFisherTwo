@@ -37,32 +37,6 @@ namespace Assets.Scripts
             _playerNearbyChecker.PlayerNearby -= OnPlayerApproach;
         }
 
-        public void OnBrenchButtonClick()
-        {
-            _interAd.ShowAd();
-            _buttonView.SetActiveEImage(false);
-            _viewer.gameObject.SetActive(true);
-
-            if (!YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowTutorialWorkBranch))
-            {
-                _tutorial.ShowHowUpgrade();
-                YandexGame.savesData.SaveTutorial(TutorialsKeys.IsShowTutorialWorkBranch, true);
-            }
-        }
-
-        public void TryUpgrade(Equipment tool)
-        {
-            var needResource = tool.GetResourceToUpgrade();
-            var needCountResource = tool.GetResourceCountToUpgrade();
-
-            if (CheckIsCanPay(needResource, needCountResource))
-            {
-                _resourcesManager.SpendResources(needCountResource, needResource);
-                tool.Upgrade();
-                tool.CheckLevel();
-            }
-        }
-
         private bool CheckIsCanPay(Resource resource, int count)
         {
             foreach (var resourceType in _resourcesManager.ResCounters)
@@ -89,6 +63,32 @@ namespace Assets.Scripts
             {
                 _viewer.gameObject.SetActive(false);
                 _buttonView.SetActiveEImage(false);
+            }
+        }
+
+        public void TryUpgrade(Equipment tool)
+        {
+            var needResource = tool.GetResourceToUpgrade();
+            var needCountResource = tool.GetResourceCountToUpgrade();
+
+            if (CheckIsCanPay(needResource, needCountResource))
+            {
+                _resourcesManager.SpendResources(needCountResource, needResource);
+                tool.Upgrade();
+                tool.CheckLevel();
+            }
+        }
+
+        public void OnBrenchButtonClick()
+        {
+            _interAd.ShowAd();
+            _buttonView.SetActiveEImage(false);
+            _viewer.gameObject.SetActive(true);
+
+            if (!YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowTutorialWorkBranch))
+            {
+                _tutorial.ShowHowUpgrade();
+                YandexGame.savesData.SaveTutorial(TutorialsKeys.IsShowTutorialWorkBranch, true);
             }
         }
     }
