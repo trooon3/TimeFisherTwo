@@ -1,5 +1,5 @@
 {
-  "idSave": 109,
+  "idSave": 728,
   "isFirstSession": false,
   "language": "ru",
   "promptDone": false,
@@ -10,7 +10,7 @@
     true,
     false
   ],
-  "_chosenSkin": 0,
+  "_chosenSkin": 5,
   "_level": 0,
   "_tutorialSaves": {
     "IsShowTutorialWorkBranch": false,
@@ -20,8 +20,8 @@
     "IsShowedGetFishTutorial": true
   },
   "_skinKeys": {
-    "Default": false,
-    "Worker": false,
+    "Default": true,
+    "Worker": true,
     "Boxer": false,
     "Thief": false,
     "Police": false,
@@ -31,102 +31,102 @@
   "_fishCounters": [
     {
       "_type": 1,
-      "_count": 1,
+      "_count": 1001,
       "CountChanged": null
     },
     {
       "_type": 4,
-      "_count": 2,
+      "_count": 1002,
       "CountChanged": null
     },
     {
       "_type": 2,
-      "_count": 1,
+      "_count": 1001,
       "CountChanged": null
     },
     {
       "_type": 3,
-      "_count": 0,
+      "_count": 1000,
       "CountChanged": null
     },
     {
       "_type": 5,
-      "_count": 0,
+      "_count": 1000,
       "CountChanged": null
     },
     {
       "_type": 8,
-      "_count": 0,
+      "_count": 1000,
       "CountChanged": null
     },
     {
       "_type": 7,
-      "_count": 0,
+      "_count": 1000,
       "CountChanged": null
     },
     {
       "_type": 6,
-      "_count": 0,
+      "_count": 1000,
       "CountChanged": null
     },
     {
       "_type": 12,
-      "_count": 0,
+      "_count": 970,
       "CountChanged": null
     },
     {
       "_type": 11,
-      "_count": 0,
+      "_count": 930,
       "CountChanged": null
     },
     {
       "_type": 10,
-      "_count": 0,
+      "_count": 1000,
       "CountChanged": null
     },
     {
       "_type": 9,
-      "_count": 0,
+      "_count": 1000,
       "CountChanged": null
     },
     {
       "_type": 13,
-      "_count": 0,
+      "_count": 1000,
       "CountChanged": null
     },
     {
       "_type": 16,
-      "_count": 0,
+      "_count": 1000,
       "CountChanged": null
     },
     {
       "_type": 15,
-      "_count": 0,
+      "_count": 1000,
       "CountChanged": null
     },
     {
       "_type": 14,
-      "_count": 0,
+      "_count": 1000,
       "CountChanged": null
     },
     {
       "_type": 20,
-      "_count": 0,
+      "_count": 950,
       "CountChanged": null
     },
     {
       "_type": 19,
-      "_count": 0,
+      "_count": 950,
       "CountChanged": null
     },
     {
       "_type": 18,
-      "_count": 0,
+      "_count": 1000,
       "CountChanged": null
     },
     {
       "_type": 17,
-      "_count": 0,
+      "_count": 1000,
       "CountChanged": null
     }
   ],

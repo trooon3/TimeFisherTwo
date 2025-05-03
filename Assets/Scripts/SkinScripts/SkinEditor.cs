@@ -18,7 +18,7 @@ namespace Assets.Scripts.SkinScripts
 
         private void Awake()
         {
-            _chosenSkinName = SkinNames.Default;
+           _chosenSkinName = YandexGame.savesData.LoadChosenSkin();
 
             if (!_skins.Contains(_defaultSkin))
             {
@@ -28,17 +28,6 @@ namespace Assets.Scripts.SkinScripts
             foreach (var skin in _skins)
             {
                 skin.gameObject.SetActive(false);
-            }
-
-            SkinNames chosenSkinName = YandexGame.savesData.LoadChosenSkin();
-
-            if (chosenSkinName != _chosenSkinName)
-            {
-                _chosenSkinName = chosenSkinName;
-            }
-            else
-            {
-                _chosenSkinName = SkinNames.Default;
             }
 
             foreach (var skin in _skins)
