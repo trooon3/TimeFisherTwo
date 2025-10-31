@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Assets.Scripts.PlayerScripts
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerMover : MonoBehaviour
+    public class PlayerMover : MonoBehaviour, IInreaseble
     {
         private const string Horizontal = nameof(Horizontal);
         private const string Jump = nameof(Jump);

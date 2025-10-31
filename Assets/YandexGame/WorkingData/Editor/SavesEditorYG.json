@@ -1,5 +1,5 @@
 {
-  "idSave": 728,
+  "idSave": 1009,
   "isFirstSession": false,
   "language": "ru",
   "promptDone": false,
@@ -11,7 +11,7 @@
     false
   ],
   "_chosenSkin": 5,
-  "_level": 0,
+  "_level": 4,
   "_tutorialSaves": {
     "IsShowTutorialWorkBranch": false,
     "IsShowTutorialRod": true,
@@ -31,22 +31,22 @@
   "_fishCounters": [
     {
       "_type": 1,
-      "_count": 1001,
+      "_count": 1006,
       "CountChanged": null
     },
     {
       "_type": 4,
-      "_count": 1002,
+      "_count": 1004,
       "CountChanged": null
     },
     {
       "_type": 2,
-      "_count": 1001,
+      "_count": 1008,
       "CountChanged": null
     },
     {
       "_type": 3,
-      "_count": 1000,
+      "_count": 1008,
       "CountChanged": null
     },
     {
@@ -133,11 +133,11 @@
   "_resCounters": [
     {
       "_thisResource": 1,
-      "_resourceCount": 2
+      "_resourceCount": 14
     },
     {
       "_thisResource": 2,
-      "_resourceCount": 2
+      "_resourceCount": 12
     }
   ]
 }

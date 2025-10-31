@@ -12,12 +12,7 @@ namespace Assets.Scripts.ScripsForWeb.Ads
 
         private void Start()
         {
-            if (_coroutine != null)
-            {
-                StopCoroutine(InterViewer());
-            }
-
-            _coroutine = StartCoroutine(InterViewer());
+            CheckCoroutineIsNull();
         }
 
         public void ShowAd()
@@ -26,17 +21,24 @@ namespace Assets.Scripts.ScripsForWeb.Ads
             {
                 YandexGame.FullscreenShow();
                 _isAvalibleAdd = false;
+                CheckCoroutineIsNull();
             }
         }
 
         private IEnumerator InterViewer()
         {
-            while (true)
+            yield return _threeMinutes;
+            _isAvalibleAdd = true;
+        }
+
+        private void CheckCoroutineIsNull()
+        {
+            if (_coroutine != null)
             {
-                yield return _threeMinutes;
-                _isAvalibleAdd = true;
+                StopCoroutine(InterViewer());
             }
+
+            _coroutine = StartCoroutine(InterViewer());
         }
     }
 }
-

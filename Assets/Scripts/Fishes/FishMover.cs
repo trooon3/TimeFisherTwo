@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Fishes
 {
@@ -10,36 +12,50 @@ namespace Assets.Scripts.Fishes
         private readonly float _maxValue = 90;
         private readonly float _minValue = 200;
         private readonly float _height = 1.48f;
-        private Vector3 _targetPosition;
-        private Vector3 _boatUpRightPosition = new Vector3(162, 1, 140);
-        private Vector3 _boatDownLeftPosition = new Vector3(130, 1, 168);
+        private readonly int _boatPositionLift = 0;
+        private readonly int _targetLift = 1;
+       [SerializeField] private Vector3 _targetPosition;
+       [SerializeField] private Vector3 _boatUpRightPosition = new Vector3(162, 1, 140);
+       [SerializeField] private Vector3 _boatDownLeftPosition = new Vector3(130, 1, 168);
 
         private void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
-            _targetPosition = new Vector3(Random.Range(_minValue, _maxValue), _height, Random.Range(_minValue, _maxValue));
-            _agent.SetDestination(_targetPosition);
+            SetNewRandomDestination();
         }
 
         private void OnEnable()
         {
-            _targetPosition = new Vector3(Random.Range(_minValue, _maxValue), _height, Random.Range(_minValue, _maxValue));
-            _agent.SetDestination(_targetPosition);
+            SetNewRandomDestination();
         }
 
         private void Update()
         {
-            if (transform.position.x == _targetPosition.x 
-                && transform.position.z == _targetPosition.z ||
-                _targetPosition.x >= _boatDownLeftPosition.x 
-                && _targetPosition.x <= _boatUpRightPosition.x 
-                && _targetPosition.z <= _boatDownLeftPosition.z 
-                && _targetPosition.z >= _boatUpRightPosition.z)
+            if (HasReachedDestination() || IsInsideBoatArea())
             {
-                _targetPosition = new Vector3(Random.Range(_minValue, _maxValue), _height, Random.Range(_minValue, _maxValue));
-                _agent.SetDestination(_targetPosition);
+                SetNewRandomDestination();
             }
+        }
+
+        private void SetNewRandomDestination()
+        {
+            _targetPosition = new Vector3(Random.Range(_minValue, _maxValue), _height, Random.Range(_minValue, _maxValue));
+            _agent.SetDestination(_targetPosition);
+        }
+
+        private bool HasReachedDestination()
+        {
+            float distanceX = Mathf.Abs(transform.position.x - _targetPosition.x);
+            float distanceZ = Mathf.Abs(transform.position.z - _targetPosition.z);
+            return distanceX < _targetLift && distanceZ < _targetLift;
+        }
+
+        private bool IsInsideBoatArea()
+        {
+            return _targetPosition.x - _boatDownLeftPosition.x > _boatPositionLift
+                && _targetPosition.x - _boatUpRightPosition.x < _boatPositionLift
+                && _targetPosition.z - _boatDownLeftPosition.z < _boatPositionLift
+                && _targetPosition.z - _boatUpRightPosition.z > _boatPositionLift;
         }
     }
 }
-

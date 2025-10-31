@@ -17,6 +17,7 @@ namespace Assets.Scripts.PlayerScripts
         private Fish _fish;
         private bool _canSeePlayer;
         private WaitForSeconds _wait;
+        private Collider[] _results;
 
         public float Radius => _radius;
         public float Angle => _angle;
@@ -48,11 +49,13 @@ namespace Assets.Scripts.PlayerScripts
 
         private void FieldOfViewCheck()
         {
-            Collider[] rangeChecks = Physics.OverlapSphere(transform.position, _radius, _targetMask);
+            int targetMask = (int)_targetMask;
+            Collider[] results = new Collider[12];
+            var rangeChecks = Physics.OverlapSphereNonAlloc(transform.position, _radius, results, targetMask);
 
-            if (rangeChecks.Length != 0)
+            if (rangeChecks != 0)
             {
-                if (rangeChecks[0].TryGetComponent(out Fish fish))
+                if (results[0].TryGetComponent(out Fish fish))
                 {
                     Vector3 directionToTarget = (fish.transform.position - transform.position).normalized;
 
@@ -61,7 +64,7 @@ namespace Assets.Scripts.PlayerScripts
                         _fish = fish;
                         _fishCatcher.SetCatchFish(_fish);
                         _fishCatcher.TryFindFish();
-                        _fish.StartChangeTimerValue();
+                        _fish.CatchTimer.StartChangeTimerValue();
                     }
                     else
                     {
@@ -79,4 +82,3 @@ namespace Assets.Scripts.PlayerScripts
         }
     }
 }
-

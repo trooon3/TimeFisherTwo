@@ -6,7 +6,7 @@ namespace Assets.Scripts.UI
 {
     public class BagCountViewer : MonoBehaviour
     {
-        [SerializeField] private Bag _bag;
+        [SerializeField] private FishStorage _bag;
         [SerializeField] private TutorialViewer _tutorial;
 
         [SerializeField] private TMP_Text _fishCount;
@@ -36,14 +36,14 @@ namespace Assets.Scripts.UI
 
         private void OnFishAdded()
         {
-            _fishCount.text = _bag.FishesInsideCount.ToString();
+            _fishCount.text = _bag.CurrentCount.ToString();
         }
 
         private void OnBagFilled()
         {
-            if (_isTutorialShowed == false)
+            if (!_isTutorialShowed)
             {
-                _tutorial.ShowWhereFishesCollect();
+                _tutorial.ChangeState<ShowWhereFishCollectTutorialState>();
                 _isTutorialShowed = true;
             }
 

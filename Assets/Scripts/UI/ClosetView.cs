@@ -2,7 +2,6 @@ using Assets.Scripts.Fishes;
 using Assets.Scripts.FishResources;
 using Assets.Scripts.Tutorial;
 using System.Collections.Generic;
-using System.Resources;
 using TMPro;
 using UnityEngine;
 
@@ -117,4 +116,3 @@ namespace Assets.Scripts.UI
         }
     }
 }
-

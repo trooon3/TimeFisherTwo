@@ -10,7 +10,7 @@ using YG;
 namespace Assets.Scripts.FishResources
 {
     [JsonObject(MemberSerialization.Fields)]
-    public class ResourcesManager : MonoBehaviour
+    public class ResourcesManager : MonoBehaviour, IInreaseble
     {
         [SerializeField] private List<ResourceCounter> _resources;
         private ButtonChangerController _buttonChangerController;

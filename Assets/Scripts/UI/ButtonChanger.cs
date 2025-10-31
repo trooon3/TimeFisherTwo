@@ -24,15 +24,10 @@ namespace Assets.Scripts.UI
 
         private IEnumerator ChangeButton()
         {
-            int i = Random.Range(0, _buttons.Count - 1);
+            int i = 0;
 
-            while (true)
+            while (i != _buttons.Count)
             {
-                if (i == _buttons.Count)
-                {
-                    i = 0;
-                }
-
                 yield return _showTime;
                 Button currentButton = _buttons[i];
                 currentButton.gameObject.SetActive(true);
@@ -42,10 +37,14 @@ namespace Assets.Scripts.UI
                 if (currentButton.gameObject.activeSelf)
                 {
                     currentButton.gameObject.SetActive(false);
-
                 }
 
                 i++;
+
+                if (i == _buttons.Count)
+                {
+                    i = 0;
+                }
             }
         }
 

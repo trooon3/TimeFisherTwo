@@ -1,20 +1,17 @@
-using YG;
+using System.Collections.Generic;
+using Assets.Scripts.FishResources;
+using Assets.Scripts.PlayerScripts;
 using UnityEngine;
 using UnityEngine.UI;
-using Assets.Scripts.PlayerScripts;
-using Assets.Scripts.FishResources;
+using YG;
 
 namespace Assets.Scripts.ScripsForWeb.Ads
 {
     public class RewardedAd : MonoBehaviour
     {
-        private const int SpeedUpCommand = 1;
-        private const int IncreaseCountCatchedFishCommand = 2;
-        private const int RodSpeedUpCommand = 3;
-        private const int ResourcesIncreaseCommand = 4;
-
         [SerializeField] private PlayerMover _mover;
         [SerializeField] private Bag _bag;
+        [SerializeField] private BagAdBoostController _adBoostController;
         [SerializeField] private Rod _rod;
         [SerializeField] private ResourcesManager _resourcesManager;
 
@@ -24,9 +21,17 @@ namespace Assets.Scripts.ScripsForWeb.Ads
         [SerializeField] private Image _increaseCountCatchedFishSlider;
 
         [SerializeField] private AdTimeWorkView _adTimeWork;
-
+        private Dictionary<int, (Image slider, float increaseTime, IInreaseble target)> _rewardCommands = new();
+        
         private void Start()
         {
+            _rewardCommands = new()
+            {
+            { ((int)RewardType.SpeedUp), (_speedUpSlider, _mover.IncreaseTimeSec, _mover) },
+            { ((int) RewardType.IncreaseCountCatchedFish), (_increaseCountCatchedFishSlider, _adBoostController.BoostDuration, _bag) },
+            { ((int) RewardType.RodSpeedUp), (_rodSpeedUpSlider, _rod.IncreaseTimeSec, _rod) },
+            { ((int) RewardType.ResourcesIncrease), (_resourcesIncreaseSlider, _resourcesManager.IncreaseTimeSec, _resourcesManager) }
+            };
             _rodSpeedUpSlider.fillAmount = 0;
         }
 
@@ -35,48 +40,16 @@ namespace Assets.Scripts.ScripsForWeb.Ads
 
         private void Rewarded(int id)
         {
-            switch (id)
+            if (_rewardCommands.TryGetValue(id, out var command))
             {
-                case SpeedUpCommand:
-                    SpeedUp();
-                    return;
-                case IncreaseCountCatchedFishCommand:
-                    IncreaseCountCatchedFish();
-                    return;
-                case RodSpeedUpCommand:
-                    RodSpeedUp();
-                    return;
-                case ResourcesIncreaseCommand:
-                    ResourcesIncrease();
-                    return;
-                default:
-                    return;
+                SetActiveIncrease(command.slider, command.increaseTime, command.target);
             }
         }
 
-        private void SpeedUp()
+        private void SetActiveIncrease(Image slider, float increaseTime , IInreaseble inreaseble)
         {
-            _adTimeWork.StartShowAdTimeWork(_speedUpSlider, _mover.IncreaseTimeSec);
-            _mover.SetActiveIncrease();
-        }
-
-        private void IncreaseCountCatchedFish()
-        {
-            _adTimeWork.StartShowAdTimeWork(_increaseCountCatchedFishSlider, _bag.IncreaseTimeSec);
-            _bag.SetActiveIncrease();
-        }
-
-        private void RodSpeedUp()
-        {
-            _adTimeWork.StartShowAdTimeWork(_rodSpeedUpSlider, _rod.IncreaseTimeSec);
-            _rod.SetActiveIncrease();
-        }
-
-        private void ResourcesIncrease()
-        {
-            _adTimeWork.StartShowAdTimeWork(_resourcesIncreaseSlider, _resourcesManager.IncreaseTimeSec);
-            _resourcesManager.SetActiveIncrease();
+            _adTimeWork.StartShowAdTimeWork(slider, increaseTime);
+            inreaseble.SetActiveIncrease();
         }
     }
 }
-

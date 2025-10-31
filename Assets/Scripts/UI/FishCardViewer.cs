@@ -1,4 +1,3 @@
-using System;
 using Assets.Scripts.Fishes;
 using TMPro;
 using UnityEngine;

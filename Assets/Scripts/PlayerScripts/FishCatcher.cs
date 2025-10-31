@@ -55,7 +55,7 @@ namespace Assets.Scripts.PlayerScripts
         {
             if (_fishToCatch != null)
             {
-                _fishToCatch.SetCatcher(this);
+                _fishToCatch.CatchTimer.SetCatcher(this);
                 TryCatchFish();
             }
             else

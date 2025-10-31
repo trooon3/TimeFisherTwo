@@ -1,9 +1,11 @@
-using UnityEngine;
-using UnityEngine.UI;
+using System;
+using System.Collections.Generic;
+using Assets.Scripts.FishResources;
 using Assets.Scripts.Saves;
 using Assets.Scripts.UI;
+using UnityEngine;
+using UnityEngine.UI;
 using YG;
-using Assets.Scripts.FishResources;
 
 namespace Assets.Scripts.Tutorial
 {
@@ -29,17 +31,35 @@ namespace Assets.Scripts.Tutorial
 
         [SerializeField] private ButtonChangerController _buttonChangerController;
 
+        private Dictionary<Type, TutorialState> _states;
+        private TutorialState _currentState;
+
         private void Start()
         {
+            _states = new Dictionary<Type, TutorialState> {
+            { typeof(WalkTutorialState), new WalkTutorialState(this) },
+            { typeof(ShowHowCatchFishTutorialState), new ShowHowCatchFishTutorialState(this) },
+            { typeof(ShowWhereFishesCountTutorialState), new ShowWhereFishesCountTutorialState(this) },
+            { typeof(ShowWhereFishCollectTutorialState), new ShowWhereFishCollectTutorialState(this) },
+            { typeof(ShowWhereUpgradeState), new ShowWhereUpgradeState(this) },
+            { typeof(ShowHowToUpgradeTutorialState), new ShowWhereUpgradeState(this) } };
+
             if (!YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowTutorialWalk) || !YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowedCatchTutorial))
             {
-                ShowHowWalk();
+                ChangeState<WalkTutorialState>();
                 ShowHowCatchFish();
                 _buttonChangerController.SetButtonChangerOff();
             }
         }
 
-        private void ShowHowWalk()
+        public void ChangeState<T>() where T : TutorialState
+        {
+            _currentState?.Exit();
+            _currentState = _states[typeof(T)];
+            _currentState.Enter();
+        }
+
+        public void ShowHowWalk()
         {
             if (YandexGame.EnvironmentData.isMobile)
             {
@@ -53,7 +73,7 @@ namespace Assets.Scripts.Tutorial
             YandexGame.savesData.SaveTutorial(TutorialsKeys.IsShowTutorialWalk, true);
         }
 
-        private void ShowHowCatchFish()
+        public void ShowHowCatchFish()
         {
             _howCatchFishTuturial.SetActive(true);
             YandexGame.savesData.SaveTutorial(TutorialsKeys.IsShowedCatchTutorial, true);
@@ -63,7 +83,6 @@ namespace Assets.Scripts.Tutorial
         {
             if (!YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowedGetFishTutorial))
             {
-
                 _arrowToCloset.gameObject.SetActive(true);
                 _arrowToFishCount.gameObject.SetActive(false);
                 _howGetFishToCloset.SetActive(true);
@@ -72,6 +91,12 @@ namespace Assets.Scripts.Tutorial
 
                 YandexGame.savesData.SaveTutorial(TutorialsKeys.IsShowedGetFishTutorial, true);
             }
+        }
+
+        public void HideWhereFishesCollect()
+        {
+            _arrowToCloset.gameObject.SetActive(false);
+            Time.timeScale = 1;
         }
 
         public void ShowWhereFishesCount()
@@ -86,7 +111,7 @@ namespace Assets.Scripts.Tutorial
         {
             _howCatchOnRodTutorial.SetActive(true);
             _buttonChangerController.SetButtonChangerOff();
-            _arrowToCloset.gameObject.SetActive(false); 
+            _arrowToCloset.gameObject.SetActive(false);
             YandexGame.savesData.SaveTutorial(TutorialsKeys.IsShowTutorialRod, true);
         }
 
@@ -99,10 +124,21 @@ namespace Assets.Scripts.Tutorial
             }
         }
 
+        public void HideUpgradeTutorial()
+        {
+            _arrowToWorkBranch.gameObject.SetActive(false);
+            _arrowToResouces.gameObject.SetActive(false);
+        }
+
         public void ShowHowUpgrade()
         {
             _howUpgrade.gameObject.SetActive(true);
             _buttonChangerController.SetButtonChangerOff();
+        }
+
+        public void HideHowUpgradeTutorial()
+        {
+            _howUpgrade.gameObject.SetActive(false);
         }
 
         public void ShowWhereResources()

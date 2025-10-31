@@ -1,6 +1,4 @@
-using Assets.Scripts.PlayerScripts;
 using Assets.Scripts.FishResources;
-using Assets.Scripts.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.Fishes
@@ -9,13 +7,13 @@ namespace Assets.Scripts.Fishes
     [RequireComponent(typeof(FishMover))]
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Animation))]
-    [RequireComponent(typeof(FishCatchTimerViewer))]
-
+    [RequireComponent(typeof(FishCatchTimer))]
+    
     public class Fish : MonoBehaviour
     {
         [SerializeField] private SeaCreature _creature;
 
-        private FishCatchTimerViewer _fishCatchTimerViewer;
+        private FishCatchTimer _catchTimer;
         private Resource _resource;
         private FishType _type;
         private Sprite _icon;
@@ -26,11 +24,12 @@ namespace Assets.Scripts.Fishes
         public Resource Resource => _resource;
         public FishType Type => _type;
         public float CatchTime => _catchTime;
+        public FishCatchTimer CatchTimer => _catchTimer;
 
         private void Start()
         {
-            _fishCatchTimerViewer = GetComponent<FishCatchTimerViewer>();
             Init(_creature);
+            _catchTimer = GetComponent<FishCatchTimer>();
         }
 
         public void Init(SeaCreature seaCreature)
@@ -42,26 +41,5 @@ namespace Assets.Scripts.Fishes
             _type = seaCreature.FishType;
             _icon = seaCreature.Icon;
         }
-
-        public void StartChangeTimerValue()
-        {
-            _fishCatchTimerViewer.StartDisplayCatching();
-        }
-
-        public void ResetTime()
-        {
-            _fishCatchTimerViewer.ResetValue();
-        }
-
-        public void SetCatcher(FishCatcher catcher)
-        {
-            _fishCatchTimerViewer.SetCatcher(catcher);
-        }
-
-        public void ShowFillBag(bool active)
-        {
-            _fishCatchTimerViewer.ShowFilledBag(active);
-        }
     }
 }
-

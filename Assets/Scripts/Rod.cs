@@ -9,7 +9,7 @@ using YG;
 
 namespace Assets.Scripts
 {
-    public class Rod : Equipment
+    public class Rod : Equipment, IInreaseble
     {
         [SerializeField] private List<SeaCreature> _allFishes = new List<SeaCreature>();
         [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
@@ -19,6 +19,7 @@ namespace Assets.Scripts
         [SerializeField] private UpgradeCriterion[] upgradeCriteria;
 
         private float _catchingSpeed;
+        private int _increaseMultiplier = 2;
 
         private FishType _fishFoodFor;
         private FishType _cathchingFish;
@@ -27,6 +28,7 @@ namespace Assets.Scripts
         private WaitForSeconds _increaseTime;
         private bool _isActiveIncreaseAd;
         private readonly float _increaseTimeSec = 60f;
+        private const int _levelIncrement = 1;
 
         public bool IsActiveIncreaseAd => _isActiveIncreaseAd;
         public int CountResourseToUpgrade => _upgradeCost;
@@ -39,7 +41,7 @@ namespace Assets.Scripts
         {
             _level = YandexGame.savesData.LoadLevel();
             _increaseTime = new WaitForSeconds(_increaseTimeSec);
-            NextLevel = (_level + 1).ToString();
+            NextLevel = (_level + _levelIncrement).ToString();
             _resourceToUpgrade = Resource.FishBones;
             CheckLevel();
         }
@@ -58,7 +60,7 @@ namespace Assets.Scripts
 
         public void SetActiveIncrease()
         {
-            _catchingSpeed = _catchingSpeed * 2;
+            _catchingSpeed = _catchingSpeed * _increaseMultiplier;
             _isActiveIncreaseAd = true;
             _buttonChangerController.SetButtonChangerOff();
             StartIncreaseTimer();
@@ -96,4 +98,3 @@ namespace Assets.Scripts
         }
     }
 }
-

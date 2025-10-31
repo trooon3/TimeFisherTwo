@@ -17,4 +17,3 @@ namespace Assets.Scripts.ScripsForWeb.Leaderboard
         public int Score { get; private set; }
     }
 }
-

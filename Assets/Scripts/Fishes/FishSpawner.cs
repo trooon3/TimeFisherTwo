@@ -39,7 +39,7 @@ namespace Assets.Scripts.Fishes
         public void SetOffFish(Fish fish)
         {
             _pool.Release(fish);
-            fish.ResetTime();
+            fish.CatchTimer.ResetTime();
             Spawn();
         }
     }

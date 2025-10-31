@@ -15,4 +15,3 @@ namespace Assets.Scripts.ScripsForWeb
         }
     }
 }
-

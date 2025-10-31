@@ -27,16 +27,6 @@ namespace Assets.Scripts
             OnPlayerApproach(false);
         }
 
-        private void OnEnable()
-        {
-            _playerNearbyChecker.PlayerNearby += OnPlayerApproach;
-        }
-
-        private void OnDisable()
-        {
-            _playerNearbyChecker.PlayerNearby -= OnPlayerApproach;
-        }
-
         private bool CheckIsCanPay(Resource resource, int count)
         {
             foreach (var resourceType in _resourcesManager.ResCounters)
@@ -53,7 +43,7 @@ namespace Assets.Scripts
             return false;
         }
 
-        private void OnPlayerApproach(bool isPlayerApproach)
+        public void OnPlayerApproach(bool isPlayerApproach)
         {
             if (isPlayerApproach)
             {
@@ -87,10 +77,9 @@ namespace Assets.Scripts
 
             if (!YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowTutorialWorkBranch))
             {
-                _tutorial.ShowHowUpgrade();
+                _tutorial.ChangeState<ShowHowToUpgradeTutorialState>();
                 YandexGame.savesData.SaveTutorial(TutorialsKeys.IsShowTutorialWorkBranch, true);
             }
         }
     }
 }
-
