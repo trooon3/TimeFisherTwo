@@ -8,18 +8,6 @@ namespace Assets.Scripts
 {
     public abstract class Equipment : MonoBehaviour
     {
-        protected const int ZeroLevelCommand = 0;
-        protected const int FirstLevelCommand = 1;
-        protected const int SecondLevelCommand = 2;
-        protected const int ThirdLevelCommand = 3;
-        protected const int FourthLevelCommand = 4;
-
-        protected const int ZeroLevelCost = 10;
-        protected const int FirstLevelCost = 25;
-        protected const int SecondLevelCost = 50;
-        protected const int ThirdLevelCost = 75;
-        protected const int FourthLevelCost = 100;
-
         protected readonly int _maxLevel = 5;
         protected int _level;
         protected Resource _resourceToUpgrade;

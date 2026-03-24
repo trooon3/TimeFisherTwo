@@ -7,12 +7,12 @@ namespace Assets.Scripts.SkinScripts
     [CreateAssetMenu(fileName = "ShopAtribut", menuName = "ShopAtributs/SkinCost")]
     public class SkinCost : ScriptableObject
     {
-        private List<FishCountPrice> _fishCountPrices;
         [SerializeField] private FishCountPrice _fourthFishTypeCost;
         [SerializeField] private FishCountPrice _firstFishTypeCost;
         [SerializeField] private FishCountPrice _secondFishTypeCost;
         [SerializeField] private FishCountPrice _thirdFishTypeCost;
 
+        private List<FishCountPrice> _fishCountPrices;
         public List<FishCountPrice> FishCountPrices => _fishCountPrices;
 
         public void SetListPrices()

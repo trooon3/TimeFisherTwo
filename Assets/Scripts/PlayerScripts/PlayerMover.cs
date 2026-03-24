@@ -40,6 +40,29 @@ namespace Assets.Scripts.PlayerScripts
             JumpUp();
         }
 
+        private void Rotate(Vector3 forward)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(forward), _rotationSpeed);
+        }
+
+        private void StartIncreaseTimer()
+        {
+            if (_coroutine != null)
+            {
+                StopCoroutine(IncreaseTimer());
+            }
+
+            _coroutine = StartCoroutine(IncreaseTimer());
+        }
+
+        private IEnumerator IncreaseTimer()
+        {
+            yield return _increaseTime;
+            _isActiveIncreaseAd = false;
+            _buttonChangerController.SetButtonChangerOn();
+            _moveSpeed = _moveSpeed / 2;
+        }
+
         public void SetActiveIncrease()
         {
             _moveSpeed = _moveSpeed * 2;
@@ -78,11 +101,6 @@ namespace Assets.Scripts.PlayerScripts
             }
         }
 
-        private void Rotate(Vector3 forward)
-        {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(forward), _rotationSpeed);
-        }
-
         public void JumpUp()
         {
             float force = Input.GetAxisRaw(Jump);
@@ -96,24 +114,5 @@ namespace Assets.Scripts.PlayerScripts
 
             _animator.DoJumpAnimation(_placeChecker.IsOnGround, _placeChecker.InWater);
         }
-
-        private void StartIncreaseTimer()
-        {
-            if (_coroutine != null)
-            {
-                StopCoroutine(IncreaseTimer());
-            }
-
-            _coroutine = StartCoroutine(IncreaseTimer());
-        }
-
-        private IEnumerator IncreaseTimer()
-        {
-            yield return _increaseTime;
-            _isActiveIncreaseAd = false;
-            _buttonChangerController.SetButtonChangerOn();
-            _moveSpeed = _moveSpeed / 2;
-        }
     }
 }
-

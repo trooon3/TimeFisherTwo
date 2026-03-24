@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Assets.Scripts.Tutorial
+﻿namespace Assets.Scripts.Tutorial
 {
     internal class ShowHowCatchFishTutorialState : TutorialState
     {

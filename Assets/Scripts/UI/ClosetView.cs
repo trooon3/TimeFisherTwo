@@ -75,7 +75,7 @@ namespace Assets.Scripts.UI
 
         public void AddFishAndRefresh()
         {
-            _fishesManager.AddFishOnRod(_rod.FishFoodFor);
+            _fishesManager.AddFish(_rod.FishFoodFor);
             SetButtonsActive(true);
             RefreshFishCounts();
         }

@@ -1,5 +1,5 @@
 {
-  "idSave": 1009,
+  "idSave": 1476,
   "isFirstSession": false,
   "language": "ru",
   "promptDone": false,
@@ -10,7 +10,7 @@
     true,
     false
   ],
-  "_chosenSkin": 5,
+  "_chosenSkin": 4,
   "_level": 4,
   "_tutorialSaves": {
     "IsShowTutorialWorkBranch": false,
@@ -22,8 +22,8 @@
   "_skinKeys": {
     "Default": true,
     "Worker": true,
-    "Boxer": false,
-    "Thief": false,
+    "Boxer": true,
+    "Thief": true,
     "Police": false,
     "Prisoner": false,
     "BuisnessMan": false
@@ -51,7 +51,7 @@
     },
     {
       "_type": 5,
-      "_count": 1000,
+      "_count": 930,
       "CountChanged": null
     },
     {
@@ -66,12 +66,12 @@
     },
     {
       "_type": 6,
-      "_count": 1000,
+      "_count": 950,
       "CountChanged": null
     },
     {
       "_type": 12,
-      "_count": 970,
+      "_count": 890,
       "CountChanged": null
     },
     {
@@ -81,12 +81,12 @@
     },
     {
       "_type": 10,
-      "_count": 1000,
+      "_count": 980,
       "CountChanged": null
     },
     {
       "_type": 9,
-      "_count": 1000,
+      "_count": 960,
       "CountChanged": null
     },
     {
@@ -96,12 +96,12 @@
     },
     {
       "_type": 16,
-      "_count": 1000,
+      "_count": 950,
       "CountChanged": null
     },
     {
       "_type": 15,
-      "_count": 1000,
+      "_count": 940,
       "CountChanged": null
     },
     {
@@ -121,7 +121,7 @@
     },
     {
       "_type": 18,
-      "_count": 1000,
+      "_count": 970,
       "CountChanged": null
     },
     {

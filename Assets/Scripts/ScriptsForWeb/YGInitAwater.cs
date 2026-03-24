@@ -6,7 +6,7 @@ namespace Assets.Scripts.ScripsForWeb
 {
     public class YGInitAwater : MonoBehaviour
     {
-        void Update()
+        private void Update()
         {
             if(YandexGame.SDKEnabled == true)
             {

@@ -50,11 +50,6 @@ namespace Assets.Scripts.SkinScripts
             }
         }
 
-        public void SetName(SkinNames name)
-        {
-            _nameKey = name;
-        }
-
         public void TrySetSkin()
         {
             if (!YandexGame.savesData.LoadSkinsSaves(_nameKey))
@@ -72,4 +67,3 @@ namespace Assets.Scripts.SkinScripts
         }
     }
 }
-

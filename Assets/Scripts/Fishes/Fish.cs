@@ -16,9 +16,6 @@ namespace Assets.Scripts.Fishes
         private FishCatchTimer _catchTimer;
         private Resource _resource;
         private FishType _type;
-        private Sprite _icon;
-        private string _name;
-        private int _level;
         private float _catchTime;
 
         public Resource Resource => _resource;
@@ -36,10 +33,7 @@ namespace Assets.Scripts.Fishes
         {
             _catchTime = seaCreature.CatchTime;
             _resource = seaCreature.Resource;
-            _name = seaCreature.Name;
-            _level = seaCreature.Level;
             _type = seaCreature.FishType;
-            _icon = seaCreature.Icon;
         }
     }
 }

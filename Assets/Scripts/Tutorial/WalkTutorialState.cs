@@ -1,7 +1,4 @@
-using Assets.Scripts.Saves;
 using Assets.Scripts.Tutorial;
-using UnityEngine;
-using YG;
 
 public class WalkTutorialState : TutorialState
 {

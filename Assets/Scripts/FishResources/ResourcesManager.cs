@@ -47,6 +47,16 @@ namespace Assets.Scripts.FishResources
             _resources = YandexGame.savesData.LoadResourcesCountData();
         }
 
+        private void StartIncreaseTimer()
+        {
+            if (_coroutine != null)
+            {
+                StopCoroutine(IncreaseTimer());
+            }
+
+            _coroutine = StartCoroutine(IncreaseTimer());
+        }
+
         private int GetResourceCount(Resource resourceType)
         {
             foreach (var resource in _resources)
@@ -58,23 +68,6 @@ namespace Assets.Scripts.FishResources
             }
 
             return 0;
-        }
-
-        public void SpendResources(int count, Resource type)
-        {
-            foreach (var resourceType in _resources)
-            {
-                if (resourceType.Resource == type)
-                {
-                    for (int i = 0; i < count; i++)
-                    {
-                        resourceType.Decrease();
-                    }
-                }
-            }
-
-            YandexGame.savesData.SaveResourcesCountData(_resources);
-            ResourceCountChanged?.Invoke();
         }
 
         private IEnumerator IncreaseTimer()
@@ -120,14 +113,21 @@ namespace Assets.Scripts.FishResources
             StartIncreaseTimer();
         }
 
-        private void StartIncreaseTimer()
+        public void SpendResources(int count, Resource type)
         {
-            if (_coroutine != null)
+            foreach (var resourceType in _resources)
             {
-                StopCoroutine(IncreaseTimer());
+                if (resourceType.Resource == type)
+                {
+                    for (int i = 0; i < count; i++)
+                    {
+                        resourceType.Decrease();
+                    }
+                }
             }
 
-            _coroutine = StartCoroutine(IncreaseTimer());
+            YandexGame.savesData.SaveResourcesCountData(_resources);
+            ResourceCountChanged?.Invoke();
         }
     }
 }

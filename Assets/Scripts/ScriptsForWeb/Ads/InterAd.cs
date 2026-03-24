@@ -15,16 +15,6 @@ namespace Assets.Scripts.ScripsForWeb.Ads
             CheckCoroutineIsNull();
         }
 
-        public void ShowAd()
-        {
-            if (_isAvalibleAdd)
-            {
-                YandexGame.FullscreenShow();
-                _isAvalibleAdd = false;
-                CheckCoroutineIsNull();
-            }
-        }
-
         private IEnumerator InterViewer()
         {
             yield return _threeMinutes;
@@ -39,6 +29,16 @@ namespace Assets.Scripts.ScripsForWeb.Ads
             }
 
             _coroutine = StartCoroutine(InterViewer());
+        }
+
+        public void ShowAd()
+        {
+            if (_isAvalibleAdd)
+            {
+                YandexGame.FullscreenShow();
+                _isAvalibleAdd = false;
+                CheckCoroutineIsNull();
+            }
         }
     }
 }

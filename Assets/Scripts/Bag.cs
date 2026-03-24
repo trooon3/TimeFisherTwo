@@ -17,8 +17,6 @@ namespace Assets.Scripts
         [SerializeField] private BagAudio _bagAudio;
         [SerializeField] private FishStorage _fishStorage;
         [SerializeField] private UpgradeCriterion[] upgradeCriteria;
-
-        private readonly float _increaseTimeSec = 60f;
        
         private float _maxFishCount;
         private int _fishesInsideCount;
@@ -26,7 +24,6 @@ namespace Assets.Scripts
         public int CountResourseToUpgrade => _upgradeCost;
         public int FishesInsideCount => _fishesInsideCount;
         public int Level => _level;
-        public float IncreaseTimeSec => _increaseTimeSec;
 
         private void Awake()
         {

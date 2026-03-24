@@ -1,7 +1,6 @@
 using Assets.Scripts.Fishes;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Assets.Scripts.PlayerScripts
 {
@@ -23,8 +22,6 @@ namespace Assets.Scripts.PlayerScripts
         public float Angle => _angle;
         public bool CanSeePlayer => _canSeePlayer;
         public Player PlayerRef => _playerRef;
-
-        public event UnityAction FishFinded;
 
         private void Start()
         {

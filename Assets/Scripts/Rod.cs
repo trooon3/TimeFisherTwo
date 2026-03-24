@@ -45,12 +45,23 @@ namespace Assets.Scripts
             _resourceToUpgrade = Resource.FishBones;
             CheckLevel();
         }
+
         private IEnumerator IncreaseTimer()
         {
             yield return _increaseTime;
             _isActiveIncreaseAd = false;
-            _buttonChangerController.SetButtonChangerOn(); 
+            _buttonChangerController.SetButtonChangerOn();
             SmartCheckLevel(_level, upgradeCriteria, ref _upgradeCost, ref _catchingSpeed);
+        }
+
+        private void StartIncreaseTimer()
+        {
+            if (_coroutine != null)
+            {
+                StopCoroutine(IncreaseTimer());
+            }
+
+            _coroutine = StartCoroutine(IncreaseTimer());
         }
 
         public override void CheckLevel()
@@ -85,16 +96,6 @@ namespace Assets.Scripts
             _cathchingFish = type;
 
             _catchViewer.StartDisplayCatchingTime();
-        }
-
-        private void StartIncreaseTimer()
-        {
-            if (_coroutine != null)
-            {
-                StopCoroutine(IncreaseTimer());
-            }
-
-            _coroutine = StartCoroutine(IncreaseTimer());
         }
     }
 }

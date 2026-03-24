@@ -68,7 +68,7 @@ namespace Assets.Scripts.Fishes
             YandexGame.savesData.SaveFishesCountData(_catchedFishes);
         }
 
-        public void AddFishOnRod(FishType type)
+        public void AddFish(FishType type)
         {
             foreach (FishTypeCounter catchedFish in _catchedFishes)
             {
@@ -80,17 +80,7 @@ namespace Assets.Scripts.Fishes
             }
         }
 
-        public void AddFish(Fish fish)
-        {
-            foreach (FishTypeCounter catchedFish in _catchedFishes)
-            {
-                if (catchedFish.Type == fish.Type)
-                {
-                    catchedFish.Increase();
-                    FishTransferred?.Invoke();
-                }
-            }
-        }
+        public void AddFish(Fish fish) => AddFish(fish.Type);
 
         public void GetAllFishesCHEAT()
         {

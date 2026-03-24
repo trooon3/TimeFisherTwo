@@ -10,12 +10,12 @@ namespace Assets.Scripts.PlayerScripts
         private Vector3 _direction;
         private Vector3 _stopDirection = new Vector3(0, 0, 0);
 
-        void Start()
+        private void Start()
         {
             _playerMover = GetComponent<PlayerMover>();
         }
 
-        void Update()
+        private void Update()
         {
             _direction = new Vector3(_joystick.Horizontal, 0, _joystick.Vertical);
 
