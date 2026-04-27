@@ -3,7 +3,7 @@ using Assets.Scripts.FishResources;
 using UnityEngine;
 using YG;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Saves
 {
     public class ProgressSaver : MonoBehaviour
     {

@@ -2,13 +2,15 @@ using Assets.Scripts.FishResources;
 using Assets.Scripts.PlayerScripts;
 using Assets.Scripts.Saves;
 using Assets.Scripts.ScripsForWeb.Ads;
+using Assets.Scripts.SkinScripts;
 using Assets.Scripts.Tutorial;
 using Assets.Scripts.UI;
 using System.Collections.Generic;
 using UnityEngine;
 using YG;
+using Assets.Scripts.EquipmentScripts;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.WorkBranchScripts
 {
     public class WorkBrench : MonoBehaviour
     {

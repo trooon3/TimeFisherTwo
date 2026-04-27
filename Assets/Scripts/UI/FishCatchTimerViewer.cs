@@ -8,6 +8,8 @@ namespace Assets.Scripts.UI
 {
     public class FishCatchTimerViewer : MonoBehaviour
     {
+        private readonly WaitForSeconds _showTime = new WaitForSeconds(5f);
+
         [SerializeField] private Fish _fish;
         [SerializeField] private Slider _sliderCatchTime;
         [SerializeField] private float _catchPointChangeSpeed;
@@ -17,7 +19,6 @@ namespace Assets.Scripts.UI
         private FieldOfView _fieldOfView;
         private Coroutine _coroutine;
         private Coroutine _bagCoroutine;
-        private readonly WaitForSeconds _showTime = new WaitForSeconds(5f);
 
         private void Update()
         {

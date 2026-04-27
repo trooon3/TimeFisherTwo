@@ -1,11 +1,12 @@
 using Assets.Scripts.UI;
 using System.Collections;
 using UnityEngine;
+using Assets.Scripts.Increaseble;
 
 namespace Assets.Scripts.PlayerScripts
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerMover : MonoBehaviour, IInreaseble
+    public class PlayerMover : MonoBehaviour, IIncreaseble
     {
         private const string Horizontal = nameof(Horizontal);
         private const string Jump = nameof(Jump);
@@ -42,7 +43,9 @@ namespace Assets.Scripts.PlayerScripts
 
         private void Rotate(Vector3 forward)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(forward), _rotationSpeed);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation,
+                                                          Quaternion.LookRotation(forward),
+                                                          _rotationSpeed);
         }
 
         private void StartIncreaseTimer()
@@ -88,7 +91,10 @@ namespace Assets.Scripts.PlayerScripts
             Vector3 distance = direction * _moveSpeed * Time.deltaTime;
             Vector3 nextPosition = transform.position + distance;
 
-            if (nextPosition.x <= _maxPlaceToSwim && nextPosition.x >= _minPlaceToSwim && nextPosition.z <= _maxPlaceToSwim && nextPosition.z >= _minPlaceToSwim)
+            if (nextPosition.x <= _maxPlaceToSwim
+                && nextPosition.x >= _minPlaceToSwim
+                && nextPosition.z <= _maxPlaceToSwim
+                && nextPosition.z >= _minPlaceToSwim)
             {
                 if (direction != Vector3.zero)
                 {

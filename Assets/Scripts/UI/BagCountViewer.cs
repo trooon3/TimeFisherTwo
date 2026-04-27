@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using Assets.Scripts.Tutorial;
+using Assets.Scripts.Fishes;
 
 namespace Assets.Scripts.UI
 {

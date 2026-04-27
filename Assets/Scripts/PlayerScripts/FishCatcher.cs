@@ -1,3 +1,4 @@
+using Assets.Scripts.BagScripts;
 using Assets.Scripts.Fishes;
 using System.Collections;
 using UnityEngine;
@@ -27,7 +28,6 @@ namespace Assets.Scripts.PlayerScripts
         public FieldOfView FieldOfView => _fieldOfView;
         public float ElapsedTime => _elapsedTime;
 
-        public event UnityAction Catched;
         public event UnityAction<Fish> FishFinded;
 
         private void Start()
@@ -76,7 +76,6 @@ namespace Assets.Scripts.PlayerScripts
         {
             if (_bag.TryAddFish(fish))
             {
-                Catched?.Invoke();
                 _spawner.SetOffFish(fish);
             }
         }

@@ -6,17 +6,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using YG;
+using Assets.Scripts.Increaseble;
+using Assets.Scripts.EquipmentScripts;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.RodScripts
 {
-    public class Rod : Equipment, IInreaseble
+    public class Rod : Equipment, IIncreaseble
     {
+        private const int _levelIncrement = 1;
+        private readonly float _increaseTimeSec = 60f;
+
         [SerializeField] private List<SeaCreature> _allFishes = new List<SeaCreature>();
         [SerializeField] private PlayerNearbyChecker _playerNearbyChecker;
         [SerializeField] private RodCatchViewer _catchViewer;
         [SerializeField] private ClosetView _closetView;
         [SerializeField] private ButtonChangerController _buttonChangerController;
-        [SerializeField] private UpgradeCriterion[] upgradeCriteria;
+        [SerializeField] private UpgradeCriterion[] _upgradeCriteria;
 
         private float _catchingSpeed;
         private int _increaseMultiplier = 2;
@@ -27,22 +32,23 @@ namespace Assets.Scripts
         private Coroutine _coroutine;
         private WaitForSeconds _increaseTime;
         private bool _isActiveIncreaseAd;
-        private readonly float _increaseTimeSec = 60f;
-        private const int _levelIncrement = 1;
-
+        private int _upgradeCost;
         public bool IsActiveIncreaseAd => _isActiveIncreaseAd;
         public int CountResourseToUpgrade => _upgradeCost;
         public float CatchingSpeed => _catchingSpeed;
         public FishType FishFoodFor => _fishFoodFor;
-        public int Level => _level;
         public float IncreaseTimeSec => _increaseTimeSec;
+
+        public int Level => base.Level;
+        public Resource ResourceToUpgrade => base.ResourceToUpgrade;
 
         private void Awake()
         {
-            _level = YandexGame.savesData.LoadLevel();
+            _upgradeCost = UpgradeCost; 
+            SetLevel(YandexGame.savesData.LoadLevel());
             _increaseTime = new WaitForSeconds(_increaseTimeSec);
-            NextLevel = (_level + _levelIncrement).ToString();
-            _resourceToUpgrade = Resource.FishBones;
+            NextLevel = (Level + _levelIncrement).ToString();
+            SetResourceType(Resource.SeaWeed);
             CheckLevel();
         }
 
@@ -51,7 +57,7 @@ namespace Assets.Scripts
             yield return _increaseTime;
             _isActiveIncreaseAd = false;
             _buttonChangerController.SetButtonChangerOn();
-            SmartCheckLevel(_level, upgradeCriteria, ref _upgradeCost, ref _catchingSpeed);
+            SmartCheckLevel(Level, _upgradeCriteria, ref _upgradeCost, ref _catchingSpeed);
         }
 
         private void StartIncreaseTimer()
@@ -66,7 +72,7 @@ namespace Assets.Scripts
 
         public override void CheckLevel()
         {
-            SmartCheckLevel(_level, upgradeCriteria, ref _upgradeCost, ref _catchingSpeed);
+            SmartCheckLevel(Level, _upgradeCriteria, ref _upgradeCost, ref _catchingSpeed);
         }
 
         public void SetActiveIncrease()

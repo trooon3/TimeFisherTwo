@@ -1,16 +1,17 @@
-using Assets.Scripts.Tutorial;
-
-public class ShowWhereUpgradeState : TutorialState
+namespace Assets.Scripts.Tutorial
 {
-    public ShowWhereUpgradeState(TutorialViewer context) : base(context) { }
-
-    public override void Enter()
+    public class ShowWhereUpgradeState : TutorialState
     {
-        Context.ShowWhereUpgrade();
-    }
+        public ShowWhereUpgradeState(TutorialViewer context) : base(context) { }
 
-    public override void Exit()
-    {
-        Context.HideUpgradeTutorial();
+        public override void Enter()
+        {
+            Context.ShowWhereUpgrade();
+        }
+
+        public override void Exit()
+        {
+            Context.HideUpgradeTutorial();
+        }
     }
 }

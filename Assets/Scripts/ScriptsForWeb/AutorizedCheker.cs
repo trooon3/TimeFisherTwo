@@ -1,7 +1,7 @@
 using UnityEngine;
 using YG;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.ScripsForWeb
 {
     public class AutorizedCheker : MonoBehaviour
     {

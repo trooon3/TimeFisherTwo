@@ -5,8 +5,10 @@ using Assets.Scripts.Tutorial;
 using UnityEngine;
 using UnityEngine.Events;
 using YG;
+using Assets.Scripts.UI;
+using Assets.Scripts.BagScripts;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Fishes
 {
     public class FishStorage : MonoBehaviour
     {

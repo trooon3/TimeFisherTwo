@@ -1,11 +1,12 @@
-using Assets.Scripts.Tutorial;
-
-internal class ShowHowCatchFishOnRodTutorialState : TutorialState
+namespace Assets.Scripts.Tutorial
 {
-    public ShowHowCatchFishOnRodTutorialState(TutorialViewer context) : base(context) { }
-
-    public override void Enter()
+    internal class ShowHowCatchFishOnRodTutorialState : TutorialState
     {
-        Context.ShowHowCatchFishOnRod();
+        public ShowHowCatchFishOnRodTutorialState(TutorialViewer context) : base(context) { }
+
+        public override void Enter()
+        {
+            Context.ShowHowCatchFishOnRod();
+        }
     }
 }

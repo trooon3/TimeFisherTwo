@@ -1,7 +1,7 @@
 using Assets.Scripts.ScripsForWeb.Ads;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.SkinScripts
 {
     public class ChestAdManager : MonoBehaviour
     {

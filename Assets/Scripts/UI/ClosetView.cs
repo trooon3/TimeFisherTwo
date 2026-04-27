@@ -1,5 +1,7 @@
 using Assets.Scripts.Fishes;
 using Assets.Scripts.FishResources;
+using Assets.Scripts.RodScripts;
+using Assets.Scripts.SkinScripts;
 using Assets.Scripts.Tutorial;
 using System.Collections.Generic;
 using TMPro;

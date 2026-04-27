@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Fishes;
+using Assets.Scripts.Increaseble;
 using Assets.Scripts.UI;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -10,7 +11,7 @@ using YG;
 namespace Assets.Scripts.FishResources
 {
     [JsonObject(MemberSerialization.Fields)]
-    public class ResourcesManager : MonoBehaviour, IInreaseble
+    public class ResourcesManager : MonoBehaviour, IIncreaseble
     {
         [SerializeField] private List<ResourceCounter> _resources;
         private ButtonChangerController _buttonChangerController;

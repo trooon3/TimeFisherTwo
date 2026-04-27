@@ -3,39 +3,42 @@ using UnityEngine;
 using YG;
 using Assets.Scripts.Fishes;
 using Assets.Scripts.FishResources;
+using Assets.Scripts.ScripsForWeb;
+using Assets.Scripts.EquipmentScripts;
+using Assets.Scripts.Increaseble;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.BagScripts
 {
     [RequireComponent(typeof(BagAudio))]
     [RequireComponent(typeof(FishStorage))]
     [RequireComponent(typeof(LeaderboardController))]
     [RequireComponent(typeof(BagAdBoostController))]
-    public class Bag : Equipment, IInreaseble
+    public class Bag : Equipment, IIncreaseble
     {
         [SerializeField] private LeaderboardController _leaderboardController;
         [SerializeField] private BagAdBoostController _adBoostController;
         [SerializeField] private BagAudio _bagAudio;
         [SerializeField] private FishStorage _fishStorage;
-        [SerializeField] private UpgradeCriterion[] upgradeCriteria;
+        [SerializeField] private UpgradeCriterion[] _upgradeCriteria;
        
         private float _maxFishCount;
-        private int _fishesInsideCount;
 
-        public int CountResourseToUpgrade => _upgradeCost;
-        public int FishesInsideCount => _fishesInsideCount;
-        public int Level => _level;
+        private int _upgradeCost;
+        public int Level => base.Level;
+        public Resource ResourceToUpgrade => base.ResourceToUpgrade;
 
         private void Awake()
         {
-            _level = YandexGame.savesData.LoadLevel();
-            NextLevel = (_level + 1).ToString();
-            _resourceToUpgrade = Resource.SeaWeed;
+            SetLevel(YandexGame.savesData.LoadLevel());
+            _upgradeCost = UpgradeCost;
+            NextLevel = (Level + 1).ToString();
+            SetResourceType(Resource.SeaWeed);
             CheckLevel();
         }
 
         public override void CheckLevel()
         {
-            SmartCheckLevel(_level, upgradeCriteria, ref _upgradeCost, ref _maxFishCount);
+            SmartCheckLevel(Level, _upgradeCriteria, ref _upgradeCost, ref _maxFishCount);
         }
 
         public void SetActiveIncrease()

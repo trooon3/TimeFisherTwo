@@ -4,6 +4,10 @@ using Assets.Scripts.PlayerScripts;
 using UnityEngine;
 using UnityEngine.UI;
 using YG;
+using Assets.Scripts.BagScripts;
+using Assets.Scripts.RodScripts;
+using Assets.Scripts.Increaseble;
+using Assets.Scripts.RewardTypes;
 
 namespace Assets.Scripts.ScripsForWeb.Ads
 {
@@ -21,13 +25,13 @@ namespace Assets.Scripts.ScripsForWeb.Ads
         [SerializeField] private Image _increaseCountCatchedFishSlider;
 
         [SerializeField] private AdTimeWorkView _adTimeWork;
-        private Dictionary<int, (Image slider, float increaseTime, IInreaseble target)> _rewardCommands = new();
+        private Dictionary<int, (Image slider, float increaseTime, IIncreaseble target)> _rewardCommands = new();
         
         private void Start()
         {
             _rewardCommands = new()
             {
-            { ((int)RewardType.SpeedUp), (_speedUpSlider, _mover.IncreaseTimeSec, _mover) },
+            { ((int) RewardType.SpeedUp), (_speedUpSlider, _mover.IncreaseTimeSec, _mover) },
             { ((int) RewardType.IncreaseCountCatchedFish), (_increaseCountCatchedFishSlider, _adBoostController.BoostDuration, _bag) },
             { ((int) RewardType.RodSpeedUp), (_rodSpeedUpSlider, _rod.IncreaseTimeSec, _rod) },
             { ((int) RewardType.ResourcesIncrease), (_resourcesIncreaseSlider, _resourcesManager.IncreaseTimeSec, _resourcesManager) }
@@ -46,7 +50,7 @@ namespace Assets.Scripts.ScripsForWeb.Ads
             }
         }
 
-        private void SetActiveIncrease(Image slider, float increaseTime , IInreaseble inreaseble)
+        private void SetActiveIncrease(Image slider, float increaseTime , IIncreaseble inreaseble)
         {
             _adTimeWork.StartShowAdTimeWork(slider, increaseTime);
             inreaseble.SetActiveIncrease();

@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Assets.Scripts.BagScripts;
 using Assets.Scripts.FishResources;
+using Assets.Scripts.RodScripts;
 using Assets.Scripts.Saves;
+using Assets.Scripts.SkinScripts;
 using Assets.Scripts.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,7 +47,8 @@ namespace Assets.Scripts.Tutorial
             { typeof(ShowWhereUpgradeState), new ShowWhereUpgradeState(this) },
             { typeof(ShowHowToUpgradeTutorialState), new ShowWhereUpgradeState(this) } };
 
-            if (!YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowTutorialWalk) || !YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowedCatchTutorial))
+            if (!YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowTutorialWalk) 
+                || !YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowedCatchTutorial))
             {
                 ChangeState<WalkTutorialState>();
                 ShowHowCatchFish();
@@ -117,7 +121,8 @@ namespace Assets.Scripts.Tutorial
 
         public void ShowWhereUpgrade()
         {
-            if (_bag.CountResourseToUpgrade <= _resourcesManager.GetFishBonesCount() || _rod.CountResourseToUpgrade <= _resourcesManager.GetFishBonesCount())
+            if (_bag.UpgradeCost <= _resourcesManager.GetFishBonesCount() 
+                || _rod.CountResourseToUpgrade <= _resourcesManager.GetFishBonesCount())
             {
                 _arrowToWorkBranch.gameObject.SetActive(true);
                 ShowWhereResources();

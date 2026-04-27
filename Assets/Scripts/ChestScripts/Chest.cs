@@ -1,8 +1,10 @@
+using Assets.Scripts.BagScripts;
+using Assets.Scripts.Fishes;
 using Assets.Scripts.Saves;
 using UnityEngine;
 using YG;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.SkinScripts
 {
     public class Chest : MonoBehaviour
     {

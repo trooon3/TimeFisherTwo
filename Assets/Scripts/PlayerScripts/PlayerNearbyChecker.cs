@@ -8,12 +8,6 @@ namespace Assets.Scripts.PlayerScripts
         private Player _player;
         public bool IsPlayerNearby { get; private set; }
         public UnityAction<bool> PlayerNearby;
-        public UnityAction PlayerFar;
-
-        public Player GetPlayer()
-        {
-            return _player;
-        }
 
         private void OnTriggerEnter(Collider other)
         {

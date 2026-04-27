@@ -1,9 +1,8 @@
 using Assets.Scripts.PlayerScripts;
 using Assets.Scripts.UI;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.SkinScripts
 {
     public class ChestInteractionController : MonoBehaviour
     {
@@ -11,7 +10,6 @@ namespace Assets.Scripts
         [SerializeField] private ActiveButtonView _buttonView;
         [SerializeField] private ClosetView _view;
 
-        public event UnityAction<bool> PlayerInteractionChanged;
         public bool IsPlayerNearby { get; private set; }
 
         private void OnEnable() => _playerNearbyChecker.PlayerNearby += OnPlayerApproach;
@@ -25,8 +23,6 @@ namespace Assets.Scripts
                 _buttonView.SetActiveEImage(true);
             else
                 CloseChest();
-
-            PlayerInteractionChanged?.Invoke(isPlayerApproach);
         }
 
         public void OpenChest()

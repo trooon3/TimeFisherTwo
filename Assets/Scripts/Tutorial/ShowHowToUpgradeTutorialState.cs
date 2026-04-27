@@ -1,16 +1,17 @@
-using Assets.Scripts.Tutorial;
-
-public class ShowHowToUpgradeTutorialState : TutorialState
+namespace Assets.Scripts.Tutorial
 {
-    public ShowHowToUpgradeTutorialState(TutorialViewer context) : base(context) { }
-
-    public override void Enter()
+    public class ShowHowToUpgradeTutorialState : TutorialState
     {
-        Context.ShowHowUpgrade();
-    }
+        public ShowHowToUpgradeTutorialState(TutorialViewer context) : base(context) { }
 
-    public override void Exit()
-    {
-        Context.HideHowUpgradeTutorial();
+        public override void Enter()
+        {
+            Context.ShowHowUpgrade();
+        }
+
+        public override void Exit()
+        {
+            Context.HideHowUpgradeTutorial();
+        }
     }
 }

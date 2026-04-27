@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Assets.Scripts.RodScripts;
+using Assets.Scripts.BagScripts;
+using Assets.Scripts.WorkBranchScripts;
 
 namespace Assets.Scripts.UI
 {
@@ -51,7 +54,7 @@ namespace Assets.Scripts.UI
         private void OnBagUpgrade()
         {
             _bagLevel.text = $"LVL {_bag.Level}";
-            _bagUpgradeCostText.text = $"{_bag.CountResourseToUpgrade}";
+            _bagUpgradeCostText.text = $"{_bag.UpgradeCost}";
             _bagNextLevel.text = $"{_bag.NextLevel} Lvl";
         }
 

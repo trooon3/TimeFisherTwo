@@ -21,7 +21,7 @@ namespace Assets.Scripts.Fishes
         private void Awake()
         {
             YandexGame.savesData.LoadTutorial(TutorialsKeys.IsShowTutorialRod);
-            LoadCounter();
+            LoadCount();
 
             if (_catchedFishes == null)
             {
@@ -41,17 +41,12 @@ namespace Assets.Scripts.Fishes
 
         private void OnEnable()
         {
-            YandexGame.GetDataEvent += LoadCounter;
+            YandexGame.GetDataEvent += LoadCount;
         }
 
         private void OnDisable()
         {
-            YandexGame.GetDataEvent -= LoadCounter;
-        }
-
-        private void LoadCounter()
-        {
-           _catchedFishes = YandexGame.savesData.LoadFishesCountData();
+            YandexGame.GetDataEvent -= LoadCount;
         }
 
         public void RemoveFish(FishType fish)
@@ -92,6 +87,10 @@ namespace Assets.Scripts.Fishes
                 }
             }
         }
+
+        private void LoadCount()
+        {
+           _catchedFishes = YandexGame.savesData.LoadFishesCountData();
+        }
     }
 }
-

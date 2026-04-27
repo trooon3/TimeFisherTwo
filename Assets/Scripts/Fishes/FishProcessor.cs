@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using Assets.Scripts.Fishes;
 using Assets.Scripts.FishResources;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Fishes
 {
     public class FishProcessor : MonoBehaviour
     {

@@ -1,5 +1,7 @@
+using Assets.Scripts.BagScripts;
 using Assets.Scripts.FishResources;
 using Assets.Scripts.PlayerScripts;
+using Assets.Scripts.RodScripts;
 using UnityEngine;
 
 namespace Assets.Scripts.UI
@@ -19,7 +21,10 @@ namespace Assets.Scripts.UI
 
         public void SetButtonChangerOn()
         {
-            if (!_resourcesManager.IsActiveIncreaseAd && !_mover.IsActiveIncreaseAd && !_adBoostController.IsBoostActive && !_rod.IsActiveIncreaseAd)
+            if (!_resourcesManager.IsActiveIncreaseAd 
+                && !_mover.IsActiveIncreaseAd 
+                && !_adBoostController.IsBoostActive 
+                && !_rod.IsActiveIncreaseAd)
             {
                 _buttonChanger.gameObject.SetActive(true);
             }

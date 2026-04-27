@@ -4,7 +4,7 @@ using Assets.Scripts.UI;
 using UnityEngine;
 using YG;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.SkinScripts
 {
     public class ChestTutorialManager : MonoBehaviour
     {
